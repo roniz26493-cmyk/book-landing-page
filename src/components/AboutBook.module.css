@@ -1,0 +1,73 @@
+.grid,
+.gridSingle {
+  display: grid;
+  gap: clamp(2rem, 1rem + 5vw, 4.5rem);
+  align-items: center;
+}
+
+.gridSingle {
+  max-width: var(--container-narrow);
+  margin-inline: auto;
+}
+
+.content {
+  min-width: 0;
+}
+
+.prose {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  color: var(--color-text);
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+}
+
+.prose p {
+  margin: 0;
+}
+
+/* ---- ציטוט מודגש ---- */
+.pullQuote {
+  position: relative;
+  margin: var(--space-7) 0 0;
+  padding: var(--space-5) var(--space-6);
+  border-inline-start: 3px solid var(--color-accent);
+  background: var(--color-bg-alt);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.pullQuote p {
+  margin: 0;
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 500;
+  line-height: var(--leading-snug);
+  font-style: italic;
+}
+
+.quoteIcon {
+  display: block;
+  margin-bottom: var(--space-3);
+  color: var(--color-accent);
+  opacity: 0.55;
+}
+
+/* ---- תמונה נוספת ---- */
+.imageWrap {
+  position: relative;
+}
+
+.image {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  object-fit: cover;
+}
+
+@media (min-width: 62rem) {
+  .grid {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}

@@ -1,0 +1,55 @@
+.bar {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 90;
+  padding: var(--space-3) clamp(1rem, 0.5rem + 2vw, 1.5rem);
+  padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
+  background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+  border-top: 1px solid var(--color-border);
+  box-shadow: 0 -6px 24px -12px rgba(16, 24, 40, 0.28);
+
+  transform: translateY(110%);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    transform var(--transition),
+    opacity var(--transition),
+    visibility var(--transition);
+}
+
+.bar[data-visible='true'] {
+  transform: none;
+  opacity: 1;
+  visibility: visible;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-2);
+  max-width: 30rem;
+  margin-inline: auto;
+}
+
+.cta {
+  min-height: 3.25rem;
+  width: 100%;
+}
+
+.note {
+  margin: 0;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: 1.4;
+}
+
+/* בדסקטופ אין צורך בסרגל דביק — יש CTA ב-Header */
+@media (min-width: 62rem) {
+  .bar {
+    display: none;
+  }
+}

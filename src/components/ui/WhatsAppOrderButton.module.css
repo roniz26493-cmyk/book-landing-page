@@ -1,0 +1,28 @@
+.pendingWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-2);
+}
+
+/* מצב זמני: כפתור נייטרלי במקום הירוק של וואטסאפ,
+   כדי שיהיה ברור שההזמנה הישירה עדיין לא פעילה */
+.pendingButton {
+  --btn-bg: color-mix(in srgb, var(--color-primary) 6%, transparent);
+  --btn-fg: var(--color-text-muted);
+  --btn-border: var(--color-border-strong);
+  --btn-disabled-opacity: 1;
+  border-style: dashed;
+}
+
+.pendingNote {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+}
+
+.pendingHint {
+  opacity: 0.75;
+  font-size: var(--text-xs);
+}

@@ -1,0 +1,98 @@
+.section {
+  padding-block: var(--section-padding-block);
+  /* כדי שהגלילה לעוגן לא תיחתך מתחת ל-Header הדביק */
+  scroll-margin-top: var(--header-height);
+}
+
+.light {
+  background: var(--color-bg);
+}
+
+.alt {
+  background: var(--color-bg-alt);
+}
+
+.dark {
+  /* רקע שטוח ואחיד בכוונה — כמו עמוד דיו, לא זוהר טכנולוגי */
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.containerNarrow {
+  width: 100%;
+  max-width: var(--container-narrow);
+  margin-inline: auto;
+  padding-inline: clamp(1.125rem, 0.5rem + 3vw, 2.5rem);
+}
+
+/* ---- כותרת אזור ---- */
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-7);
+  max-width: 44rem;
+}
+
+.start {
+  align-items: flex-start;
+  text-align: start;
+}
+
+.center {
+  align-items: center;
+  text-align: center;
+  margin-inline: auto;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.eyebrow::after {
+  content: '';
+  width: 2.25rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.center .eyebrow::before {
+  content: '';
+  width: 2.25rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-3xl);
+  color: var(--color-primary);
+}
+
+.intro {
+  margin: 0;
+  max-width: 40rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+}
+
+.headingDark .eyebrow {
+  color: var(--color-peach);
+}
+
+.headingDark .title {
+  color: var(--color-on-primary);
+}
+
+.headingDark .intro {
+  color: var(--color-on-primary-muted);
+}

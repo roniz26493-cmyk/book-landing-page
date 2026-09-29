@@ -1,0 +1,112 @@
+/* ==========================================================================
+   Design Tokens — פלטה ספרותית המבוססת על כריכת "סיפור אחד ביום"
+   --------------------------------------------------------------------------
+   ששת המשתנים הראשונים (cream / sage / peach / charcoal / sand / white)
+   הם הפלטה שהוגדרה כבסיס העיצוב, לאחר התאמה עדינה מתוך דגימת צבעים
+   בפועל מתמונת הכריכה (קובץ המקור: source-assets/cover-front-original.png).
+
+   הערכים כאן הם fallback. המקור היחיד לאמת הוא brand.colors בקובץ
+   src/data/bookConfig.ts — הערכים משם נכתבים על :root בזמן ריצה.
+   ========================================================================== */
+
+:root {
+  /* ---- פלטת הבסיס ---- */
+  --color-cream: #f5f0e5;
+  --color-sage: #a6b3ac;
+  --color-peach: #d8b6a0;
+  --color-charcoal: #344f4e;
+  --color-sand: #d9d0be;
+  --color-white: #ffffff;
+
+  /* ---- צבעים פונקציונליים, נגזרים מהפלטה ----
+     עומק/רוויה הותאמו כדי לעמוד בניגודיות נגישה (WCAG AA, 4.5:1+) על כל
+     רקעי האתר (קרם/חול/לבן כאחד) כשהצבע משמש טקסט, תוך שמירה על גוון
+     הפלטה המקורי. */
+  --color-terracotta: #854923; /* פלטה: peach מועמק — הדגשות, קישורים, CTA */
+  --color-terracotta-strong: #754221; /* מצב hover/active */
+  --color-sage-deep: #495d53; /* פלטה: sage מועמק — טקסט משני על רקע בהיר */
+  --color-ink-soft: #5b7371; /* פלטה: charcoal מרוכך — פאנלים כהים, hover */
+
+  /* ---- מיפוי סמנטי (בשימוש ברכיבים) ---- */
+  --color-primary: var(--color-charcoal);
+  --color-primary-soft: var(--color-ink-soft);
+  --color-secondary: var(--color-sage-deep);
+  --color-bg: var(--color-cream);
+  --color-bg-alt: var(--color-sand);
+  --color-surface: var(--color-white);
+  --color-text: var(--color-charcoal);
+  --color-text-muted: #435c5a;
+  --color-accent: var(--color-terracotta);
+  --color-accent-strong: var(--color-terracotta-strong);
+
+  /* ---- צבעים נגזרים נוספים ---- */
+  --color-on-primary: var(--color-cream);
+  --color-on-primary-muted: #b9c6c1;
+  --color-border: color-mix(in srgb, var(--color-charcoal) 14%, transparent);
+  --color-border-strong: color-mix(in srgb, var(--color-charcoal) 24%, transparent);
+  --color-accent-tint: color-mix(in srgb, var(--color-peach) 40%, var(--color-cream));
+
+  /* ---- WhatsApp — ירוק מרווה עמוק, נגזר מגוון ה-sage של הפלטה ---- */
+  --color-whatsapp: #5b7b69;
+  --color-whatsapp-dark: #465f51;
+
+  /* ---- טיפוגרפיה ---- */
+  --font-display: 'Frank Ruhl Libre', 'David Libre', 'Times New Roman', serif;
+  --font-body: 'Assistant', 'Heebo', -apple-system, 'Segoe UI', sans-serif;
+
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.1875rem;
+  --text-xl: clamp(1.25rem, 0.9rem + 1vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 1.1rem + 1.6vw, 2rem);
+  --text-3xl: clamp(1.875rem, 1.3rem + 2.4vw, 2.75rem);
+  --text-4xl: clamp(2.25rem, 1.4rem + 3.6vw, 3.75rem);
+
+  --leading-tight: 1.22;
+  --leading-snug: 1.45;
+  --leading-relaxed: 1.8;
+
+  /* ---- מרווחים ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 2.75rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  --section-padding-block: clamp(3.5rem, 2rem + 7vw, 7rem);
+  --container: 74rem;
+  --container-narrow: 46rem;
+  --header-height: 4.25rem;
+
+  /* ---- צורה וצל ----
+     צללים רכים ורדודים בכוונה — תחושת נייר ושקט, לא "טכנולוגי". */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 1px 2px rgba(52, 42, 30, 0.05), 0 1px 2px rgba(52, 42, 30, 0.04);
+  --shadow-md: 0 4px 14px -6px rgba(52, 42, 30, 0.12);
+  --shadow-lg: 0 14px 32px -16px rgba(41, 51, 45, 0.22);
+  --shadow-cover: 0 20px 44px -18px rgba(35, 42, 38, 0.3), 0 6px 14px -8px rgba(35, 42, 38, 0.18);
+
+  /* ---- מעברים ---- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-fast: 160ms var(--ease-out);
+  --transition: 260ms var(--ease-out);
+  --transition-slow: 700ms var(--ease-out);
+}
+
+/* גיבוי לדפדפנים ללא color-mix */
+@supports not (color: color-mix(in srgb, red 50%, blue)) {
+  :root {
+    --color-border: rgba(52, 79, 78, 0.14);
+    --color-border-strong: rgba(52, 79, 78, 0.24);
+    --color-accent-tint: #ecdfd2;
+  }
+}

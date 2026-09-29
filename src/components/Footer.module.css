@@ -1,0 +1,167 @@
+.footer {
+  padding-top: clamp(2.5rem, 1.75rem + 3vw, 3.5rem);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.sprig {
+  display: block;
+  margin: 0 auto var(--space-5);
+  color: var(--color-peach);
+  opacity: 0.8;
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-6);
+  padding-bottom: var(--space-7);
+}
+
+/* ---- מיתוג ---- */
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.bookTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.authorName {
+  margin: 0;
+  color: var(--color-on-primary-muted);
+  font-size: var(--text-base);
+}
+
+.socialList {
+  display: flex;
+  gap: var(--space-3);
+  margin: var(--space-4) 0 0;
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  color: var(--color-on-primary);
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.socialLink:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--color-peach);
+  transform: translateY(-2px);
+}
+
+/* ---- עמודות ---- */
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.colTitle {
+  margin: 0;
+  color: var(--color-peach);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.linkList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.link {
+  display: inline-block;
+  color: var(--color-on-primary-muted);
+  font-size: var(--text-sm);
+  transition: color var(--transition-fast);
+}
+
+.link:hover {
+  color: var(--color-on-primary);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.linkMuted {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: var(--text-sm);
+}
+
+.contactLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-on-primary-muted);
+  font-size: var(--text-sm);
+  transition: color var(--transition-fast);
+}
+
+.contactLink:hover {
+  color: var(--color-on-primary);
+}
+
+.note {
+  margin: var(--space-2) 0 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: var(--text-xs);
+  line-height: var(--leading-snug);
+}
+
+/* ---- שורה תחתונה ---- */
+.bottom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-block: var(--space-5);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: var(--text-xs);
+}
+
+.bottom p {
+  margin: 0;
+}
+
+.credit {
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+}
+
+@media (min-width: 40rem) {
+  .inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-7) var(--space-6);
+  }
+
+  .bottom {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 62rem) {
+  .inner {
+    grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr));
+  }
+}
