@@ -95,7 +95,7 @@ export function Header() {
             ))}
             <li>
               <a
-                className={`btn btnFull ${styles.mobileCta}`}
+                className={styles.mobileCta}
                 href="#purchase"
                 onClick={() => setIsMenuOpen(false)}
               >

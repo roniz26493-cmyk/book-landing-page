@@ -61,11 +61,81 @@
 }
 
 /* ==========================================================================
-   דסקטופ — הספר נפתח לרגע, והקורא פוגש את המילים עצמן.
-   אחרי האזור החזותי והמפוצל שלפניו — כאן רק טיפוגרפיה: בלי איור, בלי
-   מספור, בלי קווי הפרדה. הקטעים הם רגעי קריאה במיקומים שונים על אותה
-   רשת של 12 עמודות (עמודה 1 = הימנית) כמו האזורים הקודמים: הראשון רחב
-   ומימין, השני נמוך יותר, צר יותר ושמאלה.
+   שפה משותפת לכל הרוחבים — הספר נפתח לרגע, והקורא פוגש את המילים עצמן.
+   רק טיפוגרפיה: בלי איור, בלי מספור, בלי קווי הפרדה ובלי תגית.
+   ========================================================================== */
+
+/* סימון התוכן הזמני נשאר בקונפיג (peek.isPlaceholder), לא כתגית למבקרים */
+.placeholderRow {
+  display: none;
+}
+
+.title {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  line-height: var(--leading-tight);
+}
+
+.intro {
+  font-size: var(--text-base);
+}
+
+.page {
+  max-width: none;
+  padding: 0;
+  border: 0;
+}
+
+.pageNumber {
+  display: none;
+}
+
+.text p {
+  font-size: 1.5rem;
+  line-height: 1.85;
+}
+
+/* הערת המקור: קטנה ושקטה, צמודה לפרוזה — לא מטא-דאטה של כרטיס */
+.source {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   מובייל וטאבלט — רצף קריאה אנכי. הקטע הראשון הוא רגע הקריאה המרכזי;
+   השני קטן יותר ומוזח מעט פנימה, צמוד אליו.
+   ========================================================================== */
+@media (max-width: 61.99rem) {
+  .pages {
+    gap: var(--space-6);
+    margin-top: var(--space-6);
+  }
+
+  .page {
+    max-width: 36rem;
+  }
+
+  .page:nth-child(1) .text p {
+    font-size: clamp(1.3rem, 1.05rem + 1.1vw, 1.6rem);
+  }
+
+  .page:nth-child(n + 2) {
+    margin-inline-start: clamp(1.25rem, 6vw, 3rem);
+  }
+
+  .page:nth-child(n + 2) .text p {
+    max-width: 22rem;
+    font-size: clamp(1.15rem, 1rem + 0.7vw, 1.3rem);
+  }
+}
+
+/* ==========================================================================
+   דסקטופ — הקטעים הם רגעי קריאה במיקומים שונים על אותה רשת של 12
+   עמודות (עמודה 1 = הימנית) כמו האזורים הקודמים: הראשון רחב ומימין,
+   השני נמוך יותר, צר יותר ושמאלה.
    ========================================================================== */
 @media (min-width: 62rem) {
   .section {
@@ -83,36 +153,10 @@
     max-width: var(--container);
   }
 
-  /* "הצצה" נשאר סמנטית בלבד — לא תווית חזותית */
-  .folio {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-
-  /* סימון התוכן הזמני נשאר בקונפיג (peek.isPlaceholder), לא כתגית למבקרים */
-  .placeholderRow {
-    display: none;
-  }
-
   /* ---- פתיחה שקטה, על קו הפתיחה של האזורים הקודמים ---- */
   .title,
   .intro {
     margin-inline-start: calc(var(--col) + 1.5rem);
-  }
-
-  .title {
-    margin-bottom: var(--space-2);
-    font-size: var(--text-2xl);
-    font-weight: 500;
-    line-height: var(--leading-tight);
-  }
-
-  .intro {
-    font-size: var(--text-base);
   }
 
   /* ---- רגעי הקריאה ---- */
@@ -121,29 +165,6 @@
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: 1.5rem;
     margin-top: var(--space-6);
-  }
-
-  .page {
-    max-width: none;
-    padding: 0;
-    border: 0;
-  }
-
-  .pageNumber {
-    display: none;
-  }
-
-  .text p {
-    font-size: 1.5rem;
-    line-height: 1.85;
-  }
-
-  /* הערת המקור: קטנה ושקטה, צמודה לפרוזה — לא מטא-דאטה של כרטיס */
-  .source {
-    margin-top: var(--space-2);
-    font-size: var(--text-xs);
-    font-weight: 400;
-    opacity: 0.85;
   }
 
   /* הקטע הראשון — רגע הקריאה המרכזי: רחב, מימין, על קו הפתיחה */

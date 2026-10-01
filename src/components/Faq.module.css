@@ -84,11 +84,65 @@
 }
 
 /* ==========================================================================
-   דסקטופ — עמודי המידע האחרונים של אותו ספר.
-   עמודת קריאה אחת (~45rem), מוסטת מעט ימינה ממרכז העמוד — קרוב לקו
-   הפתיחה של האזורים הקודמים. השאלות הן שורות טקסט; הקווים ביניהן
-   כמעט נעלמים; החץ הוא חלק משורת השאלה, לא כפתור בקצה.
-   ההתנהגות (details/summary) לא משתנה.
+   כל הרוחבים — עמודי המידע האחרונים של אותו ספר.
+   השאלות הן שורות טקסט; הקווים ביניהן כמעט נעלמים; החץ הוא חלק
+   משורת השאלה, לא כפתור בקצה. ההתנהגות (details/summary) לא משתנה.
+   ========================================================================== */
+.title {
+  margin-bottom: var(--space-6);
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  line-height: var(--leading-tight);
+}
+
+/* מפרידים שקטים מאוד — רק בין שאלות, לא מסגרת סביב הרשימה */
+.item,
+.item:last-child {
+  border: 0;
+}
+
+.list > li + li .item {
+  border-top: 1px solid color-mix(in srgb, var(--color-border) 55%, transparent);
+}
+
+/* השאלה כשורת טקסט: החץ צמוד לסופה */
+.question {
+  justify-content: flex-start;
+  gap: 0.6rem;
+  padding-block: 1.35rem;
+  font-size: var(--text-lg);
+  line-height: 1.5;
+}
+
+.chevron {
+  width: 0.8em;
+  height: 0.8em;
+  color: var(--color-text-muted);
+  opacity: 0.6;
+  transition:
+    transform var(--transition),
+    opacity var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.question:hover .chevron,
+.question:focus-visible .chevron,
+.item[open] .chevron {
+  color: var(--color-accent);
+  opacity: 1;
+}
+
+/* התשובה כהמשך טבעי של השאלה */
+.answer {
+  max-width: 38rem;
+  margin-top: calc(var(--space-2) * -1);
+  padding-bottom: var(--space-6);
+  line-height: 1.8;
+}
+
+/* ==========================================================================
+   דסקטופ — עמודת קריאה אחת (~45rem), מוסטת מעט ימינה ממרכז העמוד,
+   קרוב לקו הפתיחה של האזורים הקודמים.
    ========================================================================== */
 @media (min-width: 62rem) {
   .section {
@@ -100,67 +154,5 @@
     max-width: 50rem;
     margin-inline-start: max(calc((100% - 50rem) / 2 - 5rem), 0px);
     margin-inline-end: auto;
-  }
-
-  /* "06 — שאלות ותשובות" נשאר סמנטית בלבד */
-  .folio {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-
-  .title {
-    margin-bottom: var(--space-6);
-    font-size: var(--text-2xl);
-    font-weight: 500;
-    line-height: var(--leading-tight);
-  }
-
-  /* מפרידים שקטים מאוד — רק בין שאלות, לא מסגרת סביב הרשימה */
-  .item,
-  .item:last-child {
-    border: 0;
-  }
-
-  .list > li + li .item {
-    border-top: 1px solid color-mix(in srgb, var(--color-border) 55%, transparent);
-  }
-
-  /* השאלה כשורת טקסט: החץ צמוד לסופה */
-  .question {
-    justify-content: flex-start;
-    gap: 0.6rem;
-    padding-block: 1.35rem;
-    font-size: var(--text-lg);
-    line-height: 1.5;
-  }
-
-  .chevron {
-    width: 0.8em;
-    height: 0.8em;
-    color: var(--color-text-muted);
-    opacity: 0.6;
-    transition:
-      transform var(--transition),
-      opacity var(--transition-fast),
-      color var(--transition-fast);
-  }
-
-  .question:hover .chevron,
-  .question:focus-visible .chevron,
-  .item[open] .chevron {
-    color: var(--color-accent);
-    opacity: 1;
-  }
-
-  /* התשובה כהמשך טבעי של השאלה */
-  .answer {
-    max-width: 38rem;
-    margin-top: calc(var(--space-2) * -1);
-    padding-bottom: var(--space-6);
-    line-height: 1.8;
   }
 }

@@ -3,7 +3,7 @@ import { ExternalIcon, WhatsAppIcon } from './ui/Icons'
 import { Reveal } from './ui/Reveal'
 import { Section } from './ui/Section'
 import { SectionFolio } from './ui/SectionFolio'
-import { WhatsAppOrderButton, isWhatsappReady, whatsappLink } from './ui/WhatsAppOrderButton'
+import { isWhatsappReady, whatsappLink } from './ui/WhatsAppOrderButton'
 import styles from './Purchase.module.css'
 
 const { purchase, whatsapp, shipping, book } = bookConfig
@@ -21,7 +21,7 @@ export function Purchase() {
           {purchase.price && <p className={styles.price}>{purchase.price}</p>}
         </div>
 
-        {/* דסקטופ: הכריכה המלאה — המוצר עצמו, לצד המחיר ומעל דרכי הרכישה */}
+        {/* הכריכה המלאה — המוצר עצמו, כספר פיזי */}
         <div className={styles.cover}>
           <picture>
             <source srcSet={book.coverImageWebp} type="image/webp" />
@@ -68,10 +68,6 @@ export function Purchase() {
 
           <p className={styles.areaNotice}>{whatsapp.areaNotice}</p>
 
-          {/* מובייל (עד עיצוב המובייל): הכפתור המשותף. דסקטופ: קישור טיפוגרפי */}
-          <div className={styles.mobileCta}>
-            <WhatsAppOrderButton />
-          </div>
           <DirectOrderLink />
 
           <p className={styles.fineprint}>
@@ -92,7 +88,7 @@ export function Purchase() {
 }
 
 /**
- * דסקטופ: פעולת ההזמנה הישירה כקישור טיפוגרפי בצבע החלודה.
+ * פעולת ההזמנה הישירה כקישור טיפוגרפי בצבע החלודה.
  * אותו קישור בדיוק כמו הכפתור המשותף (whatsappLink מהקונפיג). כל עוד
  * המספר בקונפיג אינו תקין — מוצג במצב לא-פעיל, בלי קישור שבור ובלי
  * הערה טכנית למבקרים.

@@ -44,11 +44,26 @@
   text-overflow: ellipsis;
 }
 
+/* קישור טיפוגרפי בצבע החלודה — כמו ה-CTA ב-Hero — עם שטח לחיצה של 44px */
 .cta {
+  display: inline-flex;
   flex: 0 0 auto;
-  min-height: 2.5rem;
-  padding-inline: var(--space-5);
-  font-size: var(--text-xs);
+  align-items: center;
+  min-height: 2.75rem;
+  color: var(--color-accent);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.35em;
+}
+
+.cta:hover,
+.cta:focus-visible {
+  color: var(--color-accent-strong);
+  text-decoration-color: currentColor;
 }
 
 /* בדסקטופ אין צורך בסרגל דביק — יש CTA ב-Header */

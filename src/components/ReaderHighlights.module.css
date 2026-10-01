@@ -119,57 +119,210 @@
   }
 }
 
-/* שברי הזיכרון — דסקטופ בלבד */
-.shard {
+/* ==========================================================================
+   שפה משותפת לכל הרוחבים — שלוש תקופות בחיים, נקראות זו אחר זו.
+   אין ציר זמן, מספור או כרטיסים: רקע קרם אחד רציף עם "על הספר",
+   כותרת שקטה, נוכחות טיפוגרפית שגדלה בהדרגה (קל ← מלא ← מיושב),
+   ושבר זיכרון אחד מתוך איור הספר ליד כל תחנה.
+   ========================================================================== */
+.section {
+  background: var(--color-bg);
+}
+
+.fragment {
   display: none;
 }
 
+.title {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  line-height: var(--leading-tight);
+}
+
+.intro {
+  max-width: none;
+  font-size: var(--text-base);
+}
+
+.item:nth-child(n) {
+  max-width: none;
+  margin-inline: 0;
+  text-align: start;
+}
+
+/* הטקסט מעל השברים, תמיד */
+.itemTitle,
+.itemText {
+  position: relative;
+  z-index: 1;
+}
+
+.itemTitle {
+  margin-bottom: var(--space-3);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.item:nth-child(n) .itemText {
+  margin-inline: 0;
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+}
+
+.item:nth-child(1) .itemTitle {
+  font-size: 2.25rem;
+  font-weight: 400;
+}
+
+.item:nth-child(2) .itemTitle {
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
+.item:nth-child(3) .itemTitle {
+  font-size: var(--text-3xl);
+  font-weight: 600;
+}
+
+/* ---- שברי הזיכרון ----
+   מיזוג לנייר (darken) ומסכה שנמסה לשקיפות מלאה בכל ארבעת הקצוות — בלי
+   קצה מלבני. הצורה עצמה באה מהאיור: כל חיתוך כולל צד שבו הנייר נגמר.
+   המיקום פיזי (left/right) כי הוא נגזר מכיוון התנועה, לא מכיוון הקריאה. */
+.shard {
+  display: block;
+  position: absolute;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  -webkit-mask-image: radial-gradient(
+    ellipse 50% 50% at 50% 50%,
+    #000 25%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 50% 50% at 50% 50%,
+    #000 25%,
+    transparent 100%
+  );
+}
+
+/* חיתוך מתוך האיור (פיקסלי מקור 1100×768): רוחב = 1100/w, היסט = x0/w, y0/h */
+.shardImg {
+  position: absolute;
+  max-width: none;
+  width: calc(1100 / var(--crop-w) * 100%);
+  left: calc(var(--crop-x) / var(--crop-w) * -100%);
+  top: calc(var(--crop-y) / var(--crop-h) * -100%);
+  height: auto;
+  mix-blend-mode: darken;
+}
+
+/* ילדות: קצה דף כתב-יד עם חורי תיוק */
+.handwriting {
+  --crop-x: 720;
+  --crop-y: 140;
+  --crop-w: 140;
+  --crop-h: 190;
+  aspect-ratio: 140 / 190;
+  opacity: 0.85;
+}
+
+/* התבגרות: שברי צבע קרועים — הרגע הנוכח ביותר */
+.torn {
+  --crop-x: 225;
+  --crop-y: 555;
+  --crop-w: 245;
+  --crop-h: 213;
+  aspect-ratio: 245 / 213;
+  opacity: 0.9;
+}
+
+/* בגרות: ענף אחד, דליל ושקט */
+.sprig {
+  --crop-x: 890;
+  --crop-y: 370;
+  --crop-w: 180;
+  --crop-h: 200;
+  aspect-ratio: 180 / 200;
+}
+
 /* ==========================================================================
-   דסקטופ — מסע אחד דרך שלוש תקופות בחיים.
-   התחנות יורדות באלכסון: ילדות גבוה מימין, התבגרות פנימה ומטה לעבר
-   המרכז, בגרות נמוך יותר ולשמאל. אין קו מחבר — את הדרך מסמנים שברים
-   קטנים מתוך איור הספר שנשרו ממנו, ומשתנים עם התקופה.
+   מובייל וטאבלט — רצף אנכי. כל תחנה נכנסת מעט פנימה מקודמתה (תנועה
+   עדינה, לא זיגזג), והשבר שלה יושב בצד השמאלי לצד הכותרת. התיאור
+   נעצר לפני אזור השבר כך שלעולם אין חפיפה עם הטקסט.
+   ========================================================================== */
+@media (max-width: 61.99rem) {
+  /* המסע נשאר צמוד: בטאבלט השברים לא נודדים לקצה המסך */
+  .passage {
+    max-width: 34rem;
+    margin-top: var(--space-8);
+  }
+
+  .item:nth-child(n) .itemTitle {
+    font-size: clamp(1.85rem, 1.3rem + 2.4vw, 2.5rem);
+  }
+
+  .item:nth-child(2) .itemTitle {
+    font-size: clamp(2rem, 1.4rem + 2.6vw, 2.7rem);
+  }
+
+  .item:nth-child(3) .itemTitle {
+    font-size: clamp(2.15rem, 1.5rem + 2.8vw, 2.85rem);
+  }
+
+  .item:nth-child(n) .itemText {
+    max-width: min(calc(100% - 5.5rem), 22rem);
+  }
+
+  .item:nth-child(2) {
+    margin-top: var(--space-8);
+    margin-inline-start: clamp(1rem, 5vw, 3rem);
+  }
+
+  .item:nth-child(3) {
+    margin-top: var(--space-7);
+    margin-inline-start: clamp(2rem, 10vw, 6rem);
+  }
+
+  .shard {
+    left: 0;
+  }
+
+  .handwriting {
+    top: -0.75rem;
+    width: 4.75rem;
+  }
+
+  .torn {
+    top: -0.5rem;
+    width: 6.25rem;
+  }
+
+  .sprig {
+    top: -1rem;
+    width: 5.75rem;
+  }
+}
+
+/* ==========================================================================
+   דסקטופ — התחנות יורדות באלכסון: ילדות גבוה מימין, התבגרות פנימה ומטה
+   לעבר המרכז, בגרות נמוך יותר ולשמאל. השברים צמודים לכל תחנה.
    רשת של 12 עמודות (עמודה 1 = הימנית), כמו "על הספר".
    ========================================================================== */
 @media (min-width: 62rem) {
   .section {
     --col: calc((100% - 11 * 1.5rem) / 12);
 
-    background: var(--color-bg);
     padding-top: clamp(4rem, 6vw, 6.5rem);
     padding-bottom: clamp(3rem, 4vw, 4.5rem);
-  }
-
-  /* "בין הדפים" נשאר סמנטית בלבד — לא תווית חזותית */
-  .folio {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-
-  .fragment {
-    display: none;
   }
 
   /* ---- פתיחת הכפולה: קו הפתיחה של טור הקריאה ב"על הספר" ---- */
   .title,
   .intro {
     margin-inline-start: calc(var(--col) + 1.5rem);
-  }
-
-  .title {
-    margin-bottom: var(--space-2);
-    font-size: var(--text-2xl);
-    font-weight: 500;
-    line-height: var(--leading-tight);
-  }
-
-  .intro {
-    max-width: none;
-    font-size: var(--text-base);
   }
 
   /* ---- המסע ---- */
@@ -180,39 +333,9 @@
     margin-top: var(--space-8);
   }
 
-  .item:nth-child(n) {
-    max-width: none;
-    margin-inline: 0;
-    text-align: start;
-  }
-
-  /* הטקסט מעל השברים, תמיד */
-  .itemTitle,
-  .itemText {
-    position: relative;
-    z-index: 1;
-  }
-
-  .itemTitle {
-    margin-bottom: var(--space-3);
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-  }
-
-  .item:nth-child(n) .itemText {
-    margin-inline: 0;
-    font-size: var(--text-base);
-    line-height: var(--leading-relaxed);
-  }
-
   /* ילדות — גבוה מימין, מוזחת מעט פנימה מקו הפתיחה; הכי קלה */
   .item:nth-child(1) {
     grid-column: 3 / 7;
-  }
-
-  .item:nth-child(1) .itemTitle {
-    font-size: 2.25rem;
-    font-weight: 400;
   }
 
   .item:nth-child(1) .itemText {
@@ -225,100 +348,38 @@
     margin-top: 8.5rem;
   }
 
-  .item:nth-child(2) .itemTitle {
-    font-size: 2.5rem;
-    font-weight: 500;
-  }
-
   .item:nth-child(2) .itemText {
     max-width: 17rem;
   }
 
-  /* בגרות — נמוך יותר ולשמאל; המיושבת ביותר */
-  /* עולה אל תוך המהלך: הכותרת נפתחת סמוך לסוף תיאור ההתבגרות */
+  /* בגרות — נמוך יותר ולשמאל; עולה אל תוך המהלך */
   .item:nth-child(3) {
     grid-column: 9 / 13;
     margin-top: 2.5rem;
-  }
-
-  .item:nth-child(3) .itemTitle {
-    font-size: var(--text-3xl);
-    font-weight: 600;
   }
 
   .item:nth-child(3) .itemText {
     max-width: 21rem;
   }
 
-  /* ---- שברי הזיכרון ----
-     מיזוג לנייר (darken) ומסכה שנמסה לשקיפות מלאה בכל ארבעת הקצוות — בלי
-     קצה מלבני. הצורה עצמה באה מהאיור: כל חיתוך כולל צד שבו הנייר נגמר.
-     המיקום פיזי (left/right) כי הוא נגזר מכיוון האלכסון, לא מכיוון הקריאה. */
-  .shard {
-    display: block;
-    position: absolute;
-    z-index: 0;
-    overflow: hidden;
-    pointer-events: none;
-    user-select: none;
-    -webkit-mask-image: radial-gradient(
-      ellipse 50% 50% at 50% 50%,
-      #000 25%,
-      transparent 100%
-    );
-    mask-image: radial-gradient(
-      ellipse 50% 50% at 50% 50%,
-      #000 25%,
-      transparent 100%
-    );
-  }
-
-  /* חיתוך מתוך האיור (פיקסלי מקור 1100×768): רוחב = 1100/w, היסט = x0/w, y0/h */
-  .shardImg {
-    position: absolute;
-    max-width: none;
-    width: calc(1100 / var(--crop-w) * 100%);
-    left: calc(var(--crop-x) / var(--crop-w) * -100%);
-    top: calc(var(--crop-y) / var(--crop-h) * -100%);
-    height: auto;
-    mix-blend-mode: darken;
-  }
-
-  /* ילדות: קצה דף כתב-יד עם חורי תיוק, צמוד לשמאל הכותרת והתיאור */
+  /* ילדות: צמוד לשמאל הכותרת והתיאור */
   .handwriting {
-    --crop-x: 720;
-    --crop-y: 140;
-    --crop-w: 140;
-    --crop-h: 190;
     left: -7rem;
     top: -2.5rem;
     width: 9.5rem;
-    aspect-ratio: 140 / 190;
-    opacity: 0.85;
   }
 
-  /* התבגרות: שברי צבע קרועים — הרגע הנוכח ביותר, צמוד לימין הכותרת */
+  /* התבגרות: צמוד לימין הכותרת */
   .torn {
-    --crop-x: 225;
-    --crop-y: 555;
-    --crop-w: 245;
-    --crop-h: 213;
     left: calc(100% + 0.5rem);
     top: -3.5rem;
     width: 18rem;
-    aspect-ratio: 245 / 213;
-    opacity: 0.9;
   }
 
-  /* בגרות: ענף אחד, דליל ושקט, צמוד לימין הכותרת — בין התחנה הקודמת לזו */
+  /* בגרות: צמוד לימין הכותרת */
   .sprig {
-    --crop-x: 890;
-    --crop-y: 370;
-    --crop-w: 180;
-    --crop-h: 200;
     left: calc(100% + 0.25rem);
     top: -3rem;
     width: 13.5rem;
-    aspect-ratio: 180 / 200;
   }
 }

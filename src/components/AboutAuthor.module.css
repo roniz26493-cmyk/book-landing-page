@@ -134,10 +134,50 @@
 }
 
 /* ==========================================================================
-   דסקטופ (ללא תמונה) — פורטרט טיפוגרפי של המחבר.
-   השם עצמו הוא הדימוי: גדול, במשקל רגיל, צמוד לקצה הימני של הרשת.
-   הביוגרפיה מתחילה מעט פנימה ממנו, בטור קריאה צר; הצד השמאלי
-   נשאר פתוח. אחרי הקטעים המפוזרים — עמוד אחד שקט ואינטימי.
+   פורטרט טיפוגרפי של המחבר — כל הרוחבים.
+   השם עצמו הוא הדימוי: גדול, במשקל רגיל. "סופר" יושבת על קו הבסיס שלו
+   כמו חתימה קטנה, ומשם העין יורדת אל טור קריאה צר, מוזח מעט פנימה.
+   ========================================================================== */
+.grid {
+  max-width: none;
+}
+
+.byline {
+  flex-wrap: nowrap;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: var(--space-5);
+}
+
+/* גודל זורם: לעולם לא גולש במסך צר */
+.name {
+  font-size: clamp(2.75rem, 1.6rem + 5vw, 4.75rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.015em;
+}
+
+.role {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  letter-spacing: 0;
+  opacity: 0.85;
+}
+
+.bio {
+  gap: var(--space-7);
+  max-width: 36rem;
+  margin-inline-start: clamp(0.75rem, 3vw, 2.5rem);
+  line-height: 1.85;
+}
+
+.socialRow {
+  max-width: 36rem;
+  margin-inline-start: clamp(0.75rem, 3vw, 2.5rem);
+}
+
+/* ==========================================================================
+   דסקטופ — הצד השמאלי נשאר פתוח; ריווח נדיב אחרי הקטעים המפוזרים.
    ========================================================================== */
 @media (min-width: 62rem) {
   .section {
@@ -145,54 +185,7 @@
     padding-bottom: 6rem;
   }
 
-  /* "04 — על המחבר" נשאר סמנטית בלבד (קוראי מסך), לא חזותית */
-  .folio {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-
-  .grid {
-    max-width: none;
-  }
-
-  /* ---- השם, ו"סופר" כהערת שוליים צמודה לו ---- */
-  /* "סופר" יושבת על קו הבסיס של השם, צמודה לסופו — כמו חתימה קטנה —
-     ומשם העין יורדת אל הביוגרפיה */
-  .byline {
-    flex-wrap: nowrap;
-    align-items: baseline;
-    gap: 0.6rem;
-    margin-bottom: var(--space-5);
-  }
-
   .name {
     font-size: clamp(3.5rem, 5vw, 4.75rem);
-    font-weight: 400;
-    line-height: 1;
-    letter-spacing: -0.015em;
-  }
-
-  .role {
-    font-size: var(--text-sm);
-    font-weight: 400;
-    letter-spacing: 0;
-    opacity: 0.85;
-  }
-
-  /* ---- טור הקריאה: מוזח פנימה מעט מקצה השם (לא מיושר אליו), ~36rem ---- */
-  .bio {
-    gap: var(--space-7);
-    max-width: 36rem;
-    margin-inline-start: 2.5rem;
-    line-height: 1.85;
-  }
-
-  .socialRow {
-    max-width: 36rem;
-    margin-inline-start: 2.5rem;
   }
 }

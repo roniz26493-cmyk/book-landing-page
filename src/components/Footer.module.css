@@ -161,17 +161,62 @@
 }
 
 /* ==========================================================================
-   דסקטופ — עמוד הסיום של אותו ספר, לא פוטר תאגידי.
-   שם הספר הוא העוגן; שלוש קבוצות המידע ברוחב משתנה (לפי התוכן שלהן,
-   לא רשת שווה), כותרות קבוצה שקטות יותר, וקישורים שקטים עוד יותר.
-   הענף הקטן עובר מהמרכז אל קו הפתיחה של שם הספר.
+   כל הרוחבים — עמוד הסיום של אותו ספר, לא פוטר תאגידי.
+   שם הספר הוא העוגן; כותרות הקבוצות שקטות, הקישורים שקטים עוד יותר.
+   הענף הקטן יושב מעל קו הפתיחה של שם הספר, לא במרכז.
+   ========================================================================== */
+.sprig {
+  margin-inline-start: max(
+    calc((100% - var(--container)) / 2 + 2.5rem),
+    clamp(1.125rem, 0.5rem + 3vw, 2.5rem)
+  );
+  margin-inline-end: auto;
+}
+
+.bookTitle {
+  font-size: clamp(1.85rem, 1.5rem + 1.2vw, 2.25rem);
+  line-height: 1.1;
+}
+
+.authorName {
+  margin-top: var(--space-1);
+}
+
+.col {
+  gap: var(--space-4);
+}
+
+.colTitle {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  opacity: 0.9;
+}
+
+/* מרווח נוח ללחיצה בין הקישורים */
+.linkList {
+  gap: 0.6rem;
+}
+
+.link,
+.linkMuted,
+.contactLink {
+  line-height: 1.5;
+}
+
+.link,
+.contactLink {
+  padding-block: 0.3rem;
+}
+
+.bottom {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ==========================================================================
+   דסקטופ — שלוש קבוצות המידע ברוחב משתנה לפי התוכן, לא רשת שווה;
+   הקבוצות נפתחות בגובה שורת המחבר, לא בגובה ראש הכותרת.
    ========================================================================== */
 @media (min-width: 62rem) {
-  .sprig {
-    margin-inline-start: max(calc((100% - var(--container)) / 2 + 2.5rem), 2.5rem);
-    margin-inline-end: auto;
-  }
-
   .inner {
     grid-template-columns:
       minmax(0, 2fr) minmax(0, 0.8fr) minmax(0, 1.3fr) minmax(0, 1.1fr);
@@ -180,18 +225,7 @@
     padding-bottom: var(--space-8);
   }
 
-  .bookTitle {
-    font-size: 2.25rem;
-    line-height: 1.1;
-  }
-
-  .authorName {
-    margin-top: var(--space-1);
-  }
-
-  /* הקבוצות נפתחות בגובה שורת המחבר, לא בגובה ראש הכותרת */
   .col {
-    gap: var(--space-4);
     padding-top: 0.85rem;
   }
 
@@ -200,23 +234,8 @@
     margin-inline-start: var(--space-5);
   }
 
-  .colTitle {
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    opacity: 0.9;
-  }
-
-  .linkList {
-    gap: 0.6rem;
-  }
-
   .link,
-  .linkMuted,
   .contactLink {
-    line-height: 1.5;
-  }
-
-  .bottom {
-    border-top-color: rgba(255, 255, 255, 0.08);
+    padding-block: 0;
   }
 }

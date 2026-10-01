@@ -18,7 +18,7 @@ export function StickyWhatsApp() {
       <div className={styles.content}>
         <span className={styles.bookTitle}>{book.title}</span>
         <a
-          className={`btn ${styles.cta}`}
+          className={styles.cta}
           href="#purchase"
           tabIndex={isVisible ? 0 : -1}
         >

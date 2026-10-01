@@ -1,9 +1,12 @@
+/* התוויות הממוספרות ("01 — על הספר" וכו') הוסרו מהעיצוב בכל הרוחבים.
+   הן נשארות לקוראי מסך בלבד — לא מוצגות חזותית. */
 .folio {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  margin-bottom: var(--space-6);
-  color: var(--color-text-muted);
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .number {

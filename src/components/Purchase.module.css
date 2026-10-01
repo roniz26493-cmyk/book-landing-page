@@ -200,40 +200,277 @@
   }
 }
 
-/* פעולת ההזמנה הישירה הטיפוגרפית והכריכה המלאה — דסקטופ בלבד */
-.directCta,
+/* ==========================================================================
+   שפה משותפת לכל הרוחבים — לקנות את הספר בלי תחושת קופה.
+   כותרת → הסבר → מחיר, הספר עצמו כחפץ פיזי, ושתי דרכים לאותו ספר:
+   קישורי חנויות טיפוגרפיים, והזמנה ישירה כקישור בצבע החלודה.
+   בלי מספור, קווים, מסגרות, כרטיסים או קו אמצע.
+   ========================================================================== */
+.section {
+  background: var(--color-bg);
+}
+
+/* הכריכה כספר פיזי: חזית שלמה ולא-מעוותת, גוש דפים דק מימין ובתחתית,
+   קפל עדין ליד השדרה משמאל, צל מגע רך, וסיבוב של 2° בלבד — מונח ביד */
 .cover {
-  display: none;
+  display: block;
+  position: relative;
+  isolation: isolate;
+  transform: rotate(-2deg);
+}
+
+/* גוש הדפים: מוסט כ-4px ימינה ומטה מאחורי החזית */
+.cover::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  transform: translate(4px, 3px);
+  background: color-mix(in srgb, var(--color-sand) 45%, var(--color-cream));
+  box-shadow:
+    inset -1px 0 0 rgba(35, 42, 38, 0.08),
+    inset 0 -1px 0 rgba(35, 42, 38, 0.08),
+    0 1px 2px rgba(35, 42, 38, 0.12),
+    0 16px 26px -18px rgba(35, 42, 38, 0.4);
+}
+
+/* קפל הכריכה הרכה, כמה מילימטרים מהשדרה */
+.cover::after {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  left: 6px;
+  width: 1px;
+  background: rgba(35, 42, 38, 0.08);
+  box-shadow: -1px 0 0 rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+
+.coverImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1100 / 1762;
+  object-fit: contain;
+  box-shadow: 0 1px 2px rgba(35, 42, 38, 0.1);
+}
+
+/* ---- פתיחה: כותרת → הסבר → מחיר, כרצף אחד ---- */
+.header {
+  max-width: 31rem;
+  margin-bottom: 0;
+}
+
+.title {
+  margin-bottom: var(--space-4);
+  font-size: clamp(2rem, 1.6rem + 1.4vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.intro {
+  font-size: var(--text-lg);
+  line-height: 1.7;
+}
+
+.price {
+  margin-top: var(--space-4);
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  line-height: 1;
+}
+
+/* ---- שתי הדרכים ---- */
+.column {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.column + .column::before {
+  content: none;
+}
+
+.columnTitle {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-xl);
+  font-weight: 500;
+}
+
+.columnText {
+  margin-bottom: var(--space-4);
+  font-size: var(--text-base);
+  line-height: 1.7;
+}
+
+/* ---- חנויות: קישורים טיפוגרפיים, מופרדים ברווח בלבד ---- */
+.storeList {
+  gap: var(--space-4);
+}
+
+/* שם החנות + סימון (חיצוני / "בקרוב") בשורה אחת, התיאור מתחת —
+   storeText "נפתח" כדי שהסימון ייצמד לשם ולא לרוחב התיאור */
+.storeButton,
+.storeList li:last-child .storeButton {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--space-2);
+  row-gap: 0.2rem;
+  width: auto;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+}
+
+.storeText {
+  display: contents;
+}
+
+.storeNote {
+  order: 2;
+  flex-basis: 100%;
+}
+
+.storeName {
+  font-size: var(--text-lg);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 30%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+  transition: text-decoration-color var(--transition-fast);
+}
+
+.storeButton:hover:not(:disabled) .storeName,
+.storeButton:focus-visible .storeName {
+  text-decoration-color: currentColor;
+}
+
+/* קישור חיצוני: סימון קטן ליד השם, לא אייקון שורה */
+.storeArrow {
+  order: 1;
+  align-self: center;
+}
+
+.storeArrow svg {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+/* "בקרוב": שקט, בלי מראה של שדה טופס מושבת */
+.storeButton:disabled {
+  cursor: default;
+}
+
+.storeButton:disabled .storeName {
+  text-decoration: none;
+  opacity: 0.6;
+}
+
+.storeSoon {
+  order: 1;
+  font-weight: 400;
+  letter-spacing: 0;
+  opacity: 0.85;
+}
+
+/* ---- הזמנה ישירה ---- */
+/* ההסבר וההגבלה צמודים זה לזה כמידע מעשי — הפעולה היא הדגש */
+.direct .columnText {
+  margin-bottom: var(--space-2);
+}
+
+.areaNotice {
+  margin-bottom: var(--space-5);
+  padding: 0;
+  border: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: 400;
+}
+
+.directCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  min-height: 2.75rem;
+  padding: 0 0 0.35rem;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent);
+  background: none;
+  color: var(--color-accent);
+  font-family: var(--font-body);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.directCta svg {
+  width: 1.15em;
+  height: 1.15em;
+}
+
+.directCta:hover:not(:disabled),
+.directCta:focus-visible {
+  border-color: var(--color-accent-strong);
+  color: var(--color-accent-strong);
+}
+
+/* כל עוד מספר הוואטסאפ בקונפיג אינו תקין */
+.directCta:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.fineprint {
+  margin-top: var(--space-4);
+}
+
+.shippingList {
+  padding-top: 0;
+  border-top: 0;
 }
 
 /* ==========================================================================
-   דסקטופ — העמוד האחרון: לקנות את הספר בלי תחושת קופה.
-   פתיחה מימין (כותרת → הסבר → מחיר), ומתחתיה שתי הדרכים לאותו ספר
-   כשני אזורים של אותה קומפוזיציה — לא שני כרטיסים ולא רשת 50/50:
-   אתרי המכירה מימין, ההזמנה הישירה (האישית, החמה יותר) משמאל
-   ומעט נמוך יותר. בלי מספור, קווים, מסגרות או קו אמצע.
+   מובייל וטאבלט — זרימת רכישה אחת: הספר (שלם, ביחס המקורי), הכותרת
+   וההסבר, המחיר, ואז שתי הדרכים זו מתחת לזו.
+   ========================================================================== */
+@media (max-width: 61.99rem) {
+  .opening {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cover {
+    order: -1;
+    width: clamp(8.5rem, 32vw, 11rem);
+    margin-bottom: var(--space-7);
+    margin-inline-start: clamp(0.75rem, 4vw, 2rem);
+  }
+
+  .split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
+    margin-top: var(--space-7);
+  }
+}
+
+/* ==========================================================================
+   דסקטופ — פתיחה מימין, הספר לשמאלה ומעט גבוה ממנה, ושתי הדרכים
+   כשני אזורים של אותה קומפוזיציה: אתרי המכירה מימין, ההזמנה הישירה
+   משמאל ומעט נמוך יותר. לא שני כרטיסים ולא רשת 50/50.
    ========================================================================== */
 @media (min-width: 62rem) {
   .section {
     --col: calc((100% - 11 * 1.5rem) / 12);
 
-    background: var(--color-bg);
     padding-top: 3.5rem;
     padding-bottom: 5rem;
   }
 
-  /* "05 — רכישה" נשאר סמנטית בלבד */
-  .folio {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-
-  /* ---- פתיחה: הטקסט מימין, והכריכה המלאה לשמאלו — על אותו קו עליון,
-     ומעל ההזמנה הישירה. הספר → המחיר → דרכי הרכישה ---- */
   .opening {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -245,99 +482,25 @@
     grid-column: 1 / 6;
   }
 
-  /* הכריכה כספר פיזי: חזית שלמה ולא-מעוותת, גוש דפים דק מימין ובתחתית
-     וקפל עדין ליד השדרה משמאל,
-     צל מגע רך, וסיבוב של 2° בלבד — מונח ביד, לא מוצג.
-     השוליים השליליים מונעים מהספר להגביה את השורה: הוא יורד לצד דרכי
-     הרכישה, והרווח בין המחיר לדרכים נשאר כפי שהיה. */
+  /* השוליים השליליים מונעים מהספר להגביה את השורה: הוא יורד לצד דרכי
+     הרכישה, והרווח בין המחיר לדרכים נשאר כפי שהיה */
   .cover {
-    display: block;
-    position: relative;
-    isolation: isolate;
     grid-column: 8 / 11;
     justify-self: center;
     width: 11rem;
     margin-top: -3rem;
     margin-bottom: -7rem;
-    transform: rotate(-2deg);
-  }
-
-  /* גוש הדפים: מוסט כ-4px ימינה ומטה מאחורי החזית */
-  .cover::before {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    inset: 0;
-    transform: translate(4px, 3px);
-    background: color-mix(in srgb, var(--color-sand) 45%, var(--color-cream));
-    box-shadow:
-      inset -1px 0 0 rgba(35, 42, 38, 0.08),
-      inset 0 -1px 0 rgba(35, 42, 38, 0.08),
-      0 1px 2px rgba(35, 42, 38, 0.12),
-      0 16px 26px -18px rgba(35, 42, 38, 0.4);
-  }
-
-  /* קפל הכריכה הרכה, כמה מילימטרים מהשדרה */
-  .cover::after {
-    content: '';
-    position: absolute;
-    inset-block: 0;
-    left: 6px;
-    width: 1px;
-    background: rgba(35, 42, 38, 0.08);
-    box-shadow: -1px 0 0 rgba(255, 255, 255, 0.2);
-    pointer-events: none;
-  }
-
-  .coverImg {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1100 / 1762;
-    object-fit: contain;
-    box-shadow: 0 1px 2px rgba(35, 42, 38, 0.1);
-  }
-
-  /* ---- פתיחה: כותרת → הסבר → מחיר, כרצף אחד ---- */
-  .header {
-    max-width: 31rem;
-    margin-bottom: 0;
   }
 
   .title {
-    margin-bottom: var(--space-4);
     font-size: 2.5rem;
-    font-weight: 500;
-    line-height: 1.15;
   }
 
-  .intro {
-    font-size: var(--text-lg);
-    line-height: 1.7;
-  }
-
-  .price {
-    margin-top: var(--space-4);
-    font-size: var(--text-2xl);
-    font-weight: 500;
-    line-height: 1;
-  }
-
-  /* ---- שתי הדרכים ---- */
   .split {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: 1.5rem;
     align-items: start;
     margin-top: 2.75rem;
-  }
-
-  .column {
-    padding-top: 0;
-    border-top: 0;
-  }
-
-  .column + .column::before {
-    content: none;
   }
 
   .retail {
@@ -348,152 +511,5 @@
   .direct {
     grid-column: 6 / 11;
     margin-top: 3.5rem;
-  }
-
-  .columnTitle {
-    margin-bottom: var(--space-2);
-    font-size: var(--text-xl);
-    font-weight: 500;
-  }
-
-  .columnText {
-    margin-bottom: var(--space-4);
-    font-size: var(--text-base);
-    line-height: 1.7;
-  }
-
-  /* ---- חנויות: קישורים טיפוגרפיים, מופרדים ברווח בלבד ---- */
-  .storeList {
-    gap: var(--space-4);
-  }
-
-  /* שם החנות + סימון (חיצוני / "בקרוב") בשורה אחת, התיאור מתחת —
-     storeText "נפתח" כדי שהסימון ייצמד לשם ולא לרוחב התיאור */
-  .storeButton,
-  .storeList li:last-child .storeButton {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    column-gap: var(--space-2);
-    row-gap: 0.2rem;
-    width: auto;
-    min-height: 0;
-    padding: 0;
-    border: 0;
-  }
-
-  .storeText {
-    display: contents;
-  }
-
-  .storeNote {
-    order: 2;
-    flex-basis: 100%;
-  }
-
-  .storeName {
-    font-size: var(--text-lg);
-    font-weight: 500;
-    text-decoration: underline;
-    text-decoration-color: color-mix(in srgb, currentColor 30%, transparent);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.3em;
-    transition: text-decoration-color var(--transition-fast);
-  }
-
-  .storeButton:hover:not(:disabled) .storeName,
-  .storeButton:focus-visible .storeName {
-    text-decoration-color: currentColor;
-  }
-
-  /* קישור חיצוני: סימון קטן ליד השם, לא אייקון שורה */
-  .storeArrow {
-    order: 1;
-    align-self: center;
-  }
-
-  .storeArrow svg {
-    width: 0.85rem;
-    height: 0.85rem;
-  }
-
-  /* "בקרוב": שקט, בלי מראה של שדה טופס מושבת */
-  .storeButton:disabled {
-    cursor: default;
-  }
-
-  .storeButton:disabled .storeName {
-    text-decoration: none;
-    opacity: 0.6;
-  }
-
-  .storeSoon {
-    order: 1;
-    font-weight: 400;
-    letter-spacing: 0;
-    opacity: 0.85;
-  }
-
-  /* ---- הזמנה ישירה ---- */
-  /* ההסבר וההגבלה צמודים זה לזה כמידע מעשי — הפעולה היא הדגש */
-  .direct .columnText {
-    margin-bottom: var(--space-2);
-  }
-
-  .areaNotice {
-    margin-bottom: var(--space-5);
-    padding: 0;
-    border: 0;
-    color: var(--color-text-muted);
-    font-size: var(--text-sm);
-    font-weight: 400;
-  }
-
-  .mobileCta {
-    display: none;
-  }
-
-  .directCta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6em;
-    padding: 0 0 0.35rem;
-    border: 0;
-    border-bottom: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent);
-    background: none;
-    color: var(--color-accent);
-    font-family: var(--font-body);
-    font-size: var(--text-xl);
-    font-weight: 600;
-    cursor: pointer;
-    transition:
-      color var(--transition-fast),
-      border-color var(--transition-fast);
-  }
-
-  .directCta svg {
-    width: 1.15em;
-    height: 1.15em;
-  }
-
-  .directCta:hover:not(:disabled),
-  .directCta:focus-visible {
-    border-color: var(--color-accent-strong);
-    color: var(--color-accent-strong);
-  }
-
-  /* כל עוד מספר הוואטסאפ בקונפיג אינו תקין */
-  .directCta:disabled {
-    cursor: default;
-    opacity: 0.55;
-  }
-
-  .fineprint {
-    margin-top: var(--space-4);
-  }
-
-  .shippingList {
-    padding-top: 0;
-    border-top: 0;
   }
 }
