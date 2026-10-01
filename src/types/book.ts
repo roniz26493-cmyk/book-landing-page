@@ -101,7 +101,11 @@ export interface BookConfig {
     title: string
     /** כותרת משנה / טאגליין קצר */
     subtitle: string
-    /** משפט קצר ומסקרן ל-Hero */
+    /** כיתוב-על קטן מעל הכריכה ב-Hero, למשל "ספר הביכורים של..." */
+    heroEyebrow: string
+    /** השורה התומכת המרכזית מתחת לכריכה ב-Hero */
+    heroLead: string
+    /** משפט/ציטוט קצר שני, מתחת ל-heroLead */
     heroTagline: string
     /** תיאור הספר — אזור "על הספר" */
     description: string[]

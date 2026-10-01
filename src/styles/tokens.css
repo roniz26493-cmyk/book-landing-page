@@ -50,9 +50,12 @@
   --color-whatsapp: #5b7b69;
   --color-whatsapp-dark: #465f51;
 
-  /* ---- טיפוגרפיה ---- */
-  --font-display: 'Frank Ruhl Libre', 'David Libre', 'Times New Roman', serif;
-  --font-body: 'Assistant', 'Heebo', -apple-system, 'Segoe UI', sans-serif;
+  /* ---- טיפוגרפיה ----
+     משפחה אחת — Heebo — בשני משתנים לצורך כוונה סמנטית בקוד (display
+     לכותרות/רגעים כבדים, body לטקסט שוטף); שניהם מצביעים לאותה משפחה
+     בכוונה, בהתאמה לכותרת ולשם המחבר שעל הכריכה (ראו הערה ב-index.html). */
+  --font-display: 'Heebo', -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Heebo', -apple-system, 'Segoe UI', sans-serif;
 
   --text-xs: 0.8125rem;
   --text-sm: 0.9375rem;
@@ -63,7 +66,7 @@
   --text-3xl: clamp(1.875rem, 1.3rem + 2.4vw, 2.75rem);
   --text-4xl: clamp(2.25rem, 1.4rem + 3.6vw, 3.75rem);
 
-  --leading-tight: 1.22;
+  --leading-tight: 1.28;
   --leading-snug: 1.45;
   --leading-relaxed: 1.8;
 
@@ -81,13 +84,18 @@
   --section-padding-block: clamp(3.5rem, 2rem + 7vw, 7rem);
   --container: 74rem;
   --container-narrow: 46rem;
-  --header-height: 4.25rem;
+  --container-reading: 34rem;
+  --header-height: 3.5rem;
+  --header-height-desktop: 4rem;
 
   /* ---- צורה וצל ----
-     צללים רכים ורדודים בכוונה — תחושת נייר ושקט, לא "טכנולוגי". */
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
+     צללים רכים ורדודים, ורדיוסים כמעט ישרים בכוונה — תחושת דפוס
+     ונייר, לא app/SaaS. */
+  --radius-sm: 3px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-btn: 2px;
+  /* שמור לשימושי utility בלבד (badge זמני, skip-link) — לא לכפתורי CTA */
   --radius-pill: 999px;
 
   --shadow-sm: 0 1px 2px rgba(52, 42, 30, 0.05), 0 1px 2px rgba(52, 42, 30, 0.04);

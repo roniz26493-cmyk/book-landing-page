@@ -1,8 +1,8 @@
 import { bookConfig } from '../data/bookConfig'
-import { QuoteIcon } from './ui/Icons'
 import { PlaceholderMark } from './ui/PlaceholderMark'
 import { Reveal } from './ui/Reveal'
-import { Section, SectionHeading } from './ui/Section'
+import { Section } from './ui/Section'
+import { SectionFolio } from './ui/SectionFolio'
 import styles from './Peek.module.css'
 
 const { peek } = bookConfig
@@ -10,35 +10,43 @@ const { peek } = bookConfig
 /**
  * אזור אופציונלי.
  * להסתרה מלאה: peek.enabled = false בקובץ bookConfig.ts
+ *
+ * מוצג כעמודים ממשיים מתוך הספר — עמודת קריאה צרה על רקע נייר,
+ * לא ככרטיסי ציטוט. הקטעים עצמם הם בדיוק אלה שכבר קיימים ב-bookConfig
+ * (לרבות סימון ה-placeholder, אם עדיין לא סופקו קטעים אמיתיים).
  */
 export function Peek() {
   if (!peek.enabled || peek.excerpts.length === 0) return null
 
   return (
-    <Section id="peek" tone="dark">
-      <SectionHeading
-        eyebrow="הצצה"
-        title={peek.title}
-        intro={peek.intro}
-        align="center"
-        onDark
-      >
-        {peek.isPlaceholder && <PlaceholderMark onDark />}
-      </SectionHeading>
+    <Section id="peek" tone="light" narrow className={styles.section}>
+      <SectionFolio className={styles.folio} number="03" label="הצצה" />
+      <h2 className={styles.title}>{peek.title}</h2>
+      {peek.intro && <p className={styles.intro}>{peek.intro}</p>}
+      {peek.isPlaceholder && (
+        <div className={styles.placeholderRow}>
+          <PlaceholderMark />
+        </div>
+      )}
 
-      <ul className={styles.list}>
+      <div className={styles.pages}>
         {peek.excerpts.map((excerpt, index) => (
-          <Reveal as="li" key={excerpt.id} delay={index * 110} className={styles.item}>
-            <figure className={styles.card}>
-              <QuoteIcon className={styles.icon} />
-              <blockquote className={styles.text}>{excerpt.text}</blockquote>
-              {excerpt.source && (
-                <figcaption className={styles.source}>{excerpt.source}</figcaption>
-              )}
-            </figure>
+          <Reveal
+            as="article"
+            key={excerpt.id}
+            delay={index * 140}
+            className={styles.page}
+          >
+            <p className={styles.pageNumber} aria-hidden="true">
+              {String(index + 1).padStart(2, '0')}
+            </p>
+            <blockquote className={styles.text}>
+              <p>{excerpt.text}</p>
+            </blockquote>
+            {excerpt.source && <p className={styles.source}>{excerpt.source}</p>}
           </Reveal>
         ))}
-      </ul>
+      </div>
     </Section>
   )
 }

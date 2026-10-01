@@ -49,7 +49,7 @@ body {
 /* מרווח בתחתית העמוד במובייל, כדי שסרגל ההזמנה הדביק לא יכסה תוכן */
 @media (max-width: 61.999rem) {
   body {
-    padding-bottom: calc(6.75rem + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
   }
 }
 
@@ -69,7 +69,9 @@ h4 {
   font-family: var(--font-display);
   font-weight: 700;
   line-height: var(--leading-tight);
-  letter-spacing: -0.01em;
+  /* בלי טרקינג שלילי — עברית במשקל sans כבד זקוקה לנשימה בין האותיות,
+     לא לצפיפות (שהתאימה לפרופורציות ה-serif הקודם). */
+  letter-spacing: 0;
   text-wrap: balance;
 }
 
@@ -114,7 +116,7 @@ ol {
   background: var(--color-primary);
   color: var(--color-on-primary);
   border-radius: var(--radius-pill);
-  font-weight: 600;
+  font-weight: 700;
   transition: transform var(--transition-fast);
 }
 
@@ -164,27 +166,32 @@ ol {
 
 /* ==========================================================================
    כפתורים — משותפים לכל האתר
+   --------------------------------------------------------------------------
+   לשון עיצובית של הוצאה לאור: מלבניים כמעט-ישרים, גבול דק תמיד גלוי,
+   ריווח אותיות עדין. לא pill, לא צללים גדולים — בכוונה לא "app/SaaS".
    ========================================================================== */
 
 .btn {
   --btn-bg: var(--color-accent);
-  --btn-fg: #fff;
+  --btn-fg: var(--color-cream);
   --btn-bg-hover: var(--color-accent-strong);
-  --btn-border: transparent;
+  --btn-fg-hover: var(--color-cream);
+  --btn-border: var(--color-accent);
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-3);
-  min-height: 3.25rem;
+  min-height: 2.9rem;
   padding: var(--space-3) var(--space-6);
-  border: 1.5px solid var(--btn-border);
-  border-radius: var(--radius-pill);
+  border: 1px solid var(--btn-border);
+  border-radius: var(--radius-btn);
   background: var(--btn-bg);
   color: var(--btn-fg);
   font-family: var(--font-body);
-  font-size: var(--text-base);
-  font-weight: 600;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.03em;
   line-height: 1.2;
   text-align: center;
   cursor: pointer;
@@ -192,72 +199,95 @@ ol {
     background-color var(--transition-fast),
     border-color var(--transition-fast),
     color var(--transition-fast),
-    transform var(--transition-fast),
-    box-shadow var(--transition-fast);
+    transform var(--transition-fast);
 }
 
 .btn:hover:not(:disabled) {
   background: var(--btn-bg-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  color: var(--btn-fg-hover);
+  border-color: var(--btn-bg-hover);
+  transform: translateY(-1px);
 }
 
 .btn:active:not(:disabled) {
   transform: translateY(0);
-  box-shadow: var(--shadow-sm);
 }
 
 .btn:disabled,
 .btn[aria-disabled='true'] {
   cursor: not-allowed;
   /* ניתן לעקיפה דרך --btn-disabled-opacity ברכיב ספציפי */
-  opacity: var(--btn-disabled-opacity, 0.55);
-  box-shadow: none;
+  opacity: var(--btn-disabled-opacity, 0.5);
   transform: none;
 }
 
-/* וריאנט: משני על רקע בהיר */
+/* וריאנט: משני, מוקצה — גבול בלבד, ללא מילוי */
 .btnOutline {
   --btn-bg: transparent;
-  --btn-fg: var(--color-primary);
-  --btn-bg-hover: var(--color-accent-tint);
+  --btn-fg: var(--color-text);
+  --btn-bg-hover: transparent;
+  --btn-fg-hover: var(--color-accent);
   --btn-border: var(--color-border-strong);
 }
 
 .btnOutline:hover:not(:disabled) {
-  --btn-border: var(--color-accent);
-  color: var(--color-accent-strong);
+  border-color: var(--color-accent);
 }
 
 /* וריאנט: משני על רקע כהה */
 .btnGhostLight {
   --btn-bg: transparent;
   --btn-fg: var(--color-on-primary);
-  --btn-bg-hover: rgba(255, 255, 255, 0.1);
-  --btn-border: rgba(255, 255, 255, 0.4);
+  --btn-bg-hover: var(--color-on-primary);
+  --btn-fg-hover: var(--color-primary);
+  --btn-border: rgba(255, 255, 255, 0.5);
 }
 
-.btnGhostLight:hover:not(:disabled) {
-  --btn-border: rgba(255, 255, 255, 0.75);
-}
-
-/* וריאנט: WhatsApp */
+/* וריאנט: WhatsApp — הצבע הפונקציונלי היחיד שאינו מהפלטה הטיפוגרפית */
 .btnWhatsapp {
   --btn-bg: var(--color-whatsapp);
-  --btn-fg: #06231a;
+  --btn-fg: var(--color-cream);
   --btn-bg-hover: var(--color-whatsapp-dark);
+  --btn-fg-hover: var(--color-cream);
+  --btn-border: var(--color-whatsapp);
 }
 
 .btnWhatsapp:hover:not(:disabled) {
-  --btn-fg: #fff;
+  border-color: var(--color-whatsapp-dark);
 }
 
 .btnLarge {
-  min-height: 3.75rem;
+  min-height: 3.25rem;
   padding-inline: var(--space-7);
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
 }
 
 .btnFull {
   width: 100%;
+}
+
+/* וריאנט: קישור טקסט בלבד — ללא גבול/רקע, עם קו תחתי שמופיע במעבר עכבר.
+   משמש לפעולות משניות שאינן צריכות משקל של כפתור. */
+.linkText {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-block: var(--space-1);
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 300;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition:
+    background-size var(--transition),
+    color var(--transition-fast);
+}
+
+.linkText:hover,
+.linkText:focus-visible {
+  color: var(--color-accent);
+  background-size: 100% 1px;
 }

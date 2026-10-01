@@ -14,9 +14,9 @@
 
 .header[data-scrolled='true'],
 .header[data-menu-open='true'] {
-  background: color-mix(in srgb, var(--color-bg) 88%, transparent);
-  backdrop-filter: blur(12px) saturate(140%);
-  box-shadow: 0 1px 0 var(--color-border), var(--shadow-sm);
+  background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 1px 0 var(--color-border);
 }
 
 /* כשהתפריט הנייד פתוח הרקע אטום לחלוטין, כדי שימשיך את לוח התפריט */
@@ -42,10 +42,11 @@
   color: var(--color-primary);
 }
 
+/* משקל כבד לשם הספר — הד למשקל הכותרת על הכריכה עצמה */
 .brandTitle {
   font-family: var(--font-display);
-  font-size: var(--text-lg);
-  font-weight: 700;
+  font-size: var(--text-base);
+  font-weight: 800;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -53,15 +54,17 @@
 
 .brandDivider {
   width: 1px;
-  height: 0.9em;
+  height: 0.8em;
   background: currentColor;
-  opacity: 0.35;
+  opacity: 0.3;
 }
 
+/* משקל קליל לשם המחבר — כמו על גב הכריכה, לצד הכותרת הכבדה */
 .brandAuthor {
-  font-size: var(--text-sm);
-  font-weight: 500;
-  opacity: 0.75;
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 300;
+  opacity: 0.8;
   white-space: nowrap;
 }
 
@@ -70,6 +73,16 @@
   .brandDivider,
   .brandAuthor {
     display: none;
+  }
+}
+
+@media (min-width: 62rem) {
+  .bar {
+    min-height: var(--header-height-desktop);
+  }
+
+  .brandTitle {
+    font-size: var(--text-lg);
   }
 }
 
@@ -91,7 +104,7 @@
   padding-block: var(--space-2);
   color: var(--color-text-muted);
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: 700;
   transition: color var(--transition-fast);
 }
 
@@ -124,33 +137,26 @@
   gap: var(--space-3);
 }
 
-/* הסלקטור המקונן נחוץ כדי לגבור על מחלקת .btn הגלובלית */
-.actions .headerCta {
-  display: none;
-  min-height: 2.75rem;
-  padding-inline: var(--space-5);
-  font-size: var(--text-sm);
-}
-
+/* בלי גבול/רקע קבועים — בכוונה לא "כפתור אפליקציה".
+   שטח לחיצה של 44px+ מגיע מה-padding, לא מקופסה גלויה. */
 .menuToggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 2.75rem;
   height: 2.75rem;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
   color: var(--color-primary);
-  font-size: 1.1rem;
+  font-size: 1rem;
   transition:
     background-color var(--transition-fast),
-    border-color var(--transition-fast),
     color var(--transition-fast);
 }
 
-.menuToggle:hover {
-  background: var(--color-accent-tint);
-  border-color: var(--color-accent);
+.menuToggle:hover,
+.menuToggle:focus-visible {
+  background: color-mix(in srgb, var(--color-primary) 6%, transparent);
+  color: var(--color-accent);
 }
 
 /* ---- תפריט נייד ---- */
@@ -205,11 +211,26 @@
     display: block;
   }
 
-  .actions .headerCta {
-    display: inline-flex;
+  /* כותרת-עמוד שקטה: שם הספר והמחבר מימין הם העוגן; הניווט קל ומרווח
+     ולא מתחרה ב-Hero */
+  .navList {
+    gap: var(--space-6);
   }
 
-  .menuToggle {
+  .navLink {
+    font-weight: 400;
+  }
+
+  .navLink::after {
+    height: 1px;
+  }
+
+  .navLinkAccent {
+    color: var(--color-accent);
+  }
+
+  /* בלי כפתור בדסקטופ — הניווט נצמד לקצה, מול שם הספר */
+  .actions {
     display: none;
   }
 

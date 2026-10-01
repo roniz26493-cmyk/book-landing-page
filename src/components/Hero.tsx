@@ -1,20 +1,58 @@
 import { bookConfig } from '../data/bookConfig'
-import { ArrowDownIcon } from './ui/Icons'
 import { PlaceholderMark } from './ui/PlaceholderMark'
 import styles from './Hero.module.css'
 
-const { book, author, whatsapp } = bookConfig
+const { book, author } = bookConfig
+
+/** מפצל משפט לשתי שורות לפני מילת-מפתח, בלי לשנות את הנוסח עצמו */
+function splitBefore(text: string, word: string): [string, string] {
+  const i = text.indexOf(` ${word} `)
+  return i === -1 ? [text, ''] : [text.slice(0, i), text.slice(i + 1)]
+}
+
+const [leadFirst, leadSecond] = splitBefore(book.heroLead, 'על')
+const [bylineFirst, bylineSecond] = splitBefore(book.heroEyebrow, 'של')
 
 export function Hero() {
   return (
     <section className={styles.hero} id="top">
-      <div className={styles.glow} aria-hidden="true" />
+      {/* h1 נשאר לצורכי נגישות/SEO — לא חוזר חזותית על שם הספר שכבר קורא בבירור מהכריכה */}
+      <h1 className={styles.srTitle}>
+        {book.title} — {author.name}
+      </h1>
+
+      {/* דסקטופ בלבד: העולם שבתוך הספר, נפתח אל תוך העמוד. הפנים מביטות שמאלה — אל הטקסט */}
+      <picture className={styles.art} aria-hidden="true">
+        <source srcSet={book.secondaryImageWebp} type="image/webp" />
+        <img
+          className={styles.artImg}
+          src={book.secondaryImage}
+          alt=""
+          width={1100}
+          height={768}
+          decoding="async"
+        />
+      </picture>
 
       <div className={`container ${styles.inner}`}>
-        {/* הכריכה — מוצגת ראשונה במובייל (order ב-CSS) */}
-        <div className={styles.coverColumn}>
-          <div className={styles.coverFrame}>
-            {book.coverImageWebp ? (
+        <p className={styles.byline}>
+          <span>{bylineFirst}</span> <span>{bylineSecond}</span>
+        </p>
+
+        <div className={styles.composition}>
+          {/* הכריכה — החפץ הפיזי שממנו האיור התרחב */}
+          <div className={styles.coverStage}>
+            <img
+              className={styles.fragment}
+              src="/images/fragment-1.webp"
+              alt=""
+              aria-hidden="true"
+              width={110}
+              height={110}
+              loading="lazy"
+            />
+
+            <div className={styles.coverFrame}>
               <picture>
                 <source srcSet={book.coverImageWebp} type="image/webp" />
                 <img
@@ -27,60 +65,38 @@ export function Hero() {
                   decoding="async"
                 />
               </picture>
-            ) : (
-              <img
-                className={styles.cover}
-                src={book.coverImage}
-                alt={book.coverAlt}
-                width={800}
-                height={1200}
-                fetchPriority="high"
-                decoding="async"
-              />
+            </div>
+
+            {book.coverIsPlaceholder && (
+              <div className={styles.coverNote}>
+                <PlaceholderMark label="כריכה זמנית" />
+              </div>
             )}
           </div>
-          {book.coverIsPlaceholder && (
-            <div className={styles.coverNote}>
-              <PlaceholderMark label="כריכה זמנית" />
+
+          <div className={styles.textStage}>
+            <p className={styles.lead}>
+              <span>{leadFirst}</span> <span>{leadSecond}</span>
+            </p>
+            <p className={styles.quote}>{book.heroTagline}</p>
+
+            {/* מובייל (זמני, עד עיצוב המובייל): כפתור + קישור משני */}
+            <div className={styles.actions}>
+              <a className="btn" href="#purchase">
+                להזמנת הספר
+              </a>
+              <a className="linkText" href="#peek">
+                להצצה בין הדפים
+              </a>
             </div>
-          )}
-        </div>
 
-        <div className={styles.textColumn}>
-          <p className={styles.eyebrow}>
-            <span className={styles.eyebrowLine} aria-hidden="true" />
-            ספר חדש
-          </p>
-
-          <h1 className={styles.title}>{book.title}</h1>
-          {book.subtitle && <p className={styles.subtitle}>{book.subtitle}</p>}
-
-          <p className={styles.tagline}>{book.heroTagline}</p>
-
-          <p className={styles.author}>
-            מאת <strong>{author.name}</strong>
-          </p>
-
-          <div className={styles.ctas}>
-            <a className="btn btnLarge" href="#purchase">
+            {/* דסקטופ: פעולה אחת, טיפוגרפית */}
+            <a className={styles.cta} href="#purchase">
               להזמנת הספר
             </a>
-            <a className="btn btnLarge btnOutline" href="#stores">
-              לרכישה באתרי המכירה
-            </a>
           </div>
-
-          <p className={styles.areaNote}>
-            {whatsapp.areaNotice} · רכישה דרך אתרי המכירה זמינה בכל הארץ,
-            בהתאם לתנאי כל חנות.
-          </p>
         </div>
       </div>
-
-      <a className={styles.scrollCue} href="#about">
-        <span>על הספר</span>
-        <ArrowDownIcon className={styles.scrollArrow} />
-      </a>
     </section>
   )
 }

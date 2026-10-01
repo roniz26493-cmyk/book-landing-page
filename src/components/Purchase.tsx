@@ -1,87 +1,125 @@
 import { bookConfig } from '../data/bookConfig'
-import { ExternalIcon } from './ui/Icons'
+import { ExternalIcon, WhatsAppIcon } from './ui/Icons'
 import { Reveal } from './ui/Reveal'
-import { Section, SectionHeading } from './ui/Section'
-import { WhatsAppOrderButton } from './ui/WhatsAppOrderButton'
+import { Section } from './ui/Section'
+import { SectionFolio } from './ui/SectionFolio'
+import { WhatsAppOrderButton, isWhatsappReady, whatsappLink } from './ui/WhatsAppOrderButton'
 import styles from './Purchase.module.css'
 
-const { purchase, whatsapp, shipping } = bookConfig
+const { purchase, whatsapp, shipping, book } = bookConfig
 
 export function Purchase() {
   const hasActiveStore = purchase.stores.some((store) => store.url.trim() !== '')
 
   return (
-    <Section id="purchase" tone="alt">
-      <SectionHeading
-        eyebrow="רכישה"
-        title={purchase.title}
-        intro={purchase.intro}
-        align="center"
-      />
+    <Section id="purchase" tone="alt" className={styles.section}>
+      <SectionFolio className={styles.folio} number="05" label="רכישה" />
+      <div className={styles.opening}>
+        <div className={styles.header}>
+          <h2 className={styles.title}>{purchase.title}</h2>
+          {purchase.intro && <p className={styles.intro}>{purchase.intro}</p>}
+          {purchase.price && <p className={styles.price}>{purchase.price}</p>}
+        </div>
 
-      {purchase.price && <p className={styles.price}>{purchase.price}</p>}
+        {/* דסקטופ: הכריכה המלאה — המוצר עצמו, לצד המחיר ומעל דרכי הרכישה */}
+        <div className={styles.cover}>
+          <picture>
+            <source srcSet={book.coverImageWebp} type="image/webp" />
+            <img
+              className={styles.coverImg}
+              src={book.coverImage}
+              alt={book.coverAlt}
+              width={1100}
+              height={1762}
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+        </div>
+      </div>
 
-      <div className={styles.grid}>
+      <div className={styles.split}>
         {/* ---- א. חנויות ואתרי מכירה ---- */}
-        <Reveal className={styles.panelWrap}>
-          <article className={styles.panel} id="stores">
-            <header className={styles.panelHeader}>
-              <span className={styles.panelBadge}>אפשרות א׳</span>
-              <h3 className={styles.panelTitle}>רכישה באתרי המכירה</h3>
-              <p className={styles.panelText}>
-                זמין לכל הארץ, בהתאם לתנאי המשלוח של כל חנות.
-              </p>
-            </header>
+        <Reveal className={`${styles.column} ${styles.retail}`} id="stores">
+          <h3 className={styles.columnTitle}>רכישה באתרי המכירה</h3>
+          <p className={styles.columnText}>
+            זמין לכל הארץ, בהתאם לתנאי המשלוח של כל חנות.
+          </p>
 
-            <ul className={styles.storeList}>
-              {purchase.stores.map((store) => (
-                <li key={store.id}>
-                  <StoreButton store={store} />
-                </li>
-              ))}
-            </ul>
+          <ul className={styles.storeList}>
+            {purchase.stores.map((store) => (
+              <li key={store.id}>
+                <StoreButton store={store} />
+              </li>
+            ))}
+          </ul>
 
-            {!hasActiveStore && (
-              <p className={styles.pendingNotice}>{purchase.storesPendingNotice}</p>
-            )}
-          </article>
+          {!hasActiveStore && (
+            <p className={styles.pendingNotice}>{purchase.storesPendingNotice}</p>
+          )}
         </Reveal>
 
         {/* ---- ב. הזמנה ישירה בוואטסאפ ---- */}
-        <Reveal className={styles.panelWrap} delay={120}>
-          <article className={`${styles.panel} ${styles.panelHighlight}`}>
-            <header className={styles.panelHeader}>
-              <span className={`${styles.panelBadge} ${styles.panelBadgeAccent}`}>
-                אפשרות ב׳
-              </span>
-              <h3 className={styles.panelTitle}>הזמנה ישירה מהמחבר</h3>
-              <p className={styles.panelText}>
-                שיחה ישירה בוואטסאפ עם המחבר, עם הודעה מוכנה מראש.
-              </p>
-            </header>
+        <Reveal className={`${styles.column} ${styles.direct}`} delay={120}>
+          <h3 className={styles.columnTitle}>הזמנה ישירה מהמחבר</h3>
+          <p className={styles.columnText}>
+            שיחה ישירה בוואטסאפ עם המחבר, עם הודעה מוכנה מראש.
+          </p>
 
-            <p className={styles.areaNotice}>
-              <span className={styles.areaDot} aria-hidden="true" />
-              {whatsapp.areaNotice}
-            </p>
+          <p className={styles.areaNotice}>{whatsapp.areaNotice}</p>
 
-            <WhatsAppOrderButton fullWidth />
+          {/* מובייל (עד עיצוב המובייל): הכפתור המשותף. דסקטופ: קישור טיפוגרפי */}
+          <div className={styles.mobileCta}>
+            <WhatsAppOrderButton />
+          </div>
+          <DirectOrderLink />
 
-            <p className={styles.fineprint}>
-              מחוץ לאזור השרון ניתן לרכוש את הספר דרך אתרי המכירה.
-            </p>
+          <p className={styles.fineprint}>
+            מחוץ לאזור השרון ניתן לרכוש את הספר דרך אתרי המכירה.
+          </p>
 
-            {shipping.enabled && shipping.items.length > 0 && (
-              <ul className={styles.shippingList}>
-                {shipping.items.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            )}
-          </article>
+          {shipping.enabled && shipping.items.length > 0 && (
+            <ul className={styles.shippingList}>
+              {shipping.items.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+          )}
         </Reveal>
       </div>
     </Section>
+  )
+}
+
+/**
+ * דסקטופ: פעולת ההזמנה הישירה כקישור טיפוגרפי בצבע החלודה.
+ * אותו קישור בדיוק כמו הכפתור המשותף (whatsappLink מהקונפיג). כל עוד
+ * המספר בקונפיג אינו תקין — מוצג במצב לא-פעיל, בלי קישור שבור ובלי
+ * הערה טכנית למבקרים.
+ */
+function DirectOrderLink() {
+  const label = 'להזמנה ישירה בוואטסאפ'
+
+  if (!isWhatsappReady) {
+    return (
+      <button type="button" className={styles.directCta} disabled>
+        <WhatsAppIcon />
+        {label}
+      </button>
+    )
+  }
+
+  return (
+    <a
+      className={styles.directCta}
+      href={whatsappLink ?? undefined}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <WhatsAppIcon />
+      {label}
+      <span className="srOnly">(נפתח בחלון חדש)</span>
+    </a>
   )
 }
 

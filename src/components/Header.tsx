@@ -50,14 +50,16 @@ export function Header() {
                 </a>
               </li>
             ))}
+            {/* רכישה כקישור ניווט שקט — לא כפתור */}
+            <li>
+              <a className={`${styles.navLink} ${styles.navLinkAccent}`} href="#purchase">
+                להזמנת הספר
+              </a>
+            </li>
           </ul>
         </nav>
 
         <div className={styles.actions}>
-          <a className={`btn ${styles.headerCta}`} href="#purchase">
-            להזמנת הספר
-          </a>
-
           <button
             type="button"
             className={styles.menuToggle}
