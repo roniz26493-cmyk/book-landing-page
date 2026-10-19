@@ -1,139 +1,75 @@
+/* ==========================================================================
+   פוטר — סיום שקט על רקע ירוק כהה. שם הספר כעוגן, ניווט קצר בשורה אחת.
+   ========================================================================== */
 .footer {
-  padding-top: clamp(2.5rem, 1.75rem + 3vw, 3.5rem);
   background: var(--color-primary);
   color: var(--color-on-primary);
 }
 
-.sprig {
-  display: block;
-  margin: 0 auto var(--space-5);
-  color: var(--color-peach);
-  opacity: 0.8;
-}
-
 .inner {
-  display: grid;
-  gap: var(--space-6);
-  padding-bottom: var(--space-7);
-}
-
-/* ---- מיתוג ---- */
-.brandCol {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  align-items: flex-start;
+  gap: var(--space-6);
+  padding-block: var(--space-8) var(--space-6);
+}
+
+.sprig {
+  display: block;
+  margin-bottom: var(--space-3);
+  color: var(--color-peach);
+  opacity: 0.8;
 }
 
 .bookTitle {
   margin: 0;
   font-family: var(--font-display);
-  font-size: var(--text-2xl);
+  font-size: clamp(1.75rem, 1.45rem + 1.2vw, 2.25rem);
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.1;
 }
 
 .authorName {
-  margin: 0;
+  margin: var(--space-2) 0 0;
   color: var(--color-on-primary-muted);
   font-size: var(--text-base);
 }
 
-.socialList {
+.navList {
   display: flex;
-  gap: var(--space-3);
-  margin: var(--space-4) 0 0;
+  flex-wrap: wrap;
+  column-gap: var(--space-6);
+  row-gap: var(--space-1);
+  margin: 0;
 }
 
-.socialLink {
+/* שטח לחיצה נוח (44px) בלי מסגרת */
+.link {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 50%;
-  color: var(--color-on-primary);
-  transition:
-    background-color var(--transition-fast),
-    border-color var(--transition-fast),
-    transform var(--transition-fast);
-}
-
-.socialLink:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: var(--color-peach);
-  transform: translateY(-2px);
-}
-
-/* ---- עמודות ---- */
-.col {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  min-width: 0;
-}
-
-.colTitle {
-  margin: 0;
-  color: var(--color-peach);
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
-
-.linkList {
-  display: flex;
-  flex-direction: column;
   gap: var(--space-2);
-  margin: 0;
-}
-
-.link {
-  display: inline-block;
+  min-height: 2.75rem;
   color: var(--color-on-primary-muted);
   font-size: var(--text-sm);
   transition: color var(--transition-fast);
 }
 
-.link:hover {
+.link:hover,
+.link:focus-visible {
   color: var(--color-on-primary);
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 
-.linkMuted {
-  color: rgba(255, 255, 255, 0.4);
-  font-size: var(--text-sm);
-}
-
-.contactLink {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  color: var(--color-on-primary-muted);
-  font-size: var(--text-sm);
-  transition: color var(--transition-fast);
-}
-
-.contactLink:hover {
-  color: var(--color-on-primary);
-}
-
-.note {
-  margin: var(--space-2) 0 0;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: var(--text-xs);
-  line-height: var(--leading-snug);
-}
-
-/* ---- שורה תחתונה ---- */
-.bottom {
+.contact {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  padding-block: var(--space-5);
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.bottom {
+  padding-block: var(--space-4) var(--space-5);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   color: rgba(255, 255, 255, 0.5);
   font-size: var(--text-xs);
 }
@@ -142,100 +78,13 @@
   margin: 0;
 }
 
-.credit {
-  font-family: var(--font-display);
-  letter-spacing: 0.02em;
-}
-
-@media (min-width: 40rem) {
+/* דסקטופ: הזהות מימין, הניווט משמאל על קו הבסיס של שם המחבר */
+@media (min-width: 48rem) {
   .inner {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-7) var(--space-6);
-  }
-
-  .bottom {
     flex-direction: row;
-    align-items: center;
+    flex-wrap: wrap;
+    align-items: flex-end;
     justify-content: space-between;
-  }
-}
-
-/* ==========================================================================
-   כל הרוחבים — עמוד הסיום של אותו ספר, לא פוטר תאגידי.
-   שם הספר הוא העוגן; כותרות הקבוצות שקטות, הקישורים שקטים עוד יותר.
-   הענף הקטן יושב מעל קו הפתיחה של שם הספר, לא במרכז.
-   ========================================================================== */
-.sprig {
-  margin-inline-start: max(
-    calc((100% - var(--container)) / 2 + 2.5rem),
-    clamp(1.125rem, 0.5rem + 3vw, 2.5rem)
-  );
-  margin-inline-end: auto;
-}
-
-.bookTitle {
-  font-size: clamp(1.85rem, 1.5rem + 1.2vw, 2.25rem);
-  line-height: 1.1;
-}
-
-.authorName {
-  margin-top: var(--space-1);
-}
-
-.col {
-  gap: var(--space-4);
-}
-
-.colTitle {
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  opacity: 0.9;
-}
-
-/* מרווח נוח ללחיצה בין הקישורים */
-.linkList {
-  gap: 0.6rem;
-}
-
-.link,
-.linkMuted,
-.contactLink {
-  line-height: 1.5;
-}
-
-.link,
-.contactLink {
-  padding-block: 0.3rem;
-}
-
-.bottom {
-  border-top-color: rgba(255, 255, 255, 0.08);
-}
-
-/* ==========================================================================
-   דסקטופ — שלוש קבוצות המידע ברוחב משתנה לפי התוכן, לא רשת שווה;
-   הקבוצות נפתחות בגובה שורת המחבר, לא בגובה ראש הכותרת.
-   ========================================================================== */
-@media (min-width: 62rem) {
-  .inner {
-    grid-template-columns:
-      minmax(0, 2fr) minmax(0, 0.8fr) minmax(0, 1.3fr) minmax(0, 1.1fr);
-    column-gap: var(--space-6);
-    align-items: start;
-    padding-bottom: var(--space-8);
-  }
-
-  .col {
-    padding-top: 0.85rem;
-  }
-
-  /* "יצירת קשר" — קבוצה קטנה, מעט מרוחקת מהשתיים שלפניה */
-  .col:last-child {
-    margin-inline-start: var(--space-5);
-  }
-
-  .link,
-  .contactLink {
-    padding-block: 0;
+    padding-block: 4.5rem 2.5rem;
   }
 }

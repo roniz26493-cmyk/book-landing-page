@@ -54,12 +54,7 @@ body {
   overflow-x: hidden;
 }
 
-/* מרווח בתחתית העמוד במובייל, כדי שסרגל ההזמנה הדביק לא יכסה תוכן */
-@media (max-width: 61.999rem) {
-  body {
-    padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
-  }
-}
+
 
 img,
 svg,

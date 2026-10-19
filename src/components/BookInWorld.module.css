@@ -1,0 +1,154 @@
+/* ==========================================================================
+   הספר בעולם — גיליון מגע שנע לאט, ושורות קצרות מודפסות מתחתיו.
+   בלי חצים, בלי נקודות, בלי כרטיסים, בלי פינות מעוגלות או צללים.
+   ========================================================================== */
+.section {
+  --frame-h: clamp(13rem, 9rem + 14vw, 20rem);
+  --gap: clamp(0.5rem, 0.3rem + 0.6vw, 0.875rem);
+
+  padding-block: 0 var(--section-padding-block);
+  background: var(--color-bg);
+  overflow: hidden;
+}
+
+.devNote {
+  margin-bottom: var(--space-4);
+}
+
+/* ---- הרצועה ----
+   הסט מוצג פעמיים ברצף; הרצועה נעה בדיוק חצי מרוחבה ואז חוזרת, כך
+   שהלולאה רציפה. בעמוד RTL היא נעה ימינה — הפריים הבא נכנס משמאל,
+   בכיוון הקריאה. */
+.strip {
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: drift 70s linear infinite;
+}
+
+.strip:hover .track,
+.strip:focus-within .track,
+.strip[data-paused='true'] .track {
+  animation-play-state: paused;
+}
+
+.set {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--gap);
+  padding-inline-end: var(--gap);
+}
+
+@keyframes drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(50%);
+  }
+}
+
+/* צילום אמיתי: גובה אחיד לכל הפריימים, רוחב לפי הצילום */
+.photo {
+  display: block;
+  flex: 0 0 auto;
+  height: var(--frame-h);
+  width: auto;
+  object-fit: cover;
+}
+
+/* מקום שמור (פיתוח בלבד): נייר חולי שקט, בלי טקסט */
+.slot {
+  display: block;
+  flex: 0 0 auto;
+  height: var(--frame-h);
+  background: color-mix(in srgb, var(--color-sand) 55%, var(--color-cream));
+}
+
+/* ---- עצירה: שקט, קטן, אבל תמיד שם (נגישות לתוכן שזז) ---- */
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--space-2);
+}
+
+.pause {
+  min-height: 2.75rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.pause:hover,
+.pause:focus-visible {
+  color: var(--color-accent);
+}
+
+/* ---- תגובות: שורות קצרות כמו כיתובים מתחת לגיליון מגע ---- */
+.reactions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+  padding-block: 0;
+  list-style: none;
+}
+
+.reaction {
+  max-width: 20rem;
+}
+
+.reactionText {
+  margin: 0;
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.attribution {
+  margin: var(--space-2) 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+
+/* דסקטופ: השורות זו לצד זו, במדרגות קלות — לא שורת כרטיסים */
+@media (min-width: 48rem) {
+  .reactions {
+    flex-direction: row;
+    gap: clamp(2rem, 5vw, 5rem);
+  }
+
+  .reaction:nth-child(2) {
+    margin-top: var(--space-6);
+  }
+
+  .reaction:nth-child(3) {
+    margin-top: var(--space-3);
+  }
+}
+
+/* תנועה מופחתת: הרצועה עומדת וניתנת לגלילה ידנית; בלי העותק ובלי כפתור העצירה */
+@media (prefers-reduced-motion: reduce) {
+  .strip {
+    overflow-x: auto;
+  }
+
+  .track {
+    animation: none;
+  }
+
+  .loopCopy,
+  .controls {
+    display: none;
+  }
+}

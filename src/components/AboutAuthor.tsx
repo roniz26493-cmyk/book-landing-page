@@ -2,7 +2,6 @@ import { bookConfig } from '../data/bookConfig'
 import { socialIcons } from './ui/Icons'
 import { Reveal } from './ui/Reveal'
 import { Section } from './ui/Section'
-import { SectionFolio } from './ui/SectionFolio'
 import styles from './AboutAuthor.module.css'
 
 const { author, social } = bookConfig
@@ -38,12 +37,9 @@ export function AboutAuthor() {
         )}
 
         <Reveal className={styles.content} delay={hasRealPhoto ? 100 : 0}>
-          <SectionFolio className={styles.folio} number="04" label="על המחבר" />
-
-          <div className={styles.byline}>
-            <h2 className={styles.name}>{author.name}</h2>
-            <p className={styles.role}>{author.role}</p>
-          </div>
+          <h2 className={styles.heading}>{author.sectionTitle}</h2>
+          {/* השם עצמו הוא הדימוי של האזור */}
+          <p className={styles.name}>{author.name}</p>
 
           <div className={styles.bio}>
             {author.bio.map((paragraph, index) => (

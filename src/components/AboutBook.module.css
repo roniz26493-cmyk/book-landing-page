@@ -1,149 +1,70 @@
-.grid,
-.gridSingle {
-  display: grid;
-  gap: clamp(2rem, 1rem + 5vw, 4.5rem);
-  align-items: center;
+/* ==========================================================================
+   על הספר — טור קריאה אחד ופרט אחד מתוך האיור, נמס אל הנייר.
+   בלי מספור, בלי כרטיסים, בלי קווי הפרדה.
+   ========================================================================== */
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
 }
 
-.gridSingle {
-  max-width: var(--container-narrow);
-  margin-inline: auto;
-}
-
-.content {
-  min-width: 0;
+.text {
+  max-width: 34rem;
 }
 
 .title {
   margin: 0 0 var(--space-5);
   color: var(--color-primary);
-  font-size: var(--text-3xl);
-}
-
-.prose {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  color: var(--color-text);
-  font-size: var(--text-lg);
-  line-height: var(--leading-relaxed);
-}
-
-.prose p {
-  margin: 0;
-}
-
-/* ---- ציטוט מודגש ----
-   מרכאות טיפוגרפיות גדולות ושקט רב — לא כרטיס צבעוני, אלא סימון
-   עריכה שמזכיר גיליון מודפס. */
-.pullQuote {
-  position: relative;
-  margin: var(--space-7) 0 0;
-  padding-top: var(--space-5);
-  border-top: 1px solid var(--color-border-strong);
-}
-
-.pullQuote::before {
-  content: '\201D';
-  position: absolute;
-  top: -0.15em;
-  inset-inline-start: 0;
-  color: var(--color-accent);
-  font-family: var(--font-display);
-  font-size: 3.5rem;
-  line-height: 1;
-  opacity: 0.5;
-}
-
-.pullQuote p {
-  margin: 0;
-  padding-inline-start: 2.25rem;
-  color: var(--color-primary);
-  font-family: var(--font-display);
-  font-size: var(--text-2xl);
-  font-weight: 300;
-  line-height: var(--leading-snug);
-}
-
-/* ---- תמונה נוספת ---- */
-.imageWrap {
-  position: relative;
-}
-
-.image {
-  width: 100%;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  object-fit: cover;
-}
-
-@media (min-width: 62rem) {
-  .grid {
-    grid-template-columns: 1.15fr 0.85fr;
-  }
-}
-
-/* ==========================================================================
-   שפה משותפת לכל הרוחבים — "הופכים דף ומתחילים לקרוא".
-   טור קריאה, כותרת שקטה, עצירה טיפוגרפית בלי מרכאות או קו, ופרטים
-   מתוך איור ה-Hero בחיתוכים אחרים, ממוזגים לנייר ונמסים בקצוות.
-   ========================================================================== */
-
-.imageWrap {
-  display: none;
-}
-
-.title {
-  margin: 0 0 var(--space-6);
   font-size: var(--text-2xl);
   font-weight: 500;
   line-height: var(--leading-tight);
 }
 
-.prose {
-  gap: var(--space-5);
+.lead {
+  margin: 0;
+  color: var(--color-text);
   font-size: var(--text-lg);
   line-height: var(--leading-relaxed);
 }
 
-/* הציטוט: עצירה בתוך הקריאה — מוזח פנימה, צר יותר, אוויר סביבו */
-.pullQuote {
-  padding: 0;
-  border: 0;
-}
-
-.pullQuote::before {
-  content: none;
-}
-
-.pullQuote p {
-  padding: 0;
+/* העצירה היחידה: משפט אחד, מעט גדול וקל יותר, מוזח פנימה — בלי מרכאות או קו */
+.pause {
+  max-width: 24rem;
+  margin: var(--space-7) 0 0;
+  margin-inline-start: clamp(1.25rem, 6vw, 4rem);
   color: var(--color-primary);
+  font-family: var(--font-display);
   font-size: var(--text-xl);
   font-weight: 300;
   line-height: 1.6;
 }
 
-/* פרטי האיור: מיזוג לנייר וקצוות נמסים — בלי מסגרת */
-.detail {
-  display: block;
+/* פרט אחד מתוך האיור: הילד הקורא ודפי כתב היד. ממוזג לנייר ונמס בקצוות */
+.art {
+  --crop-x: 440;
+  --crop-y: 20;
+  --crop-w: 420;
+  --crop-h: 430;
+
   position: relative;
+  align-self: flex-end;
+  width: min(80%, 22rem);
+  aspect-ratio: 420 / 430;
   overflow: hidden;
   pointer-events: none;
   user-select: none;
   -webkit-mask-image:
-    linear-gradient(to right, transparent, #000 22%, #000 78%, transparent),
-    linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent);
+    linear-gradient(to right, transparent, #000 20%, #000 80%, transparent),
+    linear-gradient(to bottom, transparent, #000 20%, #000 80%, transparent);
   -webkit-mask-composite: source-in;
   mask-image:
-    linear-gradient(to right, transparent, #000 22%, #000 78%, transparent),
-    linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent);
+    linear-gradient(to right, transparent, #000 20%, #000 80%, transparent),
+    linear-gradient(to bottom, transparent, #000 20%, #000 80%, transparent);
   mask-composite: intersect;
 }
 
-/* החיתוך: התמונה מוגדלת וממוקמת כך שרק האזור הרצוי (בפיקסלי המקור,
-   1100×768) נראה. רוחב = 1100/w, היסט = x0/w, y0/h */
-.detailImg {
+/* חיתוך מתוך האיור (פיקסלי מקור 1100×768): רוחב = 1100/w, היסט = x0/w, y0/h */
+.artImg {
   position: absolute;
   max-width: none;
   width: calc(1100 / var(--crop-w) * 100%);
@@ -153,127 +74,41 @@
   mix-blend-mode: darken;
 }
 
-/* הילד הקורא ופיסות כתב היד */
-.detailChild {
-  --crop-x: 440;
-  --crop-y: 20;
-  --crop-w: 420;
-  --crop-h: 430;
-  aspect-ratio: 420 / 430;
-}
-
-/* האיש המתרחק והענף */
-.detailAdult {
-  --crop-x: 520;
-  --crop-y: 420;
-  --crop-w: 500;
-  --crop-h: 348;
-  aspect-ratio: 500 / 348;
-}
-
-/* ==========================================================================
-   מובייל וטאבלט — רצף קריאה אחד: כותרת ופסקה ראשונה, פרט הילד נכנס,
-   הפסקה השנייה, העצירה (מוזחת פנימה), והאיש המתרחק סוגר.
-   הטקסט "נפתח" אל תוך הרצף כדי שהאיור ישתלב בין הפסקאות.
-   ========================================================================== */
-@media (max-width: 61.99rem) {
-  .grid {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    max-width: 40rem;
+@media (max-width: 47.99rem) {
+  .section {
+    padding-block: var(--space-7) var(--space-8);
   }
 
-  .content,
-  .prose {
-    display: contents;
+  .lead {
+    font-size: var(--text-base);
   }
 
-  .title {
-    order: 1;
-  }
-
-  /* טור קריאה נוח גם בטאבלט — לא לרוחב המסך כולו */
-  .title,
-  .prose p {
-    max-width: 36rem;
-  }
-
-  .prose p:nth-child(1) {
-    order: 2;
-  }
-
-  /* הפרט נכנס מהצד השמאלי, לא ברוחב מלא — א-סימטרי, לא כרטיס */
-  .detailChild {
-    order: 3;
-    align-self: flex-end;
-    width: min(78%, 22rem);
-    margin-block: var(--space-4) var(--space-2);
-  }
-
-  .prose p:nth-child(2) {
-    order: 4;
-  }
-
-  .pullQuote {
-    order: 5;
-    max-width: 22rem;
-    margin: var(--space-8) 0 0;
-    margin-inline-start: clamp(1.25rem, 6vw, 3rem);
-  }
-
-  .detailAdult {
-    order: 6;
-    align-self: center;
-    width: min(88%, 26rem);
-    margin-top: var(--space-5);
+  .art {
+    margin-top: calc(var(--space-4) * -1);
   }
 }
 
-/* ==========================================================================
-   דסקטופ — קומפוזיציה א-סימטרית אחת: טור קריאה מימין, ופרטים מתוך איור
-   ה-Hero משמאל — הילד בתחילת הקריאה, האיש המתרחק בסופה.
-   הרקע זהה ל-Hero והריווח העליון קצר, כך שהאיור "נמס" אל הדף הבא.
-   ========================================================================== */
+/* דסקטופ: הטקסט מימין על קו הפתיחה של האתר, הפרט משמאל ומעט נמוך ממנו */
 @media (min-width: 62rem) {
   .section {
-    padding-top: clamp(1rem, 2vw, 2.5rem);
-    padding-bottom: clamp(4rem, 5vw, 5.5rem);
+    padding-block: 3rem 6rem;
   }
 
-  .grid {
+  .layout {
+    display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: 1.5rem;
-    row-gap: 0;
     align-items: start;
   }
 
-  /* טור הקריאה — עמודה אחת ברוחב ~50 תווים לשורה, צמודה לימין (תחילת השורה) */
-  .content {
+  .text {
     grid-column: 2 / 7;
-    grid-row: 1;
   }
 
-  /* מוזח פנימה יותר מהגוף ובמידה צרה יותר — עצירה, לא פסקה שלישית */
-  .pullQuote {
-    max-width: 22.5rem;
-    margin: var(--space-8) 0 0;
-    margin-inline-start: 8rem;
-  }
-
-  /* עמודה אחת פנימה, אל עבר הטקסט — לא עמודת תמונה נפרדת בקצה */
-  .detailChild {
-    grid-column: 7 / 12;
-    grid-row: 1;
+  .art {
+    grid-column: 8 / 12;
+    align-self: center;
+    width: 100%;
     margin-top: var(--space-8);
-  }
-
-  /* האיש המתרחק והענף — עולה לצד שורות הציטוט האחרונות (מתחת לפרט
-     הילד, בלי לגעת בו). קצה שמאלי שונה מזה של הילד */
-  .detailAdult {
-    grid-column: 8 / 13;
-    grid-row: 2;
-    margin-top: -7rem;
   }
 }

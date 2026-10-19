@@ -9,7 +9,18 @@
   transition:
     background-color var(--transition),
     box-shadow var(--transition),
-    backdrop-filter var(--transition);
+    backdrop-filter var(--transition),
+    transform 520ms var(--ease-out),
+    opacity 520ms var(--ease-out),
+    visibility 520ms var(--ease-out);
+}
+
+/* בראש העמוד: מוסתרת לגמרי (גם מקלדת וקוראי מסך לא נכנסים אליה);
+   בתחילת הגלילה נכנסת בעדינות מלמעלה */
+.header[data-visible='false'] {
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
 }
 
 .header[data-scrolled='true'],

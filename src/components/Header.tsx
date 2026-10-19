@@ -6,8 +6,15 @@ import styles from './Header.module.css'
 
 const { book, nav } = bookConfig
 
+/**
+ * הניווט המצומצם: רק האזורים שמוצגים בעמוד (bookConfig.nav, משותף עם הפוטר).
+ * "רכישה" מסומן בצבע החלודה.
+ */
+const headerNav = nav.map((link) => ({ ...link, accent: link.target === 'purchase' }))
+
 export function Header() {
-  const isScrolled = useScrollPast(40)
+  // מופיעה אחרי שהספר ב-Hero כבר התחיל להתיישב — חלק מאותו מעבר אל האתר
+  const isScrolled = useScrollPast(120)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   // נעילת גלילת הרקע כשהתפריט הנייד פתוח + סגירה ב-Escape
@@ -32,6 +39,8 @@ export function Header() {
     <header
       className={styles.header}
       data-scrolled={isScrolled}
+      /* בראש העמוד הכותרת מוסתרת — המסך הראשון נקי. מופיעה בתחילת הגלילה */
+      data-visible={isScrolled || isMenuOpen}
       data-menu-open={isMenuOpen}
     >
       <div className={`container ${styles.bar}`}>
@@ -43,19 +52,18 @@ export function Header() {
 
         <nav className={styles.desktopNav} aria-label="ניווט ראשי">
           <ul className={styles.navList}>
-            {nav.map((link) => (
+            {headerNav.map((link) => (
               <li key={link.target}>
-                <a className={styles.navLink} href={`#${link.target}`}>
+                <a
+                  className={
+                    link.accent ? `${styles.navLink} ${styles.navLinkAccent}` : styles.navLink
+                  }
+                  href={`#${link.target}`}
+                >
                   {link.label}
                 </a>
               </li>
             ))}
-            {/* רכישה כקישור ניווט שקט — לא כפתור */}
-            <li>
-              <a className={`${styles.navLink} ${styles.navLinkAccent}`} href="#purchase">
-                להזמנת הספר
-              </a>
-            </li>
           </ul>
         </nav>
 
@@ -82,10 +90,10 @@ export function Header() {
       >
         <nav aria-label="ניווט נייד">
           <ul className={styles.mobileList}>
-            {nav.map((link) => (
+            {headerNav.map((link) => (
               <li key={link.target}>
                 <a
-                  className={styles.mobileLink}
+                  className={link.accent ? styles.mobileCta : styles.mobileLink}
                   href={`#${link.target}`}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -93,15 +101,6 @@ export function Header() {
                 </a>
               </li>
             ))}
-            <li>
-              <a
-                className={styles.mobileCta}
-                href="#purchase"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                להזמנת הספר
-              </a>
-            </li>
           </ul>
         </nav>
       </div>

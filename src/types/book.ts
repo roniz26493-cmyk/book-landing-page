@@ -89,6 +89,16 @@ export interface NavLink {
 
 export interface BookConfig {
   /** הגדרות לסימון תוכן זמני */
+  /**
+   * הספר בעולם — רצועת צילומים אמיתיים של הספר שזזה לאט, ותגובות קוראים
+   * אמיתיות מתחתיה. מערכים ריקים = מוצגים מקומות שמורים בפיתוח בלבד
+   * (כש-placeholders.showMarks הוא true), ובאתר החי האזור מוסתר.
+   */
+  bookInWorld: {
+    photos: { src: string; alt: string }[]
+    reactions: { text: string; attribution: string }[]
+  }
+
   placeholders: {
     /**
      * true = יוצגו תגיות קטנות "תוכן זמני" ליד אזורים עם placeholder.
@@ -105,9 +115,15 @@ export interface BookConfig {
     heroEyebrow: string
     /** השורה התומכת המרכזית מתחת לכריכה ב-Hero */
     heroLead: string
-    /** משפט/ציטוט קצר שני, מתחת ל-heroLead */
+    /** המשפט התומך ב-Hero. "\n" = שבירת שורה מכוונת */
     heroTagline: string
-    /** תיאור הספר — אזור "על הספר" */
+    /** ההבטחה הרגשית — המסר הראשי ב-Hero. "\n" = שבירת שורה מכוונת */
+    heroPromise: string
+    /** הזמנה שקטה להמשיך לגלול, בתחתית המסך הראשון במובייל */
+    heroScrollCue: string
+    /** כותרת אזור "על הספר" */
+    aboutTitle: string
+    /** תיאור הספר — אזור "על הספר". מוצגת רק הפסקה הראשונה; השאר נשמר כמקור */
     description: string[]
     /** משפט מודגש טיפוגרפית באזור "על הספר". ריק = לא יוצג */
     pullQuote: string
@@ -125,6 +141,8 @@ export interface BookConfig {
   }
 
   author: {
+    /** כותרת אזור המחבר, למשל "על הסופר" */
+    sectionTitle: string
     name: string
     /** תיאור תפקיד קצר, למשל "סופר ומשורר" */
     role: string
@@ -163,6 +181,16 @@ export interface BookConfig {
     storesPendingNotice: string
     /** מחיר — ריק = לא יוצג בשום מקום */
     price: string
+    /** הערה שקטה ליד המחיר ב-Hero, למשל "מחיר השקה". ריק = לא תוצג */
+    priceNote: string
+    /** הפעולה הראשית מיד אחרי ה-Hero — גוללת לאזור הרכישה */
+    primaryCta: string
+    /** דרך א׳: רכישה ישירה מהסופר בוואטסאפ */
+    directTitle: string
+    directNote: string
+    /** דרך ב׳: חנויות דיגיטליות, נחשפות בלחיצה */
+    storesTitle: string
+    storesToggle: string
   }
 
   peek: {

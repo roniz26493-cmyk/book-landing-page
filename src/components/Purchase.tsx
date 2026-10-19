@@ -1,24 +1,34 @@
+import { useState } from 'react'
 import { bookConfig } from '../data/bookConfig'
 import { ExternalIcon, WhatsAppIcon } from './ui/Icons'
 import { Reveal } from './ui/Reveal'
 import { Section } from './ui/Section'
-import { SectionFolio } from './ui/SectionFolio'
 import { isWhatsappReady, whatsappLink } from './ui/WhatsAppOrderButton'
 import styles from './Purchase.module.css'
 
-const { purchase, whatsapp, shipping, book } = bookConfig
+const { purchase, shipping, book } = bookConfig
 
+/**
+ * רכישה — הספר, המחיר, ושתי דרכים בלבד:
+ *  א. ישירות מול הסופר בוואטסאפ (לתושבי השרון) — הדרך החמה.
+ *  ב. חנויות הספרים הדיגיטליות — מוסתרות מאחורי לחיצה אחת.
+ */
 export function Purchase() {
-  const hasActiveStore = purchase.stores.some((store) => store.url.trim() !== '')
+  const [storesOpen, setStoresOpen] = useState(false)
 
   return (
     <Section id="purchase" tone="alt" className={styles.section}>
-      <SectionFolio className={styles.folio} number="05" label="רכישה" />
       <div className={styles.opening}>
         <div className={styles.header}>
           <h2 className={styles.title}>{purchase.title}</h2>
-          {purchase.intro && <p className={styles.intro}>{purchase.intro}</p>}
-          {purchase.price && <p className={styles.price}>{purchase.price}</p>}
+          {purchase.price && (
+            <p className={styles.price}>
+              {purchase.price}
+              {purchase.priceNote && (
+                <span className={styles.priceNote}> · {purchase.priceNote}</span>
+              )}
+            </p>
+          )}
         </div>
 
         {/* הכריכה המלאה — המוצר עצמו, כספר פיזי */}
@@ -38,41 +48,12 @@ export function Purchase() {
         </div>
       </div>
 
-      <div className={styles.split}>
-        {/* ---- א. חנויות ואתרי מכירה ---- */}
-        <Reveal className={`${styles.column} ${styles.retail}`} id="stores">
-          <h3 className={styles.columnTitle}>רכישה באתרי המכירה</h3>
-          <p className={styles.columnText}>
-            זמין לכל הארץ, בהתאם לתנאי המשלוח של כל חנות.
-          </p>
-
-          <ul className={styles.storeList}>
-            {purchase.stores.map((store) => (
-              <li key={store.id}>
-                <StoreButton store={store} />
-              </li>
-            ))}
-          </ul>
-
-          {!hasActiveStore && (
-            <p className={styles.pendingNotice}>{purchase.storesPendingNotice}</p>
-          )}
-        </Reveal>
-
-        {/* ---- ב. הזמנה ישירה בוואטסאפ ---- */}
-        <Reveal className={`${styles.column} ${styles.direct}`} delay={120}>
-          <h3 className={styles.columnTitle}>הזמנה ישירה מהמחבר</h3>
-          <p className={styles.columnText}>
-            שיחה ישירה בוואטסאפ עם המחבר, עם הודעה מוכנה מראש.
-          </p>
-
-          <p className={styles.areaNotice}>{whatsapp.areaNotice}</p>
-
+      <div className={styles.paths}>
+        {/* ---- א. ישירות מול הסופר ---- */}
+        <Reveal className={`${styles.path} ${styles.direct}`}>
+          <h3 className={styles.pathTitle}>{purchase.directTitle}</h3>
+          <p className={styles.pathNote}>{purchase.directNote}</p>
           <DirectOrderLink />
-
-          <p className={styles.fineprint}>
-            מחוץ לאזור השרון ניתן לרכוש את הספר דרך אתרי המכירה.
-          </p>
 
           {shipping.enabled && shipping.items.length > 0 && (
             <ul className={styles.shippingList}>
@@ -81,6 +62,31 @@ export function Purchase() {
               ))}
             </ul>
           )}
+        </Reveal>
+
+        {/* ---- ב. חנויות דיגיטליות — נחשפות בלחיצה ---- */}
+        <Reveal className={`${styles.path} ${styles.stores}`} id="stores" delay={120}>
+          <h3 className={styles.pathTitle}>{purchase.storesTitle}</h3>
+          <button
+            type="button"
+            className={styles.toggle}
+            aria-expanded={storesOpen}
+            aria-controls="store-list"
+            onClick={() => setStoresOpen((open) => !open)}
+          >
+            {purchase.storesToggle}
+            <span className={styles.toggleMark} aria-hidden="true">
+              {storesOpen ? '−' : '+'}
+            </span>
+          </button>
+
+          <ul id="store-list" className={styles.storeList} hidden={!storesOpen}>
+            {purchase.stores.map((store) => (
+              <li key={store.id}>
+                <StoreButton store={store} />
+              </li>
+            ))}
+          </ul>
         </Reveal>
       </div>
     </Section>
@@ -93,7 +99,7 @@ export function Purchase() {
  * המספר בקונפיג אינו תקין — מוצג במצב לא-פעיל, בלי קישור שבור ובלי
  * הערה טכנית למבקרים.
  */
-function DirectOrderLink() {
+export function DirectOrderLink() {
   const label = 'להזמנה ישירה בוואטסאפ'
 
   if (!isWhatsappReady) {
@@ -123,7 +129,7 @@ function DirectOrderLink() {
  * כפתור חנות בודדת.
  * חנות ללא קישור מוצגת כלא-פעילה עם התווית "בקרוב" — בלי קישור שבור.
  */
-function StoreButton({ store }: { store: (typeof purchase.stores)[number] }) {
+export function StoreButton({ store }: { store: (typeof purchase.stores)[number] }) {
   const url = store.url.trim()
 
   const inner = (

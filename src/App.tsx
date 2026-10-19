@@ -3,14 +3,14 @@ import { bookConfig } from './data/bookConfig'
 import { applyBrandColors } from './lib/applyBrandColors'
 import { AboutAuthor } from './components/AboutAuthor'
 import { AboutBook } from './components/AboutBook'
-import { Faq } from './components/Faq'
+import { BookInWorld } from './components/BookInWorld'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { Peek } from './components/Peek'
+import { PrimaryCta } from './components/PrimaryCta'
 import { Purchase } from './components/Purchase'
-import { ReaderHighlights } from './components/ReaderHighlights'
-import { StickyWhatsApp } from './components/StickyWhatsApp'
+import { StickyBook } from './components/StickyBook'
 
 export default function App() {
   // הפלטה מהקונפיג נכתבת כמשתני CSS על :root
@@ -33,17 +33,20 @@ export default function App() {
       <Header />
 
       <main id="main">
+        {/* ספר → רכישה → הספר בעולם → תגובות → הסופר → הספר → רכישה.
+            "מה מחכה לקוראים" ו"שאלות נפוצות" הוצאו מהעמוד (הרכיבים נשמרו).
+            "הצצה" מוסתרת דרך peek.enabled בקונפיג. */}
         <Hero />
-        <AboutBook />
-        <ReaderHighlights />
-        <Peek />
+        <PrimaryCta />
+        <BookInWorld />
         <AboutAuthor />
+        <AboutBook />
+        <Peek />
         <Purchase />
-        <Faq />
       </main>
 
       <Footer />
-      <StickyWhatsApp />
+      <StickyBook />
     </>
   )
 }

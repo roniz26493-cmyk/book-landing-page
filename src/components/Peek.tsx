@@ -30,7 +30,8 @@ export function Peek() {
       )}
 
       <div className={styles.pages}>
-        {peek.excerpts.map((excerpt, index) => (
+        {/* קטע אחד בלבד */}
+        {peek.excerpts.slice(0, 1).map((excerpt, index) => (
           <Reveal
             as="article"
             key={excerpt.id}

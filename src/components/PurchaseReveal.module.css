@@ -1,0 +1,164 @@
+/* ==========================================================================
+   רגע הרכישה המדורג — לפני לחיצה: פעולה טיפוגרפית אחת. אחרי: שתי דרכים
+   מודפסות בדף, בלי כרטיסים, בלי מסגרות, בלי מודאל.
+   ========================================================================== */
+.reveal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* הפעולה: גדולה, בצבע החלודה, קו תחתון מלא — לא כפתור מלא. 52px לחיצה */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-height: 3.25rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 1.05rem + 1.6vw, 1.9rem);
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: start;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.ctaLabel {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-accent) 50%, transparent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.3em;
+  transition: text-decoration-color var(--transition-fast);
+}
+
+/* החץ פונה קדימה (שמאלה); כשהבחירות פתוחות הוא פונה מטה, אליהן */
+.ctaArrow {
+  display: inline-block;
+  transition: transform var(--transition);
+}
+
+.cta:hover,
+.cta:focus-visible {
+  color: var(--color-accent-strong);
+}
+
+.cta:hover .ctaLabel,
+.cta:focus-visible .ctaLabel {
+  text-decoration-color: currentColor;
+}
+
+.cta:hover .ctaArrow {
+  transform: translateX(-0.3em);
+}
+
+.reveal[data-open='true'] .ctaArrow {
+  transform: rotate(-90deg);
+}
+
+/* ---- פתיחה חלקה בגובה (grid 0fr → 1fr) — בלי קפיצה ובלי מספרים קבועים ---- */
+.fold {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 480ms var(--ease-out),
+    opacity 360ms var(--ease-out);
+}
+
+.reveal[data-open='true'] > .fold,
+.fold[data-open='true'] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.foldInner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ---- שתי הדרכים ---- */
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding-top: var(--space-5);
+  padding-inline-start: var(--space-1);
+}
+
+.price {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.path {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.pathTitle {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: var(--text-lg);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.pathNote {
+  margin: var(--space-1) 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+/* מתג החנויות: שורת טקסט עם + בצבע החלודה — לא אקורדיון */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-height: 2.75rem;
+  margin-top: var(--space-1);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 30%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.35em;
+}
+
+.toggle:hover,
+.toggle:focus-visible {
+  text-decoration-color: currentColor;
+}
+
+.toggleMark {
+  display: inline-block;
+  min-width: 0.8em;
+  color: var(--color-accent);
+  font-size: 1.15em;
+}
+
+.storeList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: var(--space-2) 0 0;
+  padding-inline-start: var(--space-4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fold,
+  .ctaArrow {
+    transition: none;
+  }
+}

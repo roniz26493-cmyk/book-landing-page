@@ -1,384 +1,609 @@
+/* ==========================================================================
+   המסך הראשון — מימוש העיצוב המאושר (public/images/hero-approved-reference.png).
+   דסקטופ: ספר פיזי עומד על משטח אבן באור יום רך, צלליות ענפים בקצה,
+   וטיפוגרפיה עריכתית משמאלו. כל האווירה — שכבות דקורטיביות נפרדות.
+   מובייל: הכריכה המלאה כמסך הראשון (ללא שינוי בקומפוזיציה).
+   ========================================================================== */
 .hero {
+  /* גופן כותרת סריפי עברי — לכותרת ה-Hero בלבד */
+  --font-hero: 'Frank Ruhl Libre', var(--font-display), serif;
+  --wall: #f4ede3;
+  --wall-light: #f8f2e8;
+  --stone: #ebdccc;
+
   position: relative;
-  padding-top: calc(var(--header-height) + clamp(2rem, 1rem + 5vw, 3.5rem));
-  padding-bottom: clamp(3rem, 2rem + 5vw, 5rem);
+  overflow: hidden;
   background: var(--color-bg);
   color: var(--color-text);
 }
 
-.inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+/* ---- ההבטחה: שורות; "עליכם" — חלודה, עם קו מכחול דק ---- */
+.promise,
+.immersivePromise {
+  font-family: var(--font-hero);
 }
 
-/* ---- מידע הוצאה לאור (במובייל: כיתוב-על מעל הכריכה) ---- */
-.byline {
-  margin: 0 0 clamp(1.75rem, 1.25rem + 2vw, 2.75rem);
-  color: var(--color-text-muted);
-  font-size: var(--text-xs);
-  font-weight: 700;
-  letter-spacing: 0.16em;
-}
-
-.composition {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-/* ---- במה לכריכה ---- */
-.coverStage {
-  position: relative;
-  display: flex;
-  justify-content: center;
-}
-
-.fragment {
-  position: absolute;
-  inset-inline-start: -8%;
-  bottom: -6%;
-  width: 30%;
-  max-width: 8rem;
-  height: auto;
-  z-index: 0;
-  transform: rotate(-6deg);
-  opacity: 0.9;
-  pointer-events: none;
-  user-select: none;
-}
-
-.coverFrame {
-  position: relative;
-  z-index: 1;
-  width: min(76vw, 21rem);
-  transform: rotate(-0.7deg);
-  box-shadow: var(--shadow-cover);
-  animation: coverIn 900ms var(--ease-out) both;
-}
-
-.cover {
+.promise span,
+.support span {
   display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1100 / 1762;
-  object-fit: cover;
-  background: var(--color-sand);
 }
 
-/* האיור הגדול והפעולה הטיפוגרפית — דסקטופ בלבד בשלב זה */
-.art,
-.cta {
+.accent {
+  position: relative;
+  display: inline-block;
+  color: var(--color-accent);
+  font-style: normal;
+}
+
+.underline {
+  position: absolute;
+  left: 30%;
+  bottom: -0.16em;
+  width: 46%;
+  height: 0.13em;
+  overflow: visible;
+  fill: currentColor;
+  opacity: 0.9;
+}
+
+/* ==========================================================================
+   הבמה (טאבלט ודסקטופ). במובייל מוסתרת — שם הכריכה המלאה
+   ========================================================================== */
+.stage,
+.atmosphere {
   display: none;
 }
 
-.coverNote {
-  margin-top: var(--space-4);
+/* ---- תנועת הספר: גלילה ועכבר על התמונה כיחידה אחת, דו-ממדית ועדינה ---- */
+.bookStage {
+  --move-rz: 0.6deg;
+  --move-x: -6px;
+  --move-y: 14px;
+  --enter-y: 20px;
+
+  animation: bookFade 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
-@keyframes coverIn {
+.bookMotion {
+  position: relative;
+  transform: translate3d(
+      calc(var(--scroll, 0) * var(--move-x) + var(--px, 0) * 3px),
+      calc(var(--scroll, 0) * var(--move-y) + var(--py, 0) * 2px),
+      0
+    )
+    rotate(calc(var(--scroll, 0) * var(--move-rz)));
+  will-change: transform;
+}
+
+.book {
+  position: relative;
+  animation: bookIn 1300ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.mockup {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 640 / 1044;
+}
+
+/* צל מגע רך מתחת לבסיס הספר, ונמשך מעט לאחור (ימינה) על המשטח */
+.bookShadow {
+  position: absolute;
+  z-index: 0;
+  left: 1%;
+  right: -30%;
+  bottom: -1.2%;
+  height: 4.5%;
+  background:
+    radial-gradient(ellipse 46% 40% at 38% 55%, rgba(60, 44, 30, 0.5), transparent 75%),
+    radial-gradient(ellipse 60% 55% at 62% 45%, rgba(90, 70, 50, 0.22), transparent 80%);
+  filter: blur(5px);
+  pointer-events: none;
+}
+
+@keyframes bookFade {
   from {
     opacity: 0;
-    transform: rotate(-0.7deg) translateY(18px);
   }
   to {
     opacity: 1;
-    transform: rotate(-0.7deg) translateY(0);
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .coverFrame {
-    animation: none;
+@keyframes bookIn {
+  from {
+    transform: translateY(var(--enter-y));
+  }
+  to {
+    transform: none;
   }
 }
 
-/* h1 נגיש בלבד — לא מוצג חזותית, שם הספר כבר קורא בבירור מהכריכה עצמה */
-.srTitle {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border: 0;
+/* ---- כניסה מדורגת של הטקסט ---- */
+.promise span,
+.support,
+.reveal {
+  animation: riseIn 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
-/* ---- טקסט ---- */
-.textStage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-4);
-  max-width: 26rem;
-  margin-top: clamp(2rem, 1.5rem + 2vw, 3rem);
+.promise span:nth-child(1) {
+  animation-delay: 380ms;
 }
 
-.lead {
-  margin: 0;
-  color: var(--color-primary);
-  font-family: var(--font-display);
-  font-size: var(--text-xl);
-  font-weight: 500;
-  line-height: var(--leading-snug);
+.promise span:nth-child(2) {
+  animation-delay: 470ms;
 }
 
-/* משקל קליל במקום נטייה מלאכותית — עברית לא סובלת italic מזויף היטב */
-.quote {
-  margin: 0;
-  color: var(--color-text-muted);
-  font-family: var(--font-display);
-  font-size: var(--text-base);
-  font-weight: 300;
-  line-height: var(--leading-relaxed);
+.support {
+  animation-delay: 680ms;
 }
 
-.actions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-4);
-  margin-top: var(--space-3);
+.reveal {
+  animation-delay: 820ms;
 }
 
-/* ==========================================================================
-   דסקטופ — "הספר נפתח אל העולם שלו"
-   קנבס אחד מכוון-אמנותית: האיור מהכריכה ממלא את הצד הימני ונחתך ע"י קצה
-   המסך; הפנים מביטות שמאלה, והטקסט יושב במרחב שאליו הן מביטות. הכריכה
-   הפיזית — קטנה יותר — בתחתית האיור, כמקור שממנו הוא התרחב.
-   המיקום פיזי (left/right) בכוונה: הוא נגזר מכיוון המבט באיור, לא מכיוון הקריאה.
-   ========================================================================== */
-@media (min-width: 62rem) {
-  .hero {
-    --art-left: 39vw; /* קצה האיור השמאלי; האיור גולש 8vw מעבר לקצה הימני */
-    /* קצה הטקסט הימני (תחילת השורה) — מעט לפני קצה האף שבאיור */
-    --text-edge: calc(var(--art-left) + 3.6vw);
-
-    height: max(100svh, 40rem);
-    padding: 0;
-    overflow: hidden;
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
   }
-
-  /* ---- האיור: גדול מהמסך, נחתך בקצה הימני ונמס בתחתית ---- */
-  .art {
-    display: block;
-    position: absolute;
-    top: var(--header-height-desktop);
-    left: var(--art-left);
-    width: calc(100vw - var(--art-left) + 8vw);
-    pointer-events: none;
-    user-select: none;
-  }
-
-  /* darken: נייר האיור (בהיר וחם מעט יותר) מתיישר לצבע הדף. המסכה רק
-     מרככת את הקצוות הגלויים — היא לא שכבת צבע. */
-  .artImg {
-    display: block;
-    width: 100%;
-    height: auto;
-    mix-blend-mode: darken;
-    -webkit-mask-image:
-      linear-gradient(to right, transparent, #000 8%),
-      linear-gradient(to bottom, transparent, #000 6%, #000 60%, transparent 98%);
-    -webkit-mask-composite: source-in;
-    mask-image:
-      linear-gradient(to right, transparent, #000 8%),
-      linear-gradient(to bottom, transparent, #000 6%, #000 60%, transparent 98%);
-    mask-composite: intersect;
-  }
-
-  /* ---- מבנה: האלמנטים ממוקמים ישירות ביחס לקנבס ---- */
-  .inner,
-  .composition {
-    display: block;
-  }
-
-  /* הכריכה המלאה לא מוצגת ב-Hero בדסקטופ — עמוד פתיחה, לא תצוגת מוצר */
-  .coverStage {
-    display: none;
-  }
-
-  /* ---- טקסט: תחילת השורה צמודה לפנים, והשורות נקראות הלאה בכיוון
-     המבט. קו העליון בגובה השפתיים. ---- */
-  .textStage {
-    position: absolute;
-    z-index: 2;
-    top: calc(28% + 25px);
-    right: calc(100vw - var(--text-edge) + 40px);
-    display: block;
-    width: min(30rem, var(--text-edge) - 6rem);
-    max-width: none;
-    margin: 0;
-    text-align: start;
-  }
-
-  .lead {
-    /* בין 62rem ל־~90rem השורות (nowrap) מתכווצות עם הרוחב כדי לא לגלוש */
-    font-size: min(var(--text-3xl) * 0.95, 2.8vw);
-    font-weight: 500;
-    line-height: 1.22;
-    letter-spacing: -0.005em;
-  }
-
-  /* שבירת השורות מכוונת — לא נותנים לרוחב לשבור אותן מחדש */
-  .lead span {
-    display: block;
-    white-space: nowrap;
-  }
-
-  .quote {
-    max-width: 20rem;
-    margin-top: var(--space-5);
-  }
-
-  .actions,
-  .fragment {
-    display: none;
-  }
-
-  /* ---- פעולה אחת, טיפוגרפית: טקסט בלבד, קו תחתון עדין רק במעבר ---- */
-  .cta {
-    display: inline-block;
-    margin-top: var(--space-5);
-    color: var(--color-accent);
-    font-family: var(--font-body);
-    font-size: var(--text-base);
-    font-weight: 500;
-    text-decoration: underline;
-    text-decoration-color: transparent;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.3em;
-    transition:
-      color var(--transition-fast),
-      text-decoration-color var(--transition-fast);
-  }
-
-  .cta:hover,
-  .cta:focus-visible {
-    color: var(--color-accent-strong);
-    text-decoration-color: currentColor;
-  }
-
-  /* קרדיט ההוצאה לא מוצג ב-Hero בדסקטופ */
-  .byline {
-    display: none;
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
 /* ==========================================================================
-   מובייל וטאבלט — אותה שפה כמו בדסקטופ, בצורה אנכית.
-   האיור מגיע ראשון, בחיתוך שמתמקד בפנים, בילד ובדפי כתב-היד (הפנים
-   מביטות שמאלה, אל הטקסט שמתחתיהן), ונמס בתחתיתו אל הדף. מתחתיו
-   הכותרת בשתי שורותיה, הפסקה השקטה, ופעולה טיפוגרפית אחת.
-   בלי כריכה, בלי כפתור מלא ובלי קישור משני — כמו בדסקטופ.
+   טאבלט ודסקטופ — הקומפוזיציה המאושרת.
+   הפריסה נמדדה מהרפרנס (1722×913) ובנויה ביחסים: טור טקסט 15–47% מהרוחב,
+   ספר 57–81%, קו האופק של המשטח ב-~77% מהגובה. הגריד ב-LTR לצורך הפריסה
+   בלבד; התוכן עצמו RTL.
    ========================================================================== */
-@media (max-width: 61.99rem) {
+@media (min-width: 48rem) {
   .hero {
-    padding-top: var(--header-height);
-    padding-bottom: clamp(3rem, 2rem + 4vw, 4.5rem);
+    background:
+      radial-gradient(ellipse 60% 55% at 62% 30%, var(--wall-light), transparent 70%),
+      linear-gradient(to right, #f2eae0, var(--wall) 40%, var(--wall-light) 75%, #f3ebe0);
   }
 
-  /* ---- האיור: חיתוך (פיקסלי מקור 1100×768) — x 40–760, y 0–690 ---- */
-  .art {
-    --crop-x: 40;
-    --crop-y: 0;
-    --crop-w: 720;
-    --crop-h: 690;
-
+  /* ---- אווירה: שכבות דקורטיביות, לא לחיצות ---- */
+  .atmosphere {
     display: block;
-    position: relative;
-    width: 100%;
-    max-width: 40rem;
-    margin-inline: auto;
-    aspect-ratio: 720 / 690;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
     overflow: hidden;
     pointer-events: none;
     user-select: none;
-    -webkit-mask-image:
-      linear-gradient(to right, transparent, #000 10%, #000 90%, transparent),
-      linear-gradient(to bottom, #000 62%, transparent);
-    -webkit-mask-composite: source-in;
-    mask-image:
-      linear-gradient(to right, transparent, #000 10%, #000 90%, transparent),
-      linear-gradient(to bottom, #000 62%, transparent);
-    mask-composite: intersect;
   }
 
-  .artImg {
+  .atmosphere > span {
+    position: absolute;
+    display: block;
+  }
+
+  /* אור יום אלכסוני רך מימין-למעלה — פסים בהירים מטושטשים */
+  .daylight {
+    top: -10%;
+    right: -6%;
+    width: 62%;
+    height: 85%;
+    background: repeating-linear-gradient(
+      118deg,
+      rgba(255, 253, 248, 0.75) 0 4.5rem,
+      transparent 4.5rem 6rem,
+      rgba(160, 136, 108, 0.1) 6rem 9rem,
+      transparent 9rem 10.5rem
+    );
+    -webkit-mask-image: radial-gradient(ellipse 60% 60% at 70% 30%, #000 20%, transparent 75%);
+    mask-image: radial-gradient(ellipse 60% 60% at 70% 30%, #000 20%, transparent 75%);
+    filter: blur(22px);
+  }
+
+  /* משטח האבן: מתחת לקו האופק, טון חם מעט יותר, קצה עליון רך */
+  .surface {
+    left: 0;
+    right: 0;
+    top: 74.5%;
+    bottom: 0;
+    background:
+      radial-gradient(ellipse 40% 55% at 30% 55%, rgba(255, 249, 240, 0.55), transparent 70%),
+      radial-gradient(ellipse 35% 50% at 72% 45%, rgba(255, 249, 240, 0.45), transparent 70%),
+      linear-gradient(
+        to bottom,
+        transparent,
+        #f6eee4 8%,
+        #f9f2e9 30%,
+        #f5ece1 100%
+      );
+  }
+
+  /* הצל הגדול על המשטח: רוב החלק התחתון בצל קריר, וקצהו עולה בעדינות
+     מתחתית-שמאל אל בסיס הספר — מעליו פס אור שמש צר */
+  .floorShadow {
+    left: -2%;
+    width: 84%;
+    top: 74%;
+    bottom: -4%;
+    background: linear-gradient(
+      175deg,
+      transparent 0 34%,
+      rgba(150, 130, 116, 0.5) 50%,
+      rgba(150, 130, 116, 0.56) 100%
+    );
+    -webkit-mask-image: linear-gradient(to right, #000 70%, transparent);
+    mask-image: linear-gradient(to right, #000 70%, transparent);
+    filter: blur(9px);
+  }
+
+  /* צלליות הענפים: אותו ענף מאיור הספר, הופך לצל חום-זית חמים
+     (מזג "multiply": הנייר נעלם, העלים מצלים), מטושטש בעומקים שונים */
+  .leaves {
+    --crop-x: 820;
+    --crop-y: 250;
+    --crop-w: 280;
+    --crop-h: 518;
+
+    overflow: hidden;
+    aspect-ratio: 280 / 518;
+    -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 45%, transparent 100%);
+    mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 45%, transparent 100%);
+  }
+
+  /* חיתוך (פיקסלי מקור 1100×768): רוחב = 1100/w, היסט = x0/w, y0/h */
+  .leaves img {
     position: absolute;
     max-width: none;
     width: calc(1100 / var(--crop-w) * 100%);
     left: calc(var(--crop-x) / var(--crop-w) * -100%);
     top: calc(var(--crop-y) / var(--crop-h) * -100%);
     height: auto;
-    mix-blend-mode: darken;
+    mix-blend-mode: multiply;
   }
 
-  /* ---- הטקסט: נכנס אל התחתית הנמסה של האיור, מיושר לימין ---- */
-  .inner {
-    align-items: stretch;
-    text-align: start;
-    margin-top: clamp(-4rem, -10vw, -2rem);
+  .leavesFar {
+    top: 10%;
+    right: -5%;
+    width: 24%;
+    opacity: 0.4;
+    transform: rotate(-12deg);
   }
 
-  .byline,
-  .coverStage,
-  .actions {
-    display: none;
+  .leavesFar img {
+    filter: grayscale(1) brightness(0.6) contrast(6) sepia(1) saturate(0.75) blur(5px);
   }
 
-  .composition {
-    align-items: stretch;
+  .leavesNear {
+    bottom: -14%;
+    right: -6%;
+    width: 21%;
+    opacity: 0.45;
+    transform: rotate(8deg) scaleX(-1);
   }
 
-  .textStage {
+  .leavesNear img {
+    filter: grayscale(1) brightness(0.6) contrast(6) sepia(1) saturate(0.75) blur(3px);
+  }
+
+  /* ---- הבמה ---- */
+  .stage {
     position: relative;
     z-index: 1;
-    align-items: flex-start;
-    gap: 0;
-    max-width: 34rem;
-    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    /* טאבלט: גובה מוגבל, כדי שבמסך לאורך לא ייווצר שטח ריק */
+    min-height: clamp(36rem, 100svh, 46rem);
   }
 
-  .lead {
-    font-size: clamp(1.6rem, 1rem + 2.6vw, 2.25rem);
+  /* כותרת-על: שם הספר מימין, קו דק, שם המחבר משמאל */
+  .masthead {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.25rem, 1.8vw, 2.25rem);
+    padding: clamp(2rem, 4.2vw, 4.25rem) clamp(1.5rem, 6.6vw, 7.5rem) 0;
+    color: var(--color-primary);
+    font-family: var(--font-display);
+    font-size: clamp(0.95rem, 1.25vw, 1.4rem);
     font-weight: 500;
-    line-height: 1.25;
-    letter-spacing: -0.005em;
+    letter-spacing: 0.18em;
+    line-height: 1;
+    white-space: nowrap;
   }
 
-  /* שבירת השורות המכוונת נשמרת; אם השורה ארוכה מהמסך — היא נשברת שוב */
-  .lead span {
+  .mastRule {
+    flex: 1 1 auto;
+    height: 1px;
+    background: color-mix(in srgb, var(--color-primary) 38%, transparent);
+  }
+
+  .mastAuthor {
+    color: var(--color-text-muted);
+    font-weight: 400;
+  }
+
+  .layout {
+    direction: ltr;
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-columns: 8fr 46fr 4fr 33fr 9fr;
+    align-items: center;
+  }
+
+  .text,
+  .bookStage {
+    direction: rtl;
+    grid-row: 1;
+  }
+
+  .text {
+    grid-column: 2;
+    margin-top: -6svh;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .promise {
+    margin: 0;
+    color: var(--color-primary);
+    text-align: start;
+  }
+
+  .promise span:nth-child(1) {
+    font-size: clamp(1.7rem, 3.55vw, 3.7rem);
+    white-space: nowrap;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .promise span:nth-child(2) {
+    font-size: clamp(3rem, 7vw, 7.2rem);
+    font-weight: 500;
+    line-height: 0.92;
+    letter-spacing: 0.01em;
+  }
+
+  /* "עליכם" יורדת לשורה משלה, גדולה ובולטת, מוזחת פנימה */
+  .promise .accent {
     display: block;
+    width: fit-content;
+    margin-top: -0.06em;
+    margin-inline-start: 0.62em;
+    font-size: 1.45em;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.015em;
   }
 
-  .quote {
-    max-width: 21rem;
-    margin-top: var(--space-4);
+  .support {
+    margin: clamp(1.75rem, 2.7vw, 3rem) 0 0;
+    color: var(--color-text);
+    font-size: clamp(1.05rem, 1.35vw, 1.45rem);
+    font-weight: 400;
+    line-height: 1.75;
+    text-align: center;
   }
 
-  /* פעולה אחת, טיפוגרפית, עם שטח לחיצה נוח */
-  .cta {
+  /* הפעולה: כפתור מתאר חלודה, בקצה השמאלי של הטור */
+  .reveal {
+    align-self: flex-end;
+    margin-top: clamp(1rem, 1.2vw, 1.5rem);
+    margin-inline-end: 1.6vw;
+  }
+
+  .reveal > button {
+    justify-content: center;
+    gap: 0.9em;
+    min-width: clamp(18rem, 25.6vw, 28rem);
+    min-height: clamp(3.25rem, 3.9vw, 4.25rem);
+    padding: 0.7em 2em 0.75em;
+    border: 1.5px solid var(--color-accent);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--color-accent);
+    font-family: var(--font-body);
+    font-size: clamp(1.05rem, 1.3vw, 1.4rem);
+    font-weight: 700;
+    letter-spacing: 0.005em;
+    transition:
+      background-color var(--transition-fast),
+      color var(--transition-fast);
+  }
+
+  .reveal > button > span:first-child {
+    text-decoration: none;
+  }
+
+  .reveal > button:hover,
+  .reveal > button:focus-visible {
+    background: color-mix(in srgb, var(--color-accent) 7%, transparent);
+    color: var(--color-accent-strong);
+  }
+
+  .reveal > button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  /* הספר: עומד על המשטח — תחתיתו כ-12% מתחת לקו האופק */
+  .bookStage {
+    grid-column: 4;
+    align-self: end;
+    justify-self: center;
+    margin-bottom: 11svh;
+  }
+
+  .book {
+    width: min(100%, calc((100svh - 17rem) * 640 / 1044));
+  }
+}
+
+/* דסקטופ: יחסי הרפרנס, מסך מלא */
+@media (min-width: 62rem) {
+  .stage {
+    min-height: max(100svh, 38rem);
+  }
+
+  .layout {
+    grid-template-columns: 15.4fr 31.9fr 9.6fr 23.8fr 19.3fr;
+  }
+
+  .book {
+    width: min(22.4vw, calc((100svh - 17rem) * 640 / 1044));
+  }
+}
+
+/* ==========================================================================
+   מובייל — "פתחתי את האתר ונכנסתי לכריכה".
+   הכריכה המלאה (לא חתוכה, לא משוקפת, ביחס המקורי) ברוחב המסך כולו.
+   ההבטחה — באותו גופן סריפי — יושבת על הכריכה עצמה, באזור הפתוח
+   בפינה השמאלית-תחתונה לצד שם המחבר; מקומה נמדד ביחס לכריכה (cqw).
+   ========================================================================== */
+.immersive {
+  display: none;
+}
+
+@media (max-width: 47.99rem) {
+  .immersive {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .immersiveCover {
+    position: relative;
+    container-type: inline-size;
+    width: 100%;
+    transform: translate3d(0, calc(var(--scroll, 0) * -28px), 0)
+      scale(calc(1 + var(--scroll, 0) * 0.06));
+    transform-origin: 50% 35%;
+    will-change: transform;
+  }
+
+  /* רק שולי הנייר בתחתית נמסים אל הדף — שם המחבר נשאר שלם */
+  .immersiveImg {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1100 / 1762;
+    -webkit-mask-image: linear-gradient(to bottom, #000 95%, transparent);
+    mask-image: linear-gradient(to bottom, #000 95%, transparent);
+    animation: coverIn 1100ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  /* ההבטחה על הכריכה: צמודה לשמאל, נגמרת לפני שם המחבר (שמתחיל ב-~65%) */
+  .immersivePromise {
+    position: absolute;
+    isolation: isolate;
+    left: 5cqw;
+    bottom: 4cqw;
+    width: 57cqw;
+    margin: 0;
+    color: var(--color-primary);
+    opacity: calc(1 - var(--scroll, 0) * 0.5);
+  }
+
+  /* הילה קרם רכה ושקופה מאחורי הטקסט בלבד — לא קופסה */
+  .immersivePromise::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: -1.4em -1.6em -1em;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in srgb, var(--color-cream) 82%, transparent),
+      color-mix(in srgb, var(--color-cream) 55%, transparent) 55%,
+      transparent
+    );
+  }
+
+  .immersivePromise span {
+    display: block;
+    animation: riseIn 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .immersivePromise span:nth-child(1) {
+    font-size: 4.9cqw;
+    font-weight: 400;
+    line-height: 1.25;
+    animation-delay: 500ms;
+  }
+
+  .immersivePromise span:nth-child(2) {
+    margin-inline-start: 2cqw;
+    font-size: 7.2cqw;
+    font-weight: 500;
+    line-height: 1.15;
+    animation-delay: 600ms;
+  }
+
+  .immersivePromise .accent {
+    font-weight: 700;
+  }
+
+  /* הזמנה שקטה להמשיך, ממורכזת מתחת לכריכה — בלי הבהוב */
+  .scrollCue {
     display: inline-flex;
+    align-self: center;
     align-items: center;
     min-height: 2.75rem;
     margin-top: var(--space-3);
-    color: var(--color-accent);
-    font-family: var(--font-body);
-    font-size: var(--text-base);
-    font-weight: 600;
-    text-decoration: underline;
-    text-decoration-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.35em;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    letter-spacing: 0.02em;
+    opacity: calc(1 - var(--scroll, 0) * 0.5);
+    animation: riseIn 900ms cubic-bezier(0.2, 0.7, 0.2, 1) 900ms both;
+  }
+}
+
+@keyframes coverIn {
+  from {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   תנועה מופחתת: בלי גלילה ובלי עכבר (גם ה-JS לא נרשם), וכניסה כדהייה בלבד
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .bookMotion,
+  .immersiveCover {
+    transform: none;
+    will-change: auto;
   }
 
-  .cta:hover,
-  .cta:focus-visible {
-    color: var(--color-accent-strong);
-    text-decoration-color: currentColor;
+  .immersivePromise,
+  .scrollCue {
+    opacity: 1;
+  }
+
+  .book {
+    animation: none;
+  }
+
+  .bookStage,
+  .promise span,
+  .support,
+  .reveal,
+  .immersiveImg,
+  .immersivePromise span,
+  .scrollCue {
+    animation-name: fadeIn;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
