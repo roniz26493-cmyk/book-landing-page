@@ -1,18 +1,19 @@
 /* ==========================================================================
    המסך הראשון — מימוש העיצוב המאושר (public/images/hero-approved-reference.png).
-   דסקטופ: ספר פיזי עומד על משטח אבן באור יום רך, צלליות ענפים בקצה,
-   וטיפוגרפיה עריכתית משמאלו. כל האווירה — שכבות דקורטיביות נפרדות.
-   מובייל: הכריכה המלאה כמסך הראשון (ללא שינוי בקומפוזיציה).
+   טאבלט ודסקטופ: הרקע הוא תמונת האווירה המקורית (hero-atmosphere.png,
+   1722×913) — בלי פילטרים, מעברי צבע או שכבות שמשנים אותה. הבמה שומרת
+   על יחס התמונה, וכל המיקומים נמדדו מהרפרנס ונקבעים ביחידות רוחב
+   הבמה (cqw), כך שהספר נשאר על השיש והטקסט במקומו בכל רוחב.
+   מובייל: הכריכה המלאה כמסך הראשון.
    ========================================================================== */
 .hero {
   /* גופן כותרת סריפי עברי — לכותרת ה-Hero בלבד */
   --font-hero: 'Frank Ruhl Libre', var(--font-display), serif;
-  --wall: #f4ede3;
-  --wall-light: #f8f2e8;
-  --stone: #ebdccc;
 
   position: relative;
-  overflow: hidden;
+  /* חיתוך אופקי בלבד — ההילה סביב ההבטחה במובייל לא תגלוש; אנכית לא נחתך
+     דבר, כך שבחירות הרכישה נפתחות במלואן */
+  overflow-x: clip;
   background: var(--color-bg);
   color: var(--color-text);
 }
@@ -38,86 +39,42 @@
 .underline {
   position: absolute;
   left: 30%;
-  bottom: -0.16em;
+  bottom: -0.04em;
   width: 46%;
-  height: 0.13em;
+  height: 0.17em;
   overflow: visible;
   fill: currentColor;
   opacity: 0.9;
 }
 
-/* ==========================================================================
-   הבמה (טאבלט ודסקטופ). במובייל מוסתרת — שם הכריכה המלאה
-   ========================================================================== */
-.stage,
-.atmosphere {
+.stage {
   display: none;
 }
 
-/* ---- תנועת הספר: גלילה ועכבר על התמונה כיחידה אחת, דו-ממדית ועדינה ---- */
+/* ---- תנועת הספר: כניסה קצרה ותגובה עדינה לגלילה, על התמונה כיחידה ---- */
 .bookStage {
-  --move-rz: 0.6deg;
-  --move-x: -6px;
-  --move-y: 14px;
-  --enter-y: 20px;
-
-  animation: bookFade 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: bookIn 1100ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
 .bookMotion {
-  position: relative;
-  transform: translate3d(
-      calc(var(--scroll, 0) * var(--move-x) + var(--px, 0) * 3px),
-      calc(var(--scroll, 0) * var(--move-y) + var(--py, 0) * 2px),
-      0
-    )
-    rotate(calc(var(--scroll, 0) * var(--move-rz)));
+  transform: translate3d(0, calc(var(--scroll, 0) * 10px), 0);
   will-change: transform;
 }
 
-.book {
-  position: relative;
-  animation: bookIn 1300ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
-}
-
 .mockup {
-  position: relative;
-  z-index: 1;
   display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 640 / 1044;
 }
 
-/* צל מגע רך מתחת לבסיס הספר, ונמשך מעט לאחור (ימינה) על המשטח */
-.bookShadow {
-  position: absolute;
-  z-index: 0;
-  left: 1%;
-  right: -30%;
-  bottom: -1.2%;
-  height: 4.5%;
-  background:
-    radial-gradient(ellipse 46% 40% at 38% 55%, rgba(60, 44, 30, 0.5), transparent 75%),
-    radial-gradient(ellipse 60% 55% at 62% 45%, rgba(90, 70, 50, 0.22), transparent 80%);
-  filter: blur(5px);
-  pointer-events: none;
-}
-
-@keyframes bookFade {
+@keyframes bookIn {
   from {
     opacity: 0;
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
-  }
-}
-
-@keyframes bookIn {
-  from {
-    transform: translateY(var(--enter-y));
-  }
-  to {
     transform: none;
   }
 }
@@ -157,156 +114,53 @@
 }
 
 /* ==========================================================================
-   טאבלט ודסקטופ — הקומפוזיציה המאושרת.
-   הפריסה נמדדה מהרפרנס (1722×913) ובנויה ביחסים: טור טקסט 15–47% מהרוחב,
-   ספר 57–81%, קו האופק של המשטח ב-~77% מהגובה. הגריד ב-LTR לצורך הפריסה
-   בלבד; התוכן עצמו RTL.
+   טאבלט ודסקטופ — הבמה המאושרת.
+   מידות ברפרנס (1722px): כותרת-עליונה ב-y≈63–81, טור טקסט x≈265–815,
+   ספר x≈975–1385 עם בסיסו על השיש ב-y≈832.
    ========================================================================== */
 @media (min-width: 48rem) {
-  .hero {
-    background:
-      radial-gradient(ellipse 60% 55% at 62% 30%, var(--wall-light), transparent 70%),
-      linear-gradient(to right, #f2eae0, var(--wall) 40%, var(--wall-light) 75%, #f3ebe0);
-  }
-
-  /* ---- אווירה: שכבות דקורטיביות, לא לחיצות ---- */
-  .atmosphere {
-    display: block;
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    overflow: hidden;
-    pointer-events: none;
-    user-select: none;
-  }
-
-  .atmosphere > span {
-    position: absolute;
-    display: block;
-  }
-
-  /* אור יום אלכסוני רך מימין-למעלה — פסים בהירים מטושטשים */
-  .daylight {
-    top: -10%;
-    right: -6%;
-    width: 62%;
-    height: 85%;
-    background: repeating-linear-gradient(
-      118deg,
-      rgba(255, 253, 248, 0.75) 0 4.5rem,
-      transparent 4.5rem 6rem,
-      rgba(160, 136, 108, 0.1) 6rem 9rem,
-      transparent 9rem 10.5rem
-    );
-    -webkit-mask-image: radial-gradient(ellipse 60% 60% at 70% 30%, #000 20%, transparent 75%);
-    mask-image: radial-gradient(ellipse 60% 60% at 70% 30%, #000 20%, transparent 75%);
-    filter: blur(22px);
-  }
-
-  /* משטח האבן: מתחת לקו האופק, טון חם מעט יותר, קצה עליון רך */
-  .surface {
-    left: 0;
-    right: 0;
-    top: 74.5%;
-    bottom: 0;
-    background:
-      radial-gradient(ellipse 40% 55% at 30% 55%, rgba(255, 249, 240, 0.55), transparent 70%),
-      radial-gradient(ellipse 35% 50% at 72% 45%, rgba(255, 249, 240, 0.45), transparent 70%),
-      linear-gradient(
-        to bottom,
-        transparent,
-        #f6eee4 8%,
-        #f9f2e9 30%,
-        #f5ece1 100%
-      );
-  }
-
-  /* הצל הגדול על המשטח: רוב החלק התחתון בצל קריר, וקצהו עולה בעדינות
-     מתחתית-שמאל אל בסיס הספר — מעליו פס אור שמש צר */
-  .floorShadow {
-    left: -2%;
-    width: 84%;
-    top: 74%;
-    bottom: -4%;
-    background: linear-gradient(
-      175deg,
-      transparent 0 34%,
-      rgba(150, 130, 116, 0.5) 50%,
-      rgba(150, 130, 116, 0.56) 100%
-    );
-    -webkit-mask-image: linear-gradient(to right, #000 70%, transparent);
-    mask-image: linear-gradient(to right, #000 70%, transparent);
-    filter: blur(9px);
-  }
-
-  /* צלליות הענפים: אותו ענף מאיור הספר, הופך לצל חום-זית חמים
-     (מזג "multiply": הנייר נעלם, העלים מצלים), מטושטש בעומקים שונים */
-  .leaves {
-    --crop-x: 820;
-    --crop-y: 250;
-    --crop-w: 280;
-    --crop-h: 518;
-
-    overflow: hidden;
-    aspect-ratio: 280 / 518;
-    -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 45%, transparent 100%);
-    mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 45%, transparent 100%);
-  }
-
-  /* חיתוך (פיקסלי מקור 1100×768): רוחב = 1100/w, היסט = x0/w, y0/h */
-  .leaves img {
-    position: absolute;
-    max-width: none;
-    width: calc(1100 / var(--crop-w) * 100%);
-    left: calc(var(--crop-x) / var(--crop-w) * -100%);
-    top: calc(var(--crop-y) / var(--crop-h) * -100%);
-    height: auto;
-    mix-blend-mode: multiply;
-  }
-
-  .leavesFar {
-    top: 10%;
-    right: -5%;
-    width: 24%;
-    opacity: 0.4;
-    transform: rotate(-12deg);
-  }
-
-  .leavesFar img {
-    filter: grayscale(1) brightness(0.6) contrast(6) sepia(1) saturate(0.75) blur(5px);
-  }
-
-  .leavesNear {
-    bottom: -14%;
-    right: -6%;
-    width: 21%;
-    opacity: 0.45;
-    transform: rotate(8deg) scaleX(-1);
-  }
-
-  .leavesNear img {
-    filter: grayscale(1) brightness(0.6) contrast(6) sepia(1) saturate(0.75) blur(3px);
-  }
-
-  /* ---- הבמה ---- */
   .stage {
     position: relative;
+    display: block;
+    container-type: inline-size;
+    /* יחס תמונת האווירה; הבמה גדלה אם בחירות הרכישה נפתחות */
+    aspect-ratio: 1722 / 913;
+    background:
+      url('/images/hero-atmosphere.png') top center / 100% auto no-repeat,
+      var(--color-bg);
+  }
+
+  /* כשבחירות הרכישה פתוחות והבמה ארוכה מהתמונה: רק שולי התמונה התחתונים
+     נמסים אל צבע הדף, כדי שההמשך לא ייחתך בקו חד. במצב הסגור — התמונה
+     כפי שהיא, ללא שינוי */
+  .stage:has([data-open='true'])::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100cqw * 913 / 1722 - 9cqw);
+    height: 9cqw;
+    background: linear-gradient(to bottom, transparent, var(--color-bg));
+    pointer-events: none;
+  }
+
+  .stage > * {
+    position: relative;
     z-index: 1;
-    display: flex;
-    flex-direction: column;
-    /* טאבלט: גובה מוגבל, כדי שבמסך לאורך לא ייווצר שטח ריק */
-    min-height: clamp(36rem, 100svh, 46rem);
   }
 
   /* כותרת-על: שם הספר מימין, קו דק, שם המחבר משמאל */
   .masthead {
+    position: absolute;
+    top: 3.4cqw;
+    left: 6.7cqw;
+    right: 6.7cqw;
     display: flex;
     align-items: center;
-    gap: clamp(1.25rem, 1.8vw, 2.25rem);
-    padding: clamp(2rem, 4.2vw, 4.25rem) clamp(1.5rem, 6.6vw, 7.5rem) 0;
+    gap: 1.9cqw;
     color: var(--color-primary);
     font-family: var(--font-display);
-    font-size: clamp(0.95rem, 1.25vw, 1.4rem);
+    font-size: max(0.8rem, 1.22cqw);
     font-weight: 500;
     letter-spacing: 0.18em;
     line-height: 1;
@@ -324,26 +178,17 @@
     font-weight: 400;
   }
 
-  .layout {
-    direction: ltr;
-    flex: 1 1 auto;
-    display: grid;
-    grid-template-columns: 8fr 46fr 4fr 33fr 9fr;
-    align-items: center;
-  }
-
-  .text,
-  .bookStage {
-    direction: rtl;
-    grid-row: 1;
-  }
-
+  /* טור הטקסט: בזרימה רגילה (כדי שהבמה תגדל כשהבחירות נפתחות),
+     ממוקם ברוחב ובריפוד ביחידות הבמה */
   .text {
-    grid-column: 2;
-    margin-top: -6svh;
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    width: 31.9cqw;
+    margin-inline-start: auto;
+    margin-inline-end: 15.4cqw;
+    padding-top: 11.6cqw;
+    padding-bottom: 4cqw;
   }
 
   .promise {
@@ -353,16 +198,16 @@
   }
 
   .promise span:nth-child(1) {
-    font-size: clamp(1.7rem, 3.55vw, 3.7rem);
-    white-space: nowrap;
+    font-size: max(1.35rem, 3.4cqw);
     font-weight: 400;
     line-height: 1.2;
+    white-space: nowrap;
   }
 
   .promise span:nth-child(2) {
-    font-size: clamp(3rem, 7vw, 7.2rem);
+    font-size: max(2.4rem, 7.5cqw);
     font-weight: 500;
-    line-height: 0.92;
+    line-height: 0.86;
     letter-spacing: 0.01em;
   }
 
@@ -370,42 +215,42 @@
   .promise .accent {
     display: block;
     width: fit-content;
-    margin-top: -0.06em;
-    margin-inline-start: 0.62em;
+    margin-top: -0.14em;
+    margin-inline-start: 0.56em;
     font-size: 1.45em;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 1;
     letter-spacing: -0.015em;
   }
 
   .support {
-    margin: clamp(1.75rem, 2.7vw, 3rem) 0 0;
+    margin: 1.75cqw 0 0;
     color: var(--color-text);
-    font-size: clamp(1.05rem, 1.35vw, 1.45rem);
+    font-size: max(0.95rem, 1.5cqw);
     font-weight: 400;
     line-height: 1.75;
     text-align: center;
   }
 
-  /* הפעולה: כפתור מתאר חלודה, בקצה השמאלי של הטור */
+  /* הפעולה: כפתור מתאר חלודה */
   .reveal {
     align-self: flex-end;
-    margin-top: clamp(1rem, 1.2vw, 1.5rem);
-    margin-inline-end: 1.6vw;
+    margin-top: 0.9cqw;
+    margin-inline-end: 1.6cqw;
   }
 
   .reveal > button {
     justify-content: center;
     gap: 0.9em;
-    min-width: clamp(18rem, 25.6vw, 28rem);
-    min-height: clamp(3.25rem, 3.9vw, 4.25rem);
+    min-width: max(16rem, 25.6cqw);
+    min-height: max(3rem, 3.9cqw);
     padding: 0.7em 2em 0.75em;
     border: 1.5px solid var(--color-accent);
     border-radius: 4px;
     background: transparent;
     color: var(--color-accent);
     font-family: var(--font-body);
-    font-size: clamp(1.05rem, 1.3vw, 1.4rem);
+    font-size: max(1rem, 1.45cqw);
     font-weight: 700;
     letter-spacing: 0.005em;
     transition:
@@ -428,31 +273,13 @@
     outline-offset: 3px;
   }
 
-  /* הספר: עומד על המשטח — תחתיתו כ-12% מתחת לקו האופק */
+  /* הספר: מיקום מוחלט ביחס לבמה (= ביחס לתמונת האווירה) — בסיסו על השיש */
   .bookStage {
-    grid-column: 4;
-    align-self: end;
-    justify-self: center;
-    margin-bottom: 11svh;
-  }
-
-  .book {
-    width: min(100%, calc((100svh - 17rem) * 640 / 1044));
-  }
-}
-
-/* דסקטופ: יחסי הרפרנס, מסך מלא */
-@media (min-width: 62rem) {
-  .stage {
-    min-height: max(100svh, 38rem);
-  }
-
-  .layout {
-    grid-template-columns: 15.4fr 31.9fr 9.6fr 23.8fr 19.3fr;
-  }
-
-  .book {
-    width: min(22.4vw, calc((100svh - 17rem) * 640 / 1044));
+    position: absolute;
+    z-index: 1;
+    left: 57.1cqw;
+    top: calc(47.33cqw - 22.94cqw * 1044 / 640);
+    width: 22.94cqw;
   }
 }
 
@@ -582,10 +409,6 @@
   .immersivePromise,
   .scrollCue {
     opacity: 1;
-  }
-
-  .book {
-    animation: none;
   }
 
   .bookStage,
