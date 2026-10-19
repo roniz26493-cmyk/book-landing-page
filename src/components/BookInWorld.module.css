@@ -1,10 +1,11 @@
 /* ==========================================================================
-   הספר בעולם — גיליון מגע שנע לאט, ושורות קצרות מודפסות מתחתיו.
-   בלי חצים, בלי נקודות, בלי כרטיסים, בלי פינות מעוגלות או צללים.
+   הספר בעולם — לוח השראה / אלבום שנע לאט: הדפסים על נייר חם, בגדלים
+   ובסיבובים מעט שונים, חופפים בעדינות. ושורות קצרות מודפסות מתחתיו.
+   בלי חצים, נקודות, מסגרות עבות, מדבקות או סלוטייפ.
    ========================================================================== */
 .section {
-  --frame-h: clamp(13rem, 9rem + 14vw, 20rem);
-  --gap: clamp(0.5rem, 0.3rem + 0.6vw, 0.875rem);
+  --frame-h: clamp(11rem, 8rem + 12vw, 18rem);
+  --gap: clamp(1.75rem, 1rem + 2.4vw, 3.25rem);
 
   padding-block: 0 var(--section-padding-block);
   background: var(--color-bg);
@@ -18,15 +19,16 @@
 /* ---- הרצועה ----
    הסט מוצג פעמיים ברצף; הרצועה נעה בדיוק חצי מרוחבה ואז חוזרת, כך
    שהלולאה רציפה. בעמוד RTL היא נעה ימינה — הפריים הבא נכנס משמאל,
-   בכיוון הקריאה. */
+   בכיוון הקריאה. ריפוד אנכי — כדי שהסיבובים והצללים לא ייחתכו. */
 .strip {
   overflow: hidden;
+  padding-block: clamp(1.75rem, 3vw, 3rem);
 }
 
 .track {
   display: flex;
   width: max-content;
-  animation: drift 70s linear infinite;
+  animation: drift 90s linear infinite;
 }
 
 .strip:hover .track,
@@ -35,10 +37,10 @@
   animation-play-state: paused;
 }
 
+/* הריפוד בסוף הסט שווה למרווח הבסיסי — שני העותקים זהים ברוחבם */
 .set {
   display: flex;
-  align-items: flex-end;
-  gap: var(--gap);
+  align-items: center;
   padding-inline-end: var(--gap);
 }
 
@@ -51,21 +53,41 @@
   }
 }
 
-/* צילום אמיתי: גובה אחיד לכל הפריימים, רוחב לפי הצילום */
+/* ---- פריים: הדפס על נייר חם, שוליים דקים, סיבוב קל וצל טבעי ----
+   --h גובה יחסי, --r סיבוב, --y היסט אנכי, --o חלק המרווח שנבלע (>1 = חפיפה) */
+.frame {
+  position: relative;
+  flex: 0 0 auto;
+  margin: 0;
+  margin-inline-start: calc(var(--gap) * (1 - var(--o, 0)));
+  padding: clamp(0.35rem, 0.25rem + 0.35vw, 0.6rem);
+  background: #fbf7ef;
+  box-shadow:
+    0 1px 2px rgba(70, 54, 38, 0.1),
+    0 10px 24px -14px rgba(70, 54, 38, 0.32);
+  transform: translateY(var(--y, 0)) rotate(var(--r, 0deg));
+}
+
+/* פריים זוגי מעל השכן — כך החפיפה נראית כמו הנחה ביד, לא כרשת */
+.frame:nth-child(even) {
+  z-index: 1;
+}
+
+/* צילום אמיתי: גובה לפי המתכון, רוחב לפי הצילום */
 .photo {
   display: block;
-  flex: 0 0 auto;
-  height: var(--frame-h);
+  height: calc(var(--frame-h) * var(--h, 1));
   width: auto;
   object-fit: cover;
 }
 
-/* מקום שמור (פיתוח בלבד): נייר חולי שקט, בלי טקסט */
+/* מקום ריק לתמונה: אותו נייר, ובתוכו שטח חולי עם קו פנימי דק — ברור שזה
+   מקום שמחכה לתמונה, בלי טקסט ובלי תוכן מומצא */
 .slot {
   display: block;
-  flex: 0 0 auto;
-  height: var(--frame-h);
-  background: color-mix(in srgb, var(--color-sand) 55%, var(--color-cream));
+  height: calc(var(--frame-h) * var(--h, 1));
+  background: color-mix(in srgb, var(--color-sand) 48%, var(--color-cream));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-sand) 70%, #a8937a);
 }
 
 /* ---- עצירה: שקט, קטן, אבל תמיד שם (נגישות לתוכן שזז) ---- */

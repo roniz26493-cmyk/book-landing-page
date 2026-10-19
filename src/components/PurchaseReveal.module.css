@@ -1,6 +1,5 @@
 /* ==========================================================================
-   רגע הרכישה המדורג — לפני לחיצה: פעולה טיפוגרפית אחת. אחרי: שתי דרכים
-   מודפסות בדף, בלי כרטיסים, בלי מסגרות, בלי מודאל.
+   הפעולה הראשית — קישור ישיר לוואטסאפ של המחבר. בלי שלבים, בלי חנויות.
    ========================================================================== */
 .reveal {
   display: flex;
@@ -55,109 +54,12 @@
   transform: translateX(-0.3em);
 }
 
-.reveal[data-open='true'] .ctaArrow {
-  transform: rotate(-90deg);
-}
-
-/* ---- פתיחה חלקה בגובה (grid 0fr → 1fr) — בלי קפיצה ובלי מספרים קבועים ---- */
-.fold {
-  display: grid;
-  grid-template-rows: 0fr;
-  opacity: 0;
-  transition:
-    grid-template-rows 480ms var(--ease-out),
-    opacity 360ms var(--ease-out);
-}
-
-.reveal[data-open='true'] > .fold,
-.fold[data-open='true'] {
-  grid-template-rows: 1fr;
-  opacity: 1;
-}
-
-.foldInner {
-  min-height: 0;
-  overflow: hidden;
-}
-
-/* ---- שתי הדרכים ---- */
-.panel {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
-  padding-top: var(--space-5);
-  padding-inline-start: var(--space-1);
-}
-
-.price {
-  margin: 0;
-  color: var(--color-text-muted);
-  font-size: var(--text-sm);
-}
-
-.path {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.pathTitle {
-  margin: 0;
-  color: var(--color-primary);
-  font-size: var(--text-lg);
-  font-weight: 500;
-  line-height: 1.35;
-}
-
-.pathNote {
-  margin: var(--space-1) 0 0;
-  color: var(--color-text-muted);
-  font-size: var(--text-sm);
-}
-
-/* מתג החנויות: שורת טקסט עם + בצבע החלודה — לא אקורדיון */
-.toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
-  min-height: 2.75rem;
-  margin-top: var(--space-1);
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--color-primary);
-  font-family: var(--font-body);
-  font-size: var(--text-base);
-  font-weight: 500;
-  cursor: pointer;
-  text-decoration: underline;
-  text-decoration-color: color-mix(in srgb, currentColor 30%, transparent);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.35em;
-}
-
-.toggle:hover,
-.toggle:focus-visible {
-  text-decoration-color: currentColor;
-}
-
-.toggleMark {
-  display: inline-block;
-  min-width: 0.8em;
-  color: var(--color-accent);
-  font-size: 1.15em;
-}
-
-.storeList {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  margin: var(--space-2) 0 0;
-  padding-inline-start: var(--space-4);
+/* כל עוד מספר הוואטסאפ לא הוגדר — אותו מראה, בלי סמן לחיצה */
+.cta[aria-disabled='true'] {
+  cursor: default;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .fold,
   .ctaArrow {
     transition: none;
   }

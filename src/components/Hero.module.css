@@ -239,7 +239,7 @@
     margin-inline-end: 1.6cqw;
   }
 
-  .reveal > button {
+  .reveal > :first-child {
     justify-content: center;
     gap: 0.9em;
     min-width: max(16rem, 25.6cqw);
@@ -258,17 +258,17 @@
       color var(--transition-fast);
   }
 
-  .reveal > button > span:first-child {
+  .reveal > :first-child > span:first-child {
     text-decoration: none;
   }
 
-  .reveal > button:hover,
-  .reveal > button:focus-visible {
+  .reveal > :first-child:hover,
+  .reveal > :first-child:focus-visible {
     background: color-mix(in srgb, var(--color-accent) 7%, transparent);
     color: var(--color-accent-strong);
   }
 
-  .reveal > button:focus-visible {
+  .reveal > :first-child:focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 3px;
   }
