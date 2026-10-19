@@ -17,7 +17,6 @@ export function AboutBook() {
         <Reveal className={styles.text}>
           <h2 className={styles.title}>{book.aboutTitle}</h2>
           <p className={styles.lead}>{book.description[0]}</p>
-          {book.pullQuote && <p className={styles.pause}>{book.pullQuote}</p>}
         </Reveal>
 
         {book.secondaryImage && (
@@ -37,6 +36,24 @@ export function AboutBook() {
               />
             </picture>
           </div>
+        )}
+
+        {/* תיאור הספר במסגרת ציטוט ספרותי — זה טקסט הספר עצמו, לא המלצה:
+            בלי ממליץ, בלי ייחוס ובלי דירוג. המרכאות — עיטור בלבד */}
+        {book.pullQuote && (
+          <Reveal className={styles.quote}>
+            <span className={styles.quoteMark} aria-hidden="true">
+              “
+            </span>
+            <p className={styles.quoteText}>
+              {book.pullQuote.split('\n').map((line) => (
+                <span key={line}>{line}</span>
+              ))}
+            </p>
+            <span className={`${styles.quoteMark} ${styles.quoteMarkEnd}`} aria-hidden="true">
+              ”
+            </span>
+          </Reveal>
         )}
       </div>
     </Section>

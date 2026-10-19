@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { bookConfig } from '../data/bookConfig'
+import { isWhatsappReady, whatsappLink } from './ui/WhatsAppOrderButton'
 import styles from './StickyBook.module.css'
 
 const { book, purchase } = bookConfig
@@ -36,11 +37,16 @@ export function StickyBook() {
   return (
     <a
       className={styles.book}
-      href="#purchase"
+      // ישירות לוואטסאפ של המחבר; כל עוד המספר לא הוגדר — לאזור הרכישה
+      href={isWhatsappReady ? (whatsappLink ?? undefined) : '#purchase'}
+      target={isWhatsappReady ? '_blank' : undefined}
+      rel={isWhatsappReady ? 'noopener noreferrer' : undefined}
       data-visible={isVisible}
       aria-hidden={!isVisible}
       tabIndex={isVisible ? 0 : -1}
-      aria-label={purchase.primaryCta}
+      aria-label={
+        isWhatsappReady ? `${purchase.primaryCta} (וואטסאפ, נפתח בחלון חדש)` : purchase.primaryCta
+      }
     >
       <span className={styles.cover}>
         <img

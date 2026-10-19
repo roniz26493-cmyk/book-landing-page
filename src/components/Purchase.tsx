@@ -1,6 +1,5 @@
-import { useState } from 'react'
 import { bookConfig } from '../data/bookConfig'
-import { ExternalIcon, WhatsAppIcon } from './ui/Icons'
+import { WhatsAppIcon } from './ui/Icons'
 import { Reveal } from './ui/Reveal'
 import { Section } from './ui/Section'
 import { isWhatsappReady, whatsappLink } from './ui/WhatsAppOrderButton'
@@ -9,13 +8,10 @@ import styles from './Purchase.module.css'
 const { purchase, shipping, book } = bookConfig
 
 /**
- * רכישה — הספר, המחיר, ושתי דרכים בלבד:
- *  א. ישירות מול הסופר בוואטסאפ (לתושבי השרון) — הדרך החמה.
- *  ב. חנויות הספרים הדיגיטליות — מוסתרות מאחורי לחיצה אחת.
+ * רכישה — הספר, המחיר, ודרך אחת: פנייה ישירה למחבר בוואטסאפ.
+ * (החנויות הדיגיטליות הוסרו מהתצוגה לבקשת המחבר; הנתונים נשמרו בקונפיג.)
  */
 export function Purchase() {
-  const [storesOpen, setStoresOpen] = useState(false)
-
   return (
     <Section id="purchase" tone="alt" className={styles.section}>
       <div className={styles.opening}>
@@ -49,10 +45,7 @@ export function Purchase() {
       </div>
 
       <div className={styles.paths}>
-        {/* ---- א. ישירות מול הסופר ---- */}
         <Reveal className={`${styles.path} ${styles.direct}`}>
-          <h3 className={styles.pathTitle}>{purchase.directTitle}</h3>
-          <p className={styles.pathNote}>{purchase.directNote}</p>
           <DirectOrderLink />
 
           {shipping.enabled && shipping.items.length > 0 && (
@@ -62,31 +55,6 @@ export function Purchase() {
               ))}
             </ul>
           )}
-        </Reveal>
-
-        {/* ---- ב. חנויות דיגיטליות — נחשפות בלחיצה ---- */}
-        <Reveal className={`${styles.path} ${styles.stores}`} id="stores" delay={120}>
-          <h3 className={styles.pathTitle}>{purchase.storesTitle}</h3>
-          <button
-            type="button"
-            className={styles.toggle}
-            aria-expanded={storesOpen}
-            aria-controls="store-list"
-            onClick={() => setStoresOpen((open) => !open)}
-          >
-            {purchase.storesToggle}
-            <span className={styles.toggleMark} aria-hidden="true">
-              {storesOpen ? '−' : '+'}
-            </span>
-          </button>
-
-          <ul id="store-list" className={styles.storeList} hidden={!storesOpen}>
-            {purchase.stores.map((store) => (
-              <li key={store.id}>
-                <StoreButton store={store} />
-              </li>
-            ))}
-          </ul>
         </Reveal>
       </div>
     </Section>
@@ -120,50 +88,6 @@ export function DirectOrderLink() {
     >
       <WhatsAppIcon />
       {label}
-      <span className="srOnly">(נפתח בחלון חדש)</span>
-    </a>
-  )
-}
-
-/**
- * כפתור חנות בודדת.
- * חנות ללא קישור מוצגת כלא-פעילה עם התווית "בקרוב" — בלי קישור שבור.
- */
-export function StoreButton({ store }: { store: (typeof purchase.stores)[number] }) {
-  const url = store.url.trim()
-
-  const inner = (
-    <>
-      {store.logo ? (
-        <img className={styles.storeLogo} src={store.logo} alt="" loading="lazy" />
-      ) : null}
-      <span className={styles.storeText}>
-        <span className={styles.storeName}>{store.name}</span>
-        {store.note && <span className={styles.storeNote}>{store.note}</span>}
-      </span>
-    </>
-  )
-
-  if (!url) {
-    return (
-      <button type="button" className={styles.storeButton} disabled>
-        {inner}
-        <span className={styles.storeSoon}>בקרוב</span>
-      </button>
-    )
-  }
-
-  return (
-    <a
-      className={styles.storeButton}
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      {inner}
-      <span className={styles.storeArrow} aria-hidden="true">
-        <ExternalIcon />
-      </span>
       <span className="srOnly">(נפתח בחלון חדש)</span>
     </a>
   )

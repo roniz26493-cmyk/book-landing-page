@@ -27,16 +27,53 @@
   line-height: var(--leading-relaxed);
 }
 
-/* העצירה היחידה: משפט אחד, מעט גדול וקל יותר, מוזח פנימה — בלי מרכאות או קו */
-.pause {
-  max-width: 24rem;
-  margin: var(--space-7) 0 0;
-  margin-inline-start: clamp(1.25rem, 6vw, 4rem);
+/* ---- תיאור הספר כציטוט ספרותי ----
+   נייר שנהב, קווים דקים מעל ומתחת, מרכאות גדולות ועדינות בחלודה,
+   הרבה אוויר. בלי כרטיס, בלי צל, בלי פאנל כהה */
+.quote {
+  position: relative;
+  width: 100%;
+  max-width: 44rem;
+  margin: var(--space-8) auto 0;
+  padding: clamp(2.75rem, 2rem + 3vw, 4.25rem) clamp(0.75rem, 5vw - 0.5rem, 5rem);
+  background: color-mix(in srgb, #fbf7ef 70%, var(--color-bg));
+  border-block: 1px solid color-mix(in srgb, var(--color-sand) 75%, transparent);
+  text-align: center;
+}
+
+.quoteText {
+  margin: 0;
   color: var(--color-primary);
-  font-family: var(--font-display);
-  font-size: var(--text-xl);
-  font-weight: 300;
-  line-height: 1.6;
+  font-family: 'Frank Ruhl Libre', var(--font-display), serif;
+  font-size: clamp(1.05rem, 0.7rem + 1.5vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.75;
+}
+
+.quoteText span {
+  display: block;
+  text-wrap: balance;
+}
+
+/* המרכאות: גדולות, בחלודה מושתקת ושקופה במקצת — נוכחות, לא קישוט כבד */
+.quoteMark {
+  position: absolute;
+  top: clamp(0.25rem, 0.5vw, 0.75rem);
+  inset-inline-start: clamp(0.75rem, 2vw, 1.75rem);
+  color: var(--color-accent);
+  font-family: 'Frank Ruhl Libre', Georgia, serif;
+  font-size: clamp(4rem, 3rem + 4vw, 6.5rem);
+  line-height: 1;
+  opacity: 0.55;
+  pointer-events: none;
+  user-select: none;
+}
+
+.quoteMarkEnd {
+  top: auto;
+  bottom: clamp(-1.5rem, -2vw, -0.75rem);
+  inset-inline-start: auto;
+  inset-inline-end: clamp(0.75rem, 2vw, 1.75rem);
 }
 
 /* פרט אחד מתוך האיור: הילד הקורא ודפי כתב היד. ממוזג לנייר ונמס בקצוות */
@@ -110,5 +147,10 @@
     align-self: center;
     width: 100%;
     margin-top: var(--space-8);
+  }
+  /* הציטוט בשורה משלו, ממורכז מתחת לטקסט ולאיור */
+  .quote {
+    grid-column: 2 / 12;
+    width: 100%;
   }
 }

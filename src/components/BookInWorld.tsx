@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { bookConfig } from '../data/bookConfig'
 import { PlaceholderMark } from './ui/PlaceholderMark'
 import styles from './BookInWorld.module.css'
@@ -6,13 +6,39 @@ import styles from './BookInWorld.module.css'
 const { bookInWorld, placeholders } = bookConfig
 
 /**
- * מקומות שמורים זמניים — רק בסביבת פיתוח (npm run dev) וגם כש-showMarks פעיל.
- * ב-build לאתר החי הם לעולם לא מוצגים: אין צילומים או תגובות מזויפים.
+ * תגובות זמניות ותגית "אזור זמני" — רק בסביבת פיתוח (npm run dev) וכש-showMarks
+ * פעיל. באתר החי לעולם לא מוצגות תגובות מזויפות.
  */
 const showDevPlaceholders = import.meta.env.DEV && placeholders.showMarks
 
-/** מקומות שמורים לצילומים — יחסי גובה-רוחב שונים, כמו גיליון מגע. פיתוח בלבד. */
-const placeholderFrames = ['4 / 5', '3 / 4', '1 / 1', '4 / 5', '2 / 3', '5 / 4']
+/** מסגרות ריקות לתמונות — יחסי גובה-רוחב שונים. מוצגות (גם באתר החי) כל עוד
+ *  bookInWorld.photos ריק, כדי שהרצועה הנעה תופיע במקומה */
+const placeholderFrames = ['4 / 5', '3 / 4', '1 / 1', '4 / 5', '2 / 3', '5 / 4', '3 / 4']
+
+/**
+ * "מתכון" הקומפוזיציה — לוח השראה / אלבום: לכל פריים גובה יחסי, סיבוב קל
+ * (−4°…+4°), היסט אנכי, ו-o — כמה מהמרווח לשכן "נבלע" (מעל 1 = חפיפה עדינה). חוזר במחזור לפי האינדקס, כך
+ * שכל תמונה שתתווסף מקבלת מקום טבעי ברצף, והלולאה נשארת רציפה.
+ */
+const collage = [
+  { h: 1, r: -2.5, y: 0.6, o: 0 },
+  { h: 0.82, r: 3, y: -1.6, o: 0.3 },
+  { h: 0.92, r: -1, y: 1.4, o: 1.3 },
+  { h: 1.06, r: 1.8, y: -0.4, o: 0.4 },
+  { h: 0.78, r: -3.6, y: -2, o: 0.15 },
+  { h: 0.96, r: 0.8, y: 1.8, o: 1.35 },
+  { h: 0.86, r: -1.8, y: -1, o: 0.5 },
+]
+
+function frameStyle(index: number): CSSProperties {
+  const c = collage[index % collage.length]
+  return {
+    '--h': c.h,
+    '--r': `${c.r}deg`,
+    '--y': `${c.y}rem`,
+    '--o': c.o,
+  } as CSSProperties
+}
 
 /** מקומות שמורים לתגובות — טקסט בסוגריים, ברור שזמני. פיתוח בלבד. */
 const placeholderReactions = [
@@ -25,36 +51,41 @@ const placeholderReactions = [
  * הספר בעולם — רצועת צילומים אמיתיים של הספר שנעה לאט (כמו גיליון מגע
  * של צלם, לא קרוסלה), ומתחתיה כמה שורות קצרות של קוראים אמיתיים.
  *
- * התוכן מגיע מ-bookConfig.bookInWorld. כל עוד המערכים ריקים, מוצגים מקומות
- * שמורים רק בפיתוח; באתר החי החלק הריק פשוט לא מוצג.
- * לא ממציאים צילומים או תגובות.
+ * התוכן מגיע מ-bookConfig.bookInWorld. כל עוד אין תמונות — הרצועה נעה עם מסגרות
+ * ריקות (בלי תוכן מומצא). תגובות מוצגות באתר החי רק כשיש תגובות אמיתיות.
  */
 export function BookInWorld() {
   const [isPaused, setIsPaused] = useState(false)
 
   const hasPhotos = bookInWorld.photos.length > 0
   const hasReactions = bookInWorld.reactions.length > 0
-  const showPhotos = hasPhotos || showDevPlaceholders
   const showReactions = hasReactions || showDevPlaceholders
-
-  if (!showPhotos && !showReactions) return null
 
   const reactions = hasReactions ? bookInWorld.reactions : placeholderReactions
 
   // סט אחד של פריימים; הרצועה מציגה אותו פעמיים ברצף כדי שהלולאה תהיה חלקה
+  // כל פריים: הדפס על נייר חם (שוליים דקים), מסובב מעט, עם צל רך
   const frames = hasPhotos
     ? bookInWorld.photos.map((photo, index) => (
-        <img
-          key={index}
-          className={styles.photo}
-          src={photo.src}
-          alt={photo.alt}
-          loading="lazy"
-          decoding="async"
-        />
+        <figure key={index} className={styles.frame} style={frameStyle(index)}>
+          <img
+            className={styles.photo}
+            src={photo.src}
+            alt={photo.alt}
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
       ))
     : placeholderFrames.map((ratio, index) => (
-        <span key={index} className={styles.slot} style={{ aspectRatio: ratio }} />
+        <figure
+          key={index}
+          className={`${styles.frame} ${styles.empty}`}
+          style={frameStyle(index)}
+          aria-hidden="true"
+        >
+          <span className={styles.slot} style={{ aspectRatio: ratio }} />
+        </figure>
       ))
 
   return (
@@ -65,29 +96,25 @@ export function BookInWorld() {
         </div>
       )}
 
-      {showPhotos && (
-        <>
-          <div className={styles.strip} data-paused={isPaused}>
-            <div className={styles.track}>
-              <div className={styles.set}>{frames}</div>
-              <div className={`${styles.set} ${styles.loopCopy}`} aria-hidden="true">
-                {frames}
-              </div>
-            </div>
+      <div className={styles.strip} data-paused={isPaused}>
+        <div className={styles.track}>
+          <div className={styles.set}>{frames}</div>
+          <div className={`${styles.set} ${styles.loopCopy}`} aria-hidden="true">
+            {frames}
           </div>
+        </div>
+      </div>
 
-          <div className={`container ${styles.controls}`}>
-            <button
-              type="button"
-              className={styles.pause}
-              onClick={() => setIsPaused((paused) => !paused)}
-              aria-pressed={isPaused}
-            >
-              {isPaused ? 'הפעלת התנועה' : 'עצירת התנועה'}
-            </button>
-          </div>
-        </>
-      )}
+      <div className={`container ${styles.controls}`}>
+        <button
+          type="button"
+          className={styles.pause}
+          onClick={() => setIsPaused((paused) => !paused)}
+          aria-pressed={isPaused}
+        >
+          {isPaused ? 'הפעלת התנועה' : 'עצירת התנועה'}
+        </button>
+      </div>
 
       {showReactions && (
         <ul className={`container ${styles.reactions}`}>
