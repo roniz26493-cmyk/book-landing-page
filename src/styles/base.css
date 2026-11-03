@@ -131,12 +131,14 @@ ol {
 /* ---- קווי הגריד האנכיים (כמו באתר הרפרנס) ----
    קווים דקים לכל אורך העמוד, מאחורי התוכן. מגדירים את הקומפוזיציה
    בלי להוסיף קישוט. */
-.page {
+.page,
+.gridLines {
   position: relative;
   isolation: isolate;
 }
 
-.page::before {
+.page::before,
+.gridLines::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -150,7 +152,8 @@ ol {
 }
 
 @media (max-width: 47.99rem) {
-  .page::before {
+  .page::before,
+  .gridLines::before {
     background-image: var(--line), var(--line), var(--line);
     background-position: var(--gutter) 0, 50% 0, calc(100% - var(--gutter)) 0;
   }

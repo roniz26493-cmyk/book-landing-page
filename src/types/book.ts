@@ -121,8 +121,10 @@ export interface BookConfig {
     heroPromise: string
     /** הזמנה שקטה להמשיך לגלול, בתחתית המסך הראשון במובייל */
     heroScrollCue: string
-    /** משפט הפתיחה מתחת לשם הספר ב-Hero. "\n" = שבירת שורה מכוונת */
-    heroOpening: string
+    /** המשפט המרכזי ב-Hero, משפט לכל איבר (הראשון מודגש). "\n" = שבירת שורה */
+    heroStatement: string[]
+    /** המשפט בסיום העמוד. "\n" = שבירת שורה מכוונת */
+    closingLine: string
     /** כותרת אזור "על הספר" */
     aboutTitle: string
     /** הכותרת הגדולה באזור "על הספר". "\n" = שבירת שורה מכוונת */
@@ -131,6 +133,8 @@ export interface BookConfig {
     description: string[]
     /** משפט מודגש טיפוגרפית באזור "על הספר". ריק = לא יוצג */
     pullQuote: string
+    /** צירוף מתוך pullQuote שיודגש. ריק = ללא הדגשה */
+    pullQuoteEmphasis: string
     coverImage: string
     /** גרסת WebP קלה יותר של הכריכה (אופציונלי). ריק = משתמשים ב-coverImage בלבד */
     coverImageWebp: string
@@ -162,6 +166,8 @@ export interface BookConfig {
     /** תיאור תפקיד קצר, למשל "סופר ומשורר" */
     role: string
     bio: string[]
+    /** עובדות קצרות מתוך הביוגרפיה */
+    facts: { label: string; value: string }[]
     photo: string
     photoAlt: string
     photoIsPlaceholder: boolean

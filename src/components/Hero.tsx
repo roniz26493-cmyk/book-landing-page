@@ -5,11 +5,6 @@ import styles from './Hero.module.css'
 
 const { book, purchase } = bookConfig
 
-// שם הספר בשתי שורות, כמו על הכריכה: "סיפור אחד" / "ביום"
-const lastSpace = book.title.lastIndexOf(' ')
-const titleLines =
-  lastSpace > 0 ? [book.title.slice(0, lastSpace), book.title.slice(lastSpace + 1)] : [book.title]
-
 /**
  * מקטע הפתיחה — לפי מבנה הפתיחה של אתר ההשראה: גיליון בהיר אחד,
  * טקסט בצד אחד והספר בצד השני, כותרת ענקית ופעולה אחת ברורה.
@@ -21,17 +16,14 @@ export function Hero() {
         <div className={styles.text}>
           <span className={`eyebrow ${styles.enter}`}>{book.heroEyebrow}</span>
 
-          <h1 id="hero-title" className={`${styles.title} ${styles.enter}`}>
-            {titleLines.map((line) => (
-              <span key={line} className={styles.titleLine}>
-                {line}
+          {/* שם הספר כבר על הכריכה — הכותרת היא המשפט עצמו */}
+          <h1 id="hero-title" className={`${styles.statement} ${styles.enter}`}>
+            {book.heroStatement.map((sentence, i) => (
+              <span key={sentence} className={i === 0 ? styles.strong : styles.light}>
+                <Lines text={sentence} />{' '}
               </span>
             ))}
           </h1>
-
-          <p className={`${styles.opening} ${styles.enter}`}>
-            <Lines text={book.heroOpening} />
-          </p>
 
           <div className={`${styles.buy} ${styles.enter}`}>
             {purchase.price && (

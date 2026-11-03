@@ -9,7 +9,7 @@
 
 .sheet {
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  grid-template-columns: minmax(0, 1.32fr) minmax(0, 0.68fr);
   align-items: center;
   gap: var(--space-6);
   min-height: min(56rem, calc(100svh - 1.5rem));
@@ -22,30 +22,30 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  max-width: 40rem;
+  max-width: 47rem;
 }
 
-.title {
-  display: flex;
-  flex-direction: column;
-  margin-block: var(--space-4) var(--space-6);
+.statement {
+  margin-block: var(--space-5) 0;
   color: var(--color-primary);
-  font-size: var(--text-hero);
-  font-weight: 850;
-  line-height: var(--leading-display);
-  letter-spacing: -0.025em;
+  font-size: clamp(2.3rem, 1.1rem + 3.4vw, 4.3rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
 }
 
-.titleLine {
+.strong,
+.light {
   display: block;
 }
 
-.opening {
-  max-width: 34rem;
-  color: var(--color-text);
-  font-size: var(--text-xl);
+.strong {
+  font-weight: 850;
+}
+
+/* המשפט השני קל ומעט מוזח — המשך שקט של הראשון */
+.light {
+  margin-top: 0.12em;
   font-weight: 300;
-  line-height: 1.6;
 }
 
 .buy {
@@ -98,8 +98,7 @@
 
 .text > .enter:nth-child(1) { animation-delay: 80ms; }
 .text > .enter:nth-child(2) { animation-delay: 160ms; }
-.text > .enter:nth-child(3) { animation-delay: 320ms; }
-.text > .enter:nth-child(4) { animation-delay: 460ms; }
+.text > .enter:nth-child(3) { animation-delay: 380ms; }
 
 @keyframes rise {
   from {
@@ -147,8 +146,17 @@
     width: min(58vw, 15rem);
   }
 
-  .title {
-    margin-block: var(--space-3) var(--space-5);
+  .statement {
+    margin-top: var(--space-4);
+  }
+
+  /* במסך צר המשפט נשבר טבעית ומאוזן */
+  .statement br {
+    display: none;
+  }
+
+  .statement span {
+    text-wrap: balance;
   }
 
   .buy {
@@ -161,10 +169,6 @@
     padding-inline: var(--space-5);
   }
 
-  /* במסך צר המשפט נשבר טבעית */
-  .opening br {
-    display: none;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
