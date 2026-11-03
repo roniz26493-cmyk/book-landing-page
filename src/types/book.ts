@@ -121,8 +121,12 @@ export interface BookConfig {
     heroPromise: string
     /** הזמנה שקטה להמשיך לגלול, בתחתית המסך הראשון במובייל */
     heroScrollCue: string
+    /** משפט הפתיחה מתחת לשם הספר ב-Hero. "\n" = שבירת שורה מכוונת */
+    heroOpening: string
     /** כותרת אזור "על הספר" */
     aboutTitle: string
+    /** הכותרת הגדולה באזור "על הספר". "\n" = שבירת שורה מכוונת */
+    aboutHeadline: string
     /** תיאור הספר — אזור "על הספר". מוצגת רק הפסקה הראשונה; השאר נשמר כמקור */
     description: string[]
     /** משפט מודגש טיפוגרפית באזור "על הספר". ריק = לא יוצג */
@@ -140,9 +144,20 @@ export interface BookConfig {
     coverIsPlaceholder: boolean
   }
 
+  /** סרט גזרי הנייר — קטעים קצרים בכתב יד */
+  scraps: {
+    /** כותרת נגישה לאזור (מוסתרת ויזואלית) */
+    title: string
+    /** כיתוב קטן מתחת לסרט שמציין את מקור הקטעים */
+    caption: string
+    items: { id: string; text: string }[]
+  }
+
   author: {
-    /** כותרת אזור המחבר, למשל "על הסופר" */
+    /** כותרת אזור המחבר */
     sectionTitle: string
+    /** כיתוב־על קטן מעל הכותרת */
+    eyebrow: string
     name: string
     /** תיאור תפקיד קצר, למשל "סופר ומשורר" */
     role: string

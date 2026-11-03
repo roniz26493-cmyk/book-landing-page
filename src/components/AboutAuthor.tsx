@@ -1,78 +1,46 @@
 import { bookConfig } from '../data/bookConfig'
-import { socialIcons } from './ui/Icons'
+import { Lines } from './ui/Lines'
 import { Reveal } from './ui/Reveal'
-import { Section } from './ui/Section'
 import styles from './AboutAuthor.module.css'
 
-const { author, social } = bookConfig
+const { author } = bookConfig
+
+// "האיש מאחורי הסיפורים" בשתי שורות מאוזנות
+const headline = author.sectionTitle.replace(' מאחורי ', '\nמאחורי ')
 
 /**
- * אזור המחבר, בהשראת עמודי הסיום של פרסום ספרותי.
- *
- * אין תמונת פורטרט אמיתית של המחבר בפרויקט (photoIsPlaceholder=true) —
- * לכן האזור טיפוגרפי לחלוטין, בלי אווטאר גנרי. אם בעתיד תתווסף תמונה
- * אמיתית (photoIsPlaceholder=false + נתיב אמיתי), היא תוצג אוטומטית.
+ * על הסופר. תמונה מוצגת רק כשיש תמונה אמיתית (photoIsPlaceholder: false);
+ * עד אז המקטע טיפוגרפי לגמרי — בלי placeholder שמתחזה לתצלום.
  */
 export function AboutAuthor() {
-  const activeSocial = social.filter((link) => link.url.trim() !== '')
-  const hasRealPhoto = !author.photoIsPlaceholder && Boolean(author.photo)
+  const hasPhoto = !author.photoIsPlaceholder && Boolean(author.photo)
 
   return (
-    <Section id="author" tone="light" className={styles.section}>
-      <div className={hasRealPhoto ? styles.gridWithPhoto : styles.grid}>
-        {hasRealPhoto && (
-          <Reveal className={styles.photoWrap}>
-            <div className={styles.photoFrame}>
-              <img
-                className={styles.photo}
-                src={author.photo}
-                alt={author.photoAlt}
-                width={800}
-                height={800}
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-          </Reveal>
-        )}
-
-        <Reveal className={styles.content} delay={hasRealPhoto ? 100 : 0}>
-          <h2 className={styles.heading}>{author.sectionTitle}</h2>
-          {/* השם עצמו הוא הדימוי של האזור */}
+    <section id="author" className={styles.section} aria-labelledby="author-title">
+      <div className={`container ${styles.layout}`}>
+        <Reveal className={styles.heading}>
+          <span className="eyebrow">{author.eyebrow}</span>
+          <h2 id="author-title" className={styles.title}>
+            <Lines text={headline} />
+          </h2>
           <p className={styles.name}>{author.name}</p>
+        </Reveal>
 
-          <div className={styles.bio}>
-            {author.bio.map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
-          </div>
-
-          {activeSocial.length > 0 && (
-            <div className={styles.socialRow}>
-              <span className={styles.socialLabel}>לעקוב אחרי המחבר</span>
-              <ul className={styles.socialList}>
-                {activeSocial.map((link) => {
-                  const Icon = socialIcons[link.platform]
-                  return (
-                    <li key={link.id}>
-                      <a
-                        className={styles.socialLink}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={link.label}
-                        title={link.label}
-                      >
-                        <Icon />
-                      </a>
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
+        <Reveal className={styles.bio} delay={140}>
+          {hasPhoto && (
+            <img
+              className={styles.photo}
+              src={author.photo}
+              alt={author.photoAlt}
+              loading="lazy"
+              decoding="async"
+            />
           )}
+          {author.bio.map((paragraph) => (
+            <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+          ))}
         </Reveal>
       </div>
-    </Section>
+    </section>
   )
 }

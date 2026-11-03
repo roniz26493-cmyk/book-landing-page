@@ -1,193 +1,55 @@
-/* ---- ללא תמונה: עמודה טיפוגרפית אחת, כמו עמוד סיום בפרסום ספרותי ---- */
-.grid {
-  display: block;
-  max-width: var(--container-narrow);
-}
+/* ==========================================================================
+   על הסופר — כותרת ושם בצד אחד, הביוגרפיה בעמודת קריאה בצד השני.
+   ========================================================================== */
 
-.content {
-  min-width: 0;
-}
-
-.byline {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-4);
-  flex-wrap: wrap;
-  margin-bottom: var(--space-5);
-}
-
-/* משקל קליל וגודל גדול — בדיוק כמו שם המחבר על גב הכריכה: לא כבד,
-   אלא נוכח בזכות הגודל. הכותרת הכבדה שמורה לשם הספר בלבד, לא לשמו. */
-.name {
-  margin: 0;
-  color: var(--color-primary);
-  font-size: var(--text-4xl);
-  font-weight: 300;
-  line-height: 1.1;
-}
-
-.role {
-  margin: 0;
-  color: var(--color-text-muted);
-  font-size: var(--text-sm);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-}
-
-.bio {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  color: var(--color-text);
-  font-size: var(--text-lg);
-  line-height: var(--leading-relaxed);
-}
-
-.bio p {
-  margin: 0;
-}
-
-/* ---- רשתות חברתיות ---- */
-.socialRow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-4);
-  margin-top: var(--space-6);
-  padding-top: var(--space-5);
+.section {
+  padding-block: var(--section-space);
   border-top: 1px solid var(--color-border);
 }
 
-.socialLabel {
-  color: var(--color-text-muted);
-  font-size: var(--text-sm);
-  font-weight: 700;
-}
-
-.socialList {
-  display: flex;
-  gap: var(--space-3);
-  margin: 0;
-}
-
-.socialLink {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-sm);
-  color: var(--color-primary);
-  transition:
-    background-color var(--transition-fast),
-    border-color var(--transition-fast),
-    color var(--transition-fast);
-}
-
-.socialLink:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-}
-
-/* ==========================================================================
-   מצב עתידי: אם תתווסף תמונת מחבר אמיתית (photoIsPlaceholder=false)
-   ========================================================================== */
-.gridWithPhoto {
+.layout {
   display: grid;
-  gap: clamp(2rem, 1rem + 5vw, 4rem);
-  align-items: center;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  align-items: end;
+  gap: clamp(2.5rem, 1rem + 6vw, 8rem);
 }
 
-.photoWrap {
-  display: flex;
-  justify-content: center;
-}
-
-.photoFrame {
-  position: relative;
-  width: min(18rem, 70vw);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-}
-
-.photo {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-}
-
-@media (min-width: 52rem) {
-  .gridWithPhoto {
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  }
-
-  .photoWrap {
-    justify-content: flex-start;
-  }
-
-  .photoFrame {
-    width: 100%;
-    max-width: 22rem;
-  }
-}
-
-/* ==========================================================================
-   על הסופר — כותרת שקטה, השם הגדול כדימוי, וביוגרפיה קצרה בטור אחד.
-   בלי כרטיס, בלי תווית, בלי תמונה.
-   ========================================================================== */
-.grid {
-  max-width: none;
-}
-
-.heading {
-  margin: 0 0 var(--space-3);
-  color: var(--color-text-muted);
-  font-size: var(--text-base);
-  font-weight: 500;
-  line-height: 1.4;
-}
-
-/* גודל זורם: לעולם לא גולש במסך צר */
-.name {
-  margin: 0 0 var(--space-6);
+.title {
+  margin-block: var(--space-4) var(--space-6);
   color: var(--color-primary);
-  font-family: var(--font-display);
-  font-size: clamp(2.75rem, 1.6rem + 5vw, 4.75rem);
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: -0.015em;
+  font-size: var(--text-display);
+  font-weight: 850;
+  line-height: var(--leading-display);
+  letter-spacing: -0.02em;
+}
+
+.name {
+  color: var(--color-text);
+  font-size: var(--text-xl);
+  font-weight: 500;
+  letter-spacing: 0.04em;
 }
 
 .bio {
-  gap: var(--space-4);
-  max-width: 34rem;
-  margin-inline-start: clamp(0.75rem, 3vw, 2.5rem);
-  line-height: 1.85;
+  display: grid;
+  gap: var(--space-5);
+  max-width: var(--container-reading);
+  color: var(--color-text);
+  font-size: var(--text-lg);
+  font-weight: 350;
+  line-height: var(--leading-relaxed);
 }
 
-.socialRow {
-  max-width: 34rem;
-  margin-inline-start: clamp(0.75rem, 3vw, 2.5rem);
+.photo {
+  width: min(100%, 20rem);
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  margin-bottom: var(--space-3);
 }
 
-@media (max-width: 47.99rem) {
-  .section {
-    padding-block: var(--space-8) var(--space-7);
-  }
-
-  .bio {
-    font-size: var(--text-base);
-  }
-}
-
-@media (min-width: 62rem) {
-  .section {
-    padding-block: 6rem 5rem;
-  }
-
-  .name {
-    font-size: clamp(3.5rem, 5vw, 4.75rem);
+@media (max-width: 63.99rem) {
+  .layout {
+    grid-template-columns: 1fr;
+    align-items: start;
   }
 }

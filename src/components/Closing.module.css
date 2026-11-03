@@ -1,0 +1,101 @@
+/* ==========================================================================
+   סיום — גיליון בהיר שסוגר את העמוד, כמו גיליון הפתיחה.
+   ========================================================================== */
+
+.section {
+  padding: 0 var(--space-3) var(--space-3);
+  scroll-margin-top: var(--space-3);
+}
+
+.sheet {
+  padding: clamp(4.5rem, 2rem + 8vw, 9.5rem) var(--gutter);
+  border-radius: var(--radius-sheet);
+  background: var(--color-bg-alt);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  margin-block: var(--space-4) var(--space-6);
+  color: var(--color-primary);
+  font-size: var(--text-display);
+  font-weight: 850;
+  line-height: var(--leading-display);
+  letter-spacing: -0.02em;
+}
+
+.price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.priceValue {
+  color: var(--color-primary);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+}
+
+.priceNote {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--space-5);
+  margin-top: var(--space-7);
+}
+
+.direct {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 22rem;
+}
+
+.direct :global(.btn) {
+  min-width: 17rem;
+  white-space: nowrap;
+}
+
+.note {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+}
+
+.signoff {
+  padding-block: var(--space-6) var(--space-4);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-align: center;
+}
+
+@media (max-width: 47.99rem) {
+  .section {
+    padding-inline: var(--space-2);
+  }
+
+  .actions,
+  .direct {
+    width: 100%;
+  }
+
+  .direct :global(.btn) {
+    width: 100%;
+    min-width: 0;
+  }
+}

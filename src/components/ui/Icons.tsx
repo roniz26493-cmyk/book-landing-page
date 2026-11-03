@@ -102,6 +102,15 @@ export function ArrowDownIcon(props: IconProps) {
   )
 }
 
+/** חץ "קדימה" — בעברית קדימה היא שמאלה */
+export function ArrowIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="M19 12H5M11 6l-6 6 6 6" />
+    </Icon>
+  )
+}
+
 export function ExternalIcon(props: IconProps) {
   return (
     <Icon {...props}>

@@ -53,10 +53,13 @@ export function WhatsAppOrderButton({
         </button>
         <p id="whatsapp-pending-note" className={styles.pendingNote}>
           פרטי ההזמנה הישירה יתעדכנו כאן בקרוב.
-          <span className={styles.pendingHint}>
-            {' '}
-            (להשלמה: מספר הוואטסאפ של המחבר בקובץ bookConfig.ts)
-          </span>
+          {/* תזכורת לעורך האתר — מוצגת רק בסביבת הפיתוח, לא למבקרים */}
+          {import.meta.env.DEV && (
+            <span className={styles.pendingHint}>
+              {' '}
+              (להשלמה: מספר הוואטסאפ של המחבר בקובץ bookConfig.ts)
+            </span>
+          )}
         </p>
       </div>
     )

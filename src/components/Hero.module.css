@@ -1,432 +1,175 @@
 /* ==========================================================================
-   המסך הראשון — מימוש העיצוב המאושר (public/images/hero-approved-reference.png).
-   טאבלט ודסקטופ: הרקע הוא תמונת האווירה המקורית (hero-atmosphere.png,
-   1722×913) — בלי פילטרים, מעברי צבע או שכבות שמשנים אותה. הבמה שומרת
-   על יחס התמונה, וכל המיקומים נמדדו מהרפרנס ונקבעים ביחידות רוחב
-   הבמה (cqw), כך שהספר נשאר על השיש והטקסט במקומו בכל רוחב.
-   מובייל: הכריכה המלאה כמסך הראשון.
+   פתיחה — גיליון בהיר אחד על רקע השמנת, כמו הלוח הלבן בפתיחת הרפרנס.
+   הטקסט בצד ימין (תחילת השורה בעברית), הספר בצד שמאל.
    ========================================================================== */
+
 .hero {
-  /* גופן כותרת סריפי עברי — לכותרת ה-Hero בלבד */
-  --font-hero: 'Frank Ruhl Libre', var(--font-display), serif;
+  padding: var(--space-3);
+}
 
-  position: relative;
-  /* חיתוך אופקי בלבד — ההילה סביב ההבטחה במובייל לא תגלוש; אנכית לא נחתך
-     דבר, כך שבחירות הרכישה נפתחות במלואן */
-  overflow-x: clip;
-  background: var(--color-bg);
+.sheet {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  align-items: center;
+  gap: var(--space-6);
+  min-height: min(56rem, calc(100svh - 1.5rem));
+  padding: clamp(2.5rem, 1rem + 5vw, 6rem) clamp(1.5rem, 0.5rem + 5vw, 6.5rem);
+  border-radius: var(--radius-sheet);
+  background: var(--color-bg-alt);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 40rem;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  margin-block: var(--space-4) var(--space-6);
+  color: var(--color-primary);
+  font-size: var(--text-hero);
+  font-weight: 850;
+  line-height: var(--leading-display);
+  letter-spacing: -0.025em;
+}
+
+.titleLine {
+  display: block;
+}
+
+.opening {
+  max-width: 34rem;
   color: var(--color-text);
+  font-size: var(--text-xl);
+  font-weight: 300;
+  line-height: 1.6;
 }
 
-/* ---- ההבטחה: שורות; "עליכם" — חלודה, עם קו מכחול דק ---- */
-.promise,
-.immersivePromise {
-  font-family: var(--font-hero);
+.buy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-5) var(--space-6);
+  margin-top: var(--space-7);
 }
 
-.promise span,
-.support span {
-  display: block;
+.price {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
 }
 
-.accent {
-  position: relative;
-  display: inline-block;
-  color: var(--color-accent);
-  font-style: normal;
+.priceValue {
+  color: var(--color-primary);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  letter-spacing: -0.01em;
 }
 
-.underline {
-  position: absolute;
-  left: 30%;
-  bottom: -0.04em;
-  width: 46%;
-  height: 0.17em;
-  overflow: visible;
-  fill: currentColor;
-  opacity: 0.9;
+.priceNote {
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.08em;
 }
 
-.stage {
-  display: none;
+.media {
+  display: flex;
+  justify-content: center;
 }
 
-/* ---- תנועת הספר: כניסה קצרה ותגובה עדינה לגלילה, על התמונה כיחידה ---- */
-.bookStage {
-  animation: bookIn 1100ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
-}
-
-.bookMotion {
-  transform: translate3d(0, calc(var(--scroll, 0) * 10px), 0);
-  will-change: transform;
-}
-
-.mockup {
-  display: block;
-  width: 100%;
+.book {
+  width: clamp(15rem, 24vw, 29rem);
   height: auto;
-  aspect-ratio: 640 / 1044;
+  /* צל מגע רך בלבד — לא צל כבד */
+  filter: drop-shadow(0 28px 30px rgba(38, 52, 49, 0.12));
+  animation: settle 1.4s var(--ease-out) both;
+  animation-delay: 120ms;
 }
 
-@keyframes bookIn {
+/* כניסה מדורגת עדינה בטעינה */
+.enter {
+  animation: rise 1s var(--ease-out) both;
+}
+
+.text > .enter:nth-child(1) { animation-delay: 80ms; }
+.text > .enter:nth-child(2) { animation-delay: 160ms; }
+.text > .enter:nth-child(3) { animation-delay: 320ms; }
+.text > .enter:nth-child(4) { animation-delay: 460ms; }
+
+@keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
+    transform: translateY(18px);
   }
 }
 
-/* ---- כניסה מדורגת של הטקסט ---- */
-.promise span,
-.support,
-.reveal {
-  animation: riseIn 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
-}
-
-.promise span:nth-child(1) {
-  animation-delay: 380ms;
-}
-
-.promise span:nth-child(2) {
-  animation-delay: 470ms;
-}
-
-.support {
-  animation-delay: 680ms;
-}
-
-.reveal {
-  animation-delay: 820ms;
-}
-
-@keyframes riseIn {
+@keyframes settle {
   from {
     opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
+    transform: translateY(24px) scale(0.985);
   }
 }
 
-/* ==========================================================================
-   טאבלט ודסקטופ — הבמה המאושרת.
-   מידות ברפרנס (1722px): כותרת-עליונה ב-y≈63–81, טור טקסט x≈265–815,
-   ספר x≈975–1385 עם בסיסו על השיש ב-y≈832.
-   ========================================================================== */
-@media (min-width: 48rem) {
-  .stage {
-    position: relative;
-    display: block;
-    container-type: inline-size;
-    /* יחס תמונת האווירה; הבמה גדלה אם בחירות הרכישה נפתחות */
-    aspect-ratio: 1722 / 913;
-    background:
-      url('/images/hero-atmosphere.png') top center / 100% auto no-repeat,
-      var(--color-bg);
-  }
-
-  /* כשבחירות הרכישה פתוחות והבמה ארוכה מהתמונה: רק שולי התמונה התחתונים
-     נמסים אל צבע הדף, כדי שההמשך לא ייחתך בקו חד. במצב הסגור — התמונה
-     כפי שהיא, ללא שינוי */
-  .stage:has([data-open='true'])::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: calc(100cqw * 913 / 1722 - 9cqw);
-    height: 9cqw;
-    background: linear-gradient(to bottom, transparent, var(--color-bg));
-    pointer-events: none;
-  }
-
-  .stage > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  /* כותרת-על: שם הספר מימין, קו דק, שם המחבר משמאל */
-  .masthead {
-    position: absolute;
-    top: 3.4cqw;
-    left: 6.7cqw;
-    right: 6.7cqw;
-    display: flex;
-    align-items: center;
-    gap: 1.9cqw;
-    color: var(--color-primary);
-    font-family: var(--font-display);
-    font-size: max(0.8rem, 1.22cqw);
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    line-height: 1;
-    white-space: nowrap;
-  }
-
-  .mastRule {
-    flex: 1 1 auto;
-    height: 1px;
-    background: color-mix(in srgb, var(--color-primary) 38%, transparent);
-  }
-
-  .mastAuthor {
-    color: var(--color-text-muted);
-    font-weight: 400;
-  }
-
-  /* טור הטקסט: בזרימה רגילה (כדי שהבמה תגדל כשהבחירות נפתחות),
-     ממוקם ברוחב ובריפוד ביחידות הבמה */
-  .text {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    width: 31.9cqw;
-    margin-inline-start: auto;
-    margin-inline-end: 15.4cqw;
-    padding-top: 11.6cqw;
-    padding-bottom: 4cqw;
-  }
-
-  .promise {
-    margin: 0;
-    color: var(--color-primary);
+/* ---- טאבלט ---- */
+@media (max-width: 63.99rem) {
+  .sheet {
+    grid-template-columns: 1fr;
+    gap: var(--space-7);
+    min-height: auto;
     text-align: start;
   }
 
-  .promise span:nth-child(1) {
-    font-size: max(1.35rem, 3.4cqw);
-    font-weight: 400;
-    line-height: 1.2;
-    white-space: nowrap;
+  .media {
+    order: -1;
   }
 
-  .promise span:nth-child(2) {
-    font-size: max(2.4rem, 7.5cqw);
-    font-weight: 500;
-    line-height: 0.86;
-    letter-spacing: 0.01em;
-  }
-
-  /* "עליכם" יורדת לשורה משלה, גדולה ובולטת, מוזחת פנימה */
-  .promise .accent {
-    display: block;
-    width: fit-content;
-    margin-top: -0.14em;
-    margin-inline-start: 0.56em;
-    font-size: 1.45em;
-    font-weight: 500;
-    line-height: 1;
-    letter-spacing: -0.015em;
-  }
-
-  .support {
-    margin: 1.75cqw 0 0;
-    color: var(--color-text);
-    font-size: max(0.95rem, 1.5cqw);
-    font-weight: 400;
-    line-height: 1.75;
-    text-align: center;
-  }
-
-  /* הפעולה: כפתור מתאר חלודה */
-  .reveal {
-    align-self: flex-end;
-    margin-top: 0.9cqw;
-    margin-inline-end: 1.6cqw;
-  }
-
-  .reveal > :first-child {
-    justify-content: center;
-    gap: 0.9em;
-    min-width: max(16rem, 25.6cqw);
-    min-height: max(3rem, 3.9cqw);
-    padding: 0.7em 2em 0.75em;
-    border: 1.5px solid var(--color-accent);
-    border-radius: 4px;
-    background: transparent;
-    color: var(--color-accent);
-    font-family: var(--font-body);
-    font-size: max(1rem, 1.45cqw);
-    font-weight: 700;
-    letter-spacing: 0.005em;
-    transition:
-      background-color var(--transition-fast),
-      color var(--transition-fast);
-  }
-
-  .reveal > :first-child > span:first-child {
-    text-decoration: none;
-  }
-
-  .reveal > :first-child:hover,
-  .reveal > :first-child:focus-visible {
-    background: color-mix(in srgb, var(--color-accent) 7%, transparent);
-    color: var(--color-accent-strong);
-  }
-
-  .reveal > :first-child:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 3px;
-  }
-
-  /* הספר: מיקום מוחלט ביחס לבמה (= ביחס לתמונת האווירה) — בסיסו על השיש */
-  .bookStage {
-    position: absolute;
-    z-index: 1;
-    left: 57.1cqw;
-    top: calc(47.33cqw - 22.94cqw * 1044 / 640);
-    width: 22.94cqw;
+  .book {
+    width: clamp(13rem, 36vw, 18rem);
   }
 }
 
-/* ==========================================================================
-   מובייל — "פתחתי את האתר ונכנסתי לכריכה".
-   הכריכה המלאה (לא חתוכה, לא משוקפת, ביחס המקורי) ברוחב המסך כולו.
-   ההבטחה — באותו גופן סריפי — יושבת על הכריכה עצמה, באזור הפתוח
-   בפינה השמאלית-תחתונה לצד שם המחבר; מקומה נמדד ביחס לכריכה (cqw).
-   ========================================================================== */
-.immersive {
-  display: none;
-}
-
+/* ---- מובייל ---- */
 @media (max-width: 47.99rem) {
-  .immersive {
-    display: flex;
-    flex-direction: column;
+  .hero {
+    padding: var(--space-2);
   }
 
-  .immersiveCover {
-    position: relative;
-    container-type: inline-size;
+  .sheet {
+    padding: var(--space-6) var(--space-5) var(--space-7);
+  }
+
+  .book {
+    width: min(58vw, 15rem);
+  }
+
+  .title {
+    margin-block: var(--space-3) var(--space-5);
+  }
+
+  .buy {
     width: 100%;
-    transform: translate3d(0, calc(var(--scroll, 0) * -28px), 0)
-      scale(calc(1 + var(--scroll, 0) * 0.06));
-    transform-origin: 50% 35%;
-    will-change: transform;
+    margin-top: var(--space-6);
   }
 
-  /* רק שולי הנייר בתחתית נמסים אל הדף — שם המחבר נשאר שלם */
-  .immersiveImg {
-    display: block;
+  .buy :global(.btn) {
     width: 100%;
-    height: auto;
-    aspect-ratio: 1100 / 1762;
-    -webkit-mask-image: linear-gradient(to bottom, #000 95%, transparent);
-    mask-image: linear-gradient(to bottom, #000 95%, transparent);
-    animation: coverIn 1100ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    padding-inline: var(--space-5);
   }
 
-  /* ההבטחה על הכריכה: צמודה לשמאל, נגמרת לפני שם המחבר (שמתחיל ב-~65%) */
-  .immersivePromise {
-    position: absolute;
-    isolation: isolate;
-    left: 5cqw;
-    bottom: 4cqw;
-    width: 57cqw;
-    margin: 0;
-    color: var(--color-primary);
-    opacity: calc(1 - var(--scroll, 0) * 0.5);
-  }
-
-  /* הילה קרם רכה ושקופה מאחורי הטקסט בלבד — לא קופסה */
-  .immersivePromise::before {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    inset: -1.4em -1.6em -1em;
-    background: radial-gradient(
-      closest-side,
-      color-mix(in srgb, var(--color-cream) 82%, transparent),
-      color-mix(in srgb, var(--color-cream) 55%, transparent) 55%,
-      transparent
-    );
-  }
-
-  .immersivePromise span {
-    display: block;
-    animation: riseIn 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  }
-
-  .immersivePromise span:nth-child(1) {
-    font-size: 4.9cqw;
-    font-weight: 400;
-    line-height: 1.25;
-    animation-delay: 500ms;
-  }
-
-  .immersivePromise span:nth-child(2) {
-    margin-inline-start: 2cqw;
-    font-size: 7.2cqw;
-    font-weight: 500;
-    line-height: 1.15;
-    animation-delay: 600ms;
-  }
-
-  .immersivePromise .accent {
-    font-weight: 700;
-  }
-
-  /* הזמנה שקטה להמשיך, ממורכזת מתחת לכריכה — בלי הבהוב */
-  .scrollCue {
-    display: inline-flex;
-    align-self: center;
-    align-items: center;
-    min-height: 2.75rem;
-    margin-top: var(--space-3);
-    color: var(--color-text-muted);
-    font-size: var(--text-sm);
-    letter-spacing: 0.02em;
-    opacity: calc(1 - var(--scroll, 0) * 0.5);
-    animation: riseIn 900ms cubic-bezier(0.2, 0.7, 0.2, 1) 900ms both;
+  /* במסך צר המשפט נשבר טבעית */
+  .opening br {
+    display: none;
   }
 }
 
-@keyframes coverIn {
-  from {
-    opacity: 0;
-    transform: scale(1.03);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* ==========================================================================
-   תנועה מופחתת: בלי גלילה ובלי עכבר (גם ה-JS לא נרשם), וכניסה כדהייה בלבד
-   ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
-  .bookMotion,
-  .immersiveCover {
-    transform: none;
-    will-change: auto;
-  }
-
-  .immersivePromise,
-  .scrollCue {
-    opacity: 1;
-  }
-
-  .bookStage,
-  .promise span,
-  .support,
-  .reveal,
-  .immersiveImg,
-  .immersivePromise span,
-  .scrollCue {
-    animation-name: fadeIn;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
+  .enter,
+  .book {
+    animation: none;
   }
 }

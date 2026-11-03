@@ -1,156 +1,125 @@
 /* ==========================================================================
-   על הספר — טור קריאה אחד ופרט אחד מתוך האיור, נמס אל הנייר.
-   בלי מספור, בלי כרטיסים, בלי קווי הפרדה.
+   על הספר
    ========================================================================== */
-.layout {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
+
+.section {
+  padding-block: 0 var(--section-space);
 }
 
-.text {
-  max-width: 34rem;
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: center;
+  gap: clamp(2.5rem, 1rem + 6vw, 8rem);
 }
 
 .title {
-  margin: 0 0 var(--space-5);
+  margin-block: var(--space-4) var(--space-7);
   color: var(--color-primary);
-  font-size: var(--text-2xl);
-  font-weight: 500;
-  line-height: var(--leading-tight);
+  font-size: var(--text-display);
+  font-weight: 850;
+  line-height: var(--leading-display);
+  letter-spacing: -0.02em;
 }
 
-.lead {
-  margin: 0;
+.body {
+  display: grid;
+  gap: var(--space-5);
+  max-width: var(--container-reading);
   color: var(--color-text);
   font-size: var(--text-lg);
+  font-weight: 350;
   line-height: var(--leading-relaxed);
 }
 
-/* ---- תיאור הספר כציטוט ספרותי ----
-   נייר שנהב, קווים דקים מעל ומתחת, מרכאות גדולות ועדינות בחלודה,
-   הרבה אוויר. בלי כרטיס, בלי צל, בלי פאנל כהה */
-.quote {
-  position: relative;
+.cover {
+  justify-self: center;
+  width: min(100%, 25rem);
+}
+
+.cover img {
   width: 100%;
-  max-width: 44rem;
-  margin: var(--space-8) auto 0;
-  padding: clamp(2.75rem, 2rem + 3vw, 4.25rem) clamp(0.75rem, 5vw - 0.5rem, 5rem);
-  background: color-mix(in srgb, #fbf7ef 70%, var(--color-bg));
-  border-block: 1px solid color-mix(in srgb, var(--color-sand) 75%, transparent);
+  height: auto;
+  transform: rotate(-2deg);
+  box-shadow:
+    0 1px 2px rgba(38, 48, 46, 0.12),
+    0 24px 40px -24px rgba(38, 48, 46, 0.35);
+}
+
+/* ---- שלושת חלקי המסע: טיפוגרפיה בלבד, מופרדת בקווים דקים ---- */
+.parts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: var(--section-space);
+  border-block: 1px solid var(--color-border);
+}
+
+.part {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-7) var(--space-5);
   text-align: center;
 }
 
-.quoteText {
-  margin: 0;
-  color: var(--color-primary);
-  font-family: 'Frank Ruhl Libre', var(--font-display), serif;
-  font-size: clamp(1.05rem, 0.7rem + 1.5vw, 1.75rem);
-  font-weight: 400;
-  line-height: 1.75;
+.partLabel {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.16em;
 }
 
-.quoteText span {
-  display: block;
+.partName {
+  color: var(--color-primary);
+  font-size: clamp(2.1rem, 1.2rem + 3.4vw, 4rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.015em;
+}
+
+/* ---- משפט אחד שעוצרים עליו ---- */
+.statement {
+  margin-top: var(--section-space);
+  text-align: center;
+}
+
+.statement p {
+  max-width: 54rem;
+  margin-inline: auto;
+  color: var(--color-primary);
+  font-size: clamp(1.6rem, 1rem + 2.4vw, 3rem);
+  font-weight: 300;
+  line-height: 1.32;
+  letter-spacing: -0.01em;
   text-wrap: balance;
 }
 
-/* המרכאות: גדולות, בחלודה מושתקת ושקופה במקצת — נוכחות, לא קישוט כבד */
-.quoteMark {
-  position: absolute;
-  top: clamp(0.25rem, 0.5vw, 0.75rem);
-  inset-inline-start: clamp(0.75rem, 2vw, 1.75rem);
-  color: var(--color-accent);
-  font-family: 'Frank Ruhl Libre', Georgia, serif;
-  font-size: clamp(4rem, 3rem + 4vw, 6.5rem);
-  line-height: 1;
-  opacity: 0.55;
-  pointer-events: none;
-  user-select: none;
-}
+@media (max-width: 63.99rem) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
 
-.quoteMarkEnd {
-  top: auto;
-  bottom: clamp(-1.5rem, -2vw, -0.75rem);
-  inset-inline-start: auto;
-  inset-inline-end: clamp(0.75rem, 2vw, 1.75rem);
-}
-
-/* פרט אחד מתוך האיור: הילד הקורא ודפי כתב היד. ממוזג לנייר ונמס בקצוות */
-.art {
-  --crop-x: 440;
-  --crop-y: 20;
-  --crop-w: 420;
-  --crop-h: 430;
-
-  position: relative;
-  align-self: flex-end;
-  width: min(80%, 22rem);
-  aspect-ratio: 420 / 430;
-  overflow: hidden;
-  pointer-events: none;
-  user-select: none;
-  -webkit-mask-image:
-    linear-gradient(to right, transparent, #000 20%, #000 80%, transparent),
-    linear-gradient(to bottom, transparent, #000 20%, #000 80%, transparent);
-  -webkit-mask-composite: source-in;
-  mask-image:
-    linear-gradient(to right, transparent, #000 20%, #000 80%, transparent),
-    linear-gradient(to bottom, transparent, #000 20%, #000 80%, transparent);
-  mask-composite: intersect;
-}
-
-/* חיתוך מתוך האיור (פיקסלי מקור 1100×768): רוחב = 1100/w, היסט = x0/w, y0/h */
-.artImg {
-  position: absolute;
-  max-width: none;
-  width: calc(1100 / var(--crop-w) * 100%);
-  left: calc(var(--crop-x) / var(--crop-w) * -100%);
-  top: calc(var(--crop-y) / var(--crop-h) * -100%);
-  height: auto;
-  mix-blend-mode: darken;
+  .cover {
+    width: min(70%, 20rem);
+  }
 }
 
 @media (max-width: 47.99rem) {
-  .section {
-    padding-block: var(--space-7) var(--space-8);
+  .parts {
+    grid-template-columns: 1fr;
   }
 
-  .lead {
-    font-size: var(--text-base);
+  .part {
+    padding: var(--space-5) 0;
   }
 
-  .art {
-    margin-top: calc(var(--space-4) * -1);
-  }
-}
-
-/* דסקטופ: הטקסט מימין על קו הפתיחה של האתר, הפרט משמאל ומעט נמוך ממנו */
-@media (min-width: 62rem) {
-  .section {
-    padding-block: 3rem 6rem;
+  .part + .part {
+    border-inline-start: none;
+    border-top: 1px solid var(--color-border);
   }
 
-  .layout {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: 1.5rem;
-    align-items: start;
-  }
-
-  .text {
-    grid-column: 2 / 7;
-  }
-
-  .art {
-    grid-column: 8 / 12;
-    align-self: center;
-    width: 100%;
-    margin-top: var(--space-8);
-  }
-  /* הציטוט בשורה משלו, ממורכז מתחת לטקסט ולאיור */
-  .quote {
-    grid-column: 2 / 12;
-    width: 100%;
+  /* במובייל שבירות השורה הידניות של המשפט נשברות טבעית */
+  .statement p br {
+    display: none;
   }
 }

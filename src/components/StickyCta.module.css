@@ -1,0 +1,36 @@
+.bar {
+  position: fixed;
+  inset-inline: 0;
+  bottom: max(var(--space-4), env(safe-area-inset-bottom));
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  padding-inline: var(--gutter);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition:
+    opacity var(--transition),
+    transform var(--transition);
+}
+
+.bar[data-visible='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+.bar[data-visible='true'] .button {
+  pointer-events: auto;
+}
+
+.button {
+  width: min(100%, 34rem);
+  min-height: 3.25rem;
+  box-shadow: 0 10px 24px -14px rgba(36, 74, 71, 0.55);
+}
+
+.price {
+  padding-inline-start: var(--space-3);
+  border-inline-start: 1px solid color-mix(in srgb, var(--color-on-primary) 35%, transparent);
+  font-weight: 800;
+}
