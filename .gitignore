@@ -5,3 +5,6 @@ dist-ssr
 .DS_Store
 .vite
 *.log
+
+# תוצרי בדיקת צילומי מסך (scripts/screenshots.mjs)
+screenshots/

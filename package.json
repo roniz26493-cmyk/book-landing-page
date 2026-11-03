@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc -b --noEmit"
+    "typecheck": "tsc -b --noEmit",
+    "shots": "node scripts/screenshots.mjs"
   },
   "dependencies": {
     "@fontsource-variable/heebo": "^5.3.0",
