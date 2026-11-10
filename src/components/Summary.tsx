@@ -6,8 +6,8 @@ import styles from './Summary.module.css'
 const { summary } = bookConfig
 
 /**
- * S8 — פאנל תקציר בצד שמאל + איור בצד ימין (REFERENCE_MAP). במקום העגור
- * של הרפרנס: פרט מתוך איור הכריכה, שעולה מעל קצה הפאנל.
+ * S8 — תקציר: פאנל מימין (מיושר לקצה המיכל) ופרט מאיור הכריכה משמאל,
+ * באותו גובה, שנכנס אל הפאנל ונמס עליו. המיקום נקבע ב-CSS (grid).
  */
 export function Summary() {
   return (

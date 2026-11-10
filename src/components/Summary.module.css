@@ -1,20 +1,21 @@
-/* תקציר — מיד אחרי "על הספר". פאנל 716px משמאל; פרט מאיור הכריכה מימין, דהוי ונטמע ברקע. */
+/* תקציר — הפאנל מימין (מתחיל בקצה המיכל, כמו שאר עמודות הקריאה);
+   פרט מאיור הכריכה משמאל, באותו גובה, ונכנס מעט אל תוך הפאנל ונמס עליו
+   (multiply על צבע הנייר) — קומפוזיציה אחת ולא שני אובייקטים. */
 .section {
   padding-top: clamp(4.5rem, 2rem + 7vw, 9rem);
 }
 
 .layout {
   display: grid;
-  /* פאנל 716px + 26px מקצה המיכל */
-  grid-template-columns: minmax(0, 1fr) 46.4rem;
+  /* RTL: העמודה הראשונה היא הימנית */
+  grid-template-columns: 46.4rem minmax(0, 1fr);
   align-items: stretch;
 }
 
 .panel {
-  grid-column: 2;
+  grid-column: 1;
   grid-row: 1;
-  margin-inline-end: 1.6rem;
-  padding: 4.7rem 2.3rem 4.3rem;
+  padding: 4.7rem 3rem 4.3rem;
 }
 
 .body {
@@ -24,59 +25,75 @@
   color: var(--color-text);
   font-size: var(--text-lg);
   font-weight: 300;
-  line-height: 1.65;
+  line-height: 1.7;
 }
 
+/* האיור: באותו גובה של הפאנל, וחופף אותו ב-9rem (החלק הריק של הנייר,
+   משמאל לשורות הטקסט). מעל הפאנל, בלי לחסום לחיצות. */
 .art {
-  grid-column: 1;
+  position: relative;
+  z-index: 1;
+  grid-column: 2;
   grid-row: 1;
-  align-self: start;
-  margin-top: -1.8rem;
-  margin-inline-start: 1.5rem;
+  margin-inline-start: -9rem;
+  pointer-events: none;
+}
+
+.art picture,
+.art img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .art img {
-  width: 100%;
-  /* חיתוך לאורך של פרט הכריכה, בערך בגובה הפאנל */
-  height: 32rem;
   object-fit: cover;
-  object-position: 42% 50%;
-  /* זיכרון דהוי: האיור נטמע ברקע — שקיפות, מיזוג עם צבע הנייר, קצוות שנמסים
-     לכל הכיוונים וטשטוש קל. בלי מסגרת ובלי צל. */
-  opacity: 0.62;
+  /* מרכז הפרט: גזרי הנייר, הילד הקורא והענף — לא הפרופיל */
+  object-position: 64% 42%;
+  /* זיכרון דהוי: שקיפות, מיזוג עם צבע הנייר, קצוות שנמסים, טשטוש קל */
+  opacity: 0.6;
   mix-blend-mode: multiply;
   filter: saturate(0.85) blur(0.4px);
+  /* הקצה הימני (על הפאנל) נמס ארוך; השמאלי והאנכיים — קצרים */
   -webkit-mask-image:
-    linear-gradient(90deg, transparent 0%, #000 22%, #000 78%, transparent 100%),
-    linear-gradient(180deg, transparent 0%, #000 18%, #000 72%, transparent 100%);
+    linear-gradient(90deg, transparent 0%, #000 30%, #000 62%, transparent 100%),
+    linear-gradient(180deg, transparent 0%, #000 12%, #000 84%, transparent 100%);
   -webkit-mask-composite: source-in;
   mask-image:
-    linear-gradient(90deg, transparent 0%, #000 22%, #000 78%, transparent 100%),
-    linear-gradient(180deg, transparent 0%, #000 18%, #000 72%, transparent 100%);
+    linear-gradient(90deg, transparent 0%, #000 30%, #000 62%, transparent 100%),
+    linear-gradient(180deg, transparent 0%, #000 12%, #000 84%, transparent 100%);
   mask-composite: intersect;
 }
 
+/* ---- טאבלט ומובייל: האיור מעל הפאנל, נמס אל תוכו ---- */
 @media (max-width: 63.99rem) {
   .layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .panel {
     grid-column: 1;
     grid-row: 2;
-    margin: 0;
-    padding: var(--space-7) var(--space-5);
-  }
-
-  .art img {
-    height: auto;
+    padding: var(--space-8) var(--space-5) var(--space-7);
   }
 
   .art {
+    grid-column: 1;
     grid-row: 1;
-    width: min(100%, 28rem);
     justify-self: center;
-    margin: 0 0 calc(-1 * var(--space-6));
+    width: min(100%, 30rem);
+    aspect-ratio: 4 / 3;
+    margin: 0 0 calc(-1 * var(--space-8));
+  }
+
+  .art img {
+    -webkit-mask-image:
+      linear-gradient(90deg, transparent 0%, #000 16%, #000 84%, transparent 100%),
+      linear-gradient(180deg, transparent 0%, #000 14%, #000 62%, transparent 100%);
+    mask-image:
+      linear-gradient(90deg, transparent 0%, #000 16%, #000 84%, transparent 100%),
+      linear-gradient(180deg, transparent 0%, #000 14%, #000 62%, transparent 100%);
   }
 
   .body br {
