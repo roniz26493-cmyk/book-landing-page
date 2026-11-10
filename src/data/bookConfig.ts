@@ -33,7 +33,7 @@ export const bookConfig: BookConfig = {
 
   placeholders: {
     // להעביר ל-false לפני העלייה לאוויר
-    showMarks: true,
+    showMarks: false,
   },
 
   // ──────────────────────────────────────────────────────────────────────────
