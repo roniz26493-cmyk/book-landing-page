@@ -1,0 +1,66 @@
+/* S12 — כותרת ממורכזת ≈165px אחרי כרטיס הרכישה; שורות בגובה 68 ברווח 11, ברוחב המיכל */
+.section {
+  padding-top: clamp(4rem, 2rem + 9.25vw, 10.3rem);
+}
+
+.title {
+  text-align: center;
+}
+
+.list {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: clamp(1.75rem, 1rem + 1.5vw, 2.9rem);
+}
+
+.question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: 4.25rem;
+  padding: var(--space-3) var(--space-5);
+  color: var(--color-text);
+  font-size: var(--text-lg);
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none;
+}
+
+.question::-webkit-details-marker {
+  display: none;
+}
+
+/* "+" שהופך ל-"−" כשהשאלה פתוחה */
+.icon {
+  position: relative;
+  flex: none;
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+.icon::before,
+.icon::after {
+  content: '';
+  position: absolute;
+  inset: 50% 0 auto;
+  height: 2px;
+  background: currentColor;
+  transform: translateY(-50%);
+}
+
+.icon::after {
+  transform: translateY(-50%) rotate(90deg);
+  transition: transform var(--transition-fast);
+}
+
+.item[open] .icon::after {
+  transform: translateY(-50%) rotate(0deg);
+}
+
+.answer {
+  padding: 0 var(--space-5) var(--space-5);
+  color: var(--color-text-muted);
+  font-size: var(--text-base);
+  line-height: 1.6;
+}

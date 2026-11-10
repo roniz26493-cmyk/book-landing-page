@@ -1,6 +1,7 @@
 import { bookConfig } from '../data/bookConfig'
 import { ArrowIcon } from './ui/Icons'
 import { Lines } from './ui/Lines'
+import { whatsappLink } from './ui/WhatsAppOrderButton'
 import styles from './Hero.module.css'
 
 const { book, purchase } = bookConfig
@@ -32,7 +33,12 @@ export function Hero() {
                 {purchase.priceNote && <span className={styles.priceNote}>{purchase.priceNote}</span>}
               </p>
             )}
-            <a className="btn btnLarge" href="#purchase">
+            {/* בוואטסאפ ישירות כשהמספר מוגדר; עד אז — גלילה לאזור ההזמנה */}
+            <a
+              className="btn btnLarge"
+              href={whatsappLink ?? '#purchase'}
+              {...(whatsappLink ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            >
               {purchase.primaryCta}
               <ArrowIcon className="btnArrow" />
             </a>

@@ -1,0 +1,81 @@
+/* S11 — כותרת ממורכזת ≈85px אחרי המקטע הכהה; כרטיס אחד ממורכז ברוחב כרטיס מארז (≈621px), ≈645px גובה */
+.section {
+  padding-top: clamp(3.5rem, 2rem + 3vw, 5.3rem);
+}
+
+.title {
+  text-align: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(100%, 38.8rem);
+  min-height: 40.3rem;
+  margin: clamp(2rem, 1rem + 1.5vw, 2.5rem) auto 0;
+  padding: 4.5rem var(--space-6) var(--space-7);
+  text-align: center;
+}
+
+.book {
+  width: 8.8rem;
+  height: auto;
+  filter: drop-shadow(0 14px 16px rgba(38, 52, 49, 0.14));
+}
+
+.nameRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  margin-top: var(--space-7);
+}
+
+.name {
+  color: var(--color-text);
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+.price {
+  color: var(--color-primary);
+  font-size: var(--text-2xl);
+  font-weight: 850;
+}
+
+.priceNote {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  letter-spacing: 0.08em;
+}
+
+.cta {
+  margin-top: var(--space-6);
+}
+
+.note {
+  margin-top: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+
+.direct {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: var(--space-6);
+}
+
+@media (max-width: 47.99rem) {
+  .card {
+    min-height: 0;
+    padding: var(--space-7) var(--space-5);
+  }
+
+  .cta {
+    width: 100%;
+    padding-inline: var(--space-4);
+    font-size: var(--text-base);
+    white-space: nowrap;
+  }
+}

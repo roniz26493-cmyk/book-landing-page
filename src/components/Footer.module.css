@@ -1,0 +1,45 @@
+/* S13 — פוטר כהה ברוחב מלא, ≈75px אחרי השאלות הנפוצות, תוכן ממורכז */
+.footer {
+  margin-top: clamp(3rem, 2rem + 3vw, 4.7rem);
+  padding-top: var(--space-7);
+  background: var(--color-dark);
+  color: rgba(245, 240, 229, 0.86);
+  text-align: center;
+}
+
+.mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-cream);
+  font-size: var(--text-2xl);
+  font-weight: 850;
+  line-height: 1.1;
+}
+
+.author {
+  font-size: var(--text-base);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  opacity: 0.75;
+}
+
+.line {
+  margin-top: var(--space-5);
+  font-size: var(--text-sm);
+}
+
+.line a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(245, 240, 229, 0.4);
+}
+
+.credit {
+  margin-top: var(--space-7);
+  padding-block: var(--space-4);
+  border-top: 1px solid rgba(245, 240, 229, 0.12);
+  font-size: var(--text-xs);
+  opacity: 0.6;
+}

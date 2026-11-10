@@ -70,7 +70,11 @@ export interface FaqItem {
   answer: string
   /** האם התשובה היא placeholder שממתין לתוכן אמיתי */
   isPlaceholder?: boolean
+  /** התשובה מתארת את כפתור הוואטסאפ — מוצגת רק כשהמספר מוגדר */
+  requiresWhatsapp?: boolean
 }
+
+
 
 /** קישור לרשת חברתית. url ריק = הקישור לא יוצג כלל. */
 export interface SocialLink {
@@ -123,18 +127,12 @@ export interface BookConfig {
     heroScrollCue: string
     /** המשפט המרכזי ב-Hero, משפט לכל איבר (הראשון מודגש). "\n" = שבירת שורה */
     heroStatement: string[]
-    /** המשפט בסיום העמוד. "\n" = שבירת שורה מכוונת */
-    closingLine: string
     /** כותרת אזור "על הספר" */
     aboutTitle: string
-    /** הכותרת הגדולה באזור "על הספר". "\n" = שבירת שורה מכוונת */
-    aboutHeadline: string
     /** תיאור הספר — אזור "על הספר". מוצגת רק הפסקה הראשונה; השאר נשמר כמקור */
     description: string[]
     /** משפט מודגש טיפוגרפית באזור "על הספר". ריק = לא יוצג */
     pullQuote: string
-    /** צירוף מתוך pullQuote שיודגש. ריק = ללא הדגשה */
-    pullQuoteEmphasis: string
     coverImage: string
     /** גרסת WebP קלה יותר של הכריכה (אופציונלי). ריק = משתמשים ב-coverImage בלבד */
     coverImageWebp: string
@@ -147,6 +145,18 @@ export interface BookConfig {
     /** האם תמונת הכריכה היא placeholder */
     coverIsPlaceholder: boolean
   }
+
+  stats: { items: { value: string; label: string }[]; slots: number }
+  statement: { quote: string }
+  about: { title: string; paragraphs: string[] }
+  summary: { title: string; paragraphs: string[]; image: string; imageWebp: string }
+  testimonials: {
+    eyebrow: string
+    title: string
+    items: { text: string; attribution: string }[]
+    slots: number
+  }
+  footer: { publisherName: string }
 
   /** סרט גזרי הנייר — קטעים קצרים בכתב יד */
   scraps: {
@@ -166,8 +176,6 @@ export interface BookConfig {
     /** תיאור תפקיד קצר, למשל "סופר ומשורר" */
     role: string
     bio: string[]
-    /** עובדות קצרות מתוך הביוגרפיה */
-    facts: { label: string; value: string }[]
     photo: string
     photoAlt: string
     photoIsPlaceholder: boolean

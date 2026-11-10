@@ -1,130 +1,62 @@
-/* ==========================================================================
-   על הספר — שלוש תנועות טיפוגרפיות, בלי תמונה ובלי כרטיסיות.
-   ========================================================================== */
-
+/* על הספר — עמודת קריאה מימין, הכריכה דהויה משמאל */
 .section {
-  padding-bottom: var(--section-space);
+  padding-top: clamp(1rem, 0.5rem + 2vw, 3rem);
 }
 
-/* ---- 1. פתיחה ממורכזת ---- */
-.opener {
-  display: flex;
-  flex-direction: column;
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 32rem) minmax(0, 1fr);
   align-items: center;
-  text-align: center;
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
 }
 
+.text {
+  display: grid;
+  gap: 1.1rem;
+}
+
+/* כותרת עדינה — קטנה וקלה יותר מכותרות המקטעים האחרים */
 .title {
-  margin-block: var(--space-5) var(--space-7);
+  margin-bottom: 0.35rem;
   color: var(--color-primary);
-  font-size: clamp(3rem, 1.2rem + 6.6vw, 7.6rem);
-  font-weight: 850;
-  line-height: 0.95;
-  letter-spacing: -0.03em;
+  font-size: clamp(1.6rem, 1.25rem + 1vw, 2.1rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0;
 }
 
-.lead {
-  max-width: 38rem;
-  color: var(--color-text);
-  font-size: var(--text-xl);
-  font-weight: 300;
-  line-height: 1.7;
-}
-
-/* ---- 2. המדרגות ----
-   כל שורה ברוחב מלא עם קו דק מעליה. המילה זזה פנימה בכל שלב, והמשקל
-   גדל מ-300 ל-850: מילדות קלה לבגרות מלאה. */
-.stairs {
-  margin-top: var(--section-space);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.step {
-  display: grid;
-  grid-template-columns: 11rem minmax(0, 1fr);
-  align-items: baseline;
-  gap: var(--space-5);
-  padding-block: clamp(1rem, 0.5rem + 1.6vw, 2.2rem);
-  border-top: 1px solid var(--color-border);
-}
-
-.stepMeta {
+.media {
   display: flex;
-  align-items: baseline;
-  gap: var(--space-3);
-  color: var(--color-text-muted);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  letter-spacing: 0.16em;
+  justify-content: center;
 }
 
-.stepIndex {
-  color: var(--color-primary);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.04em;
-}
-
-.stepWord {
-  padding-inline-start: calc(var(--step) * clamp(2.5rem, 1rem + 11vw, 15rem));
-  color: var(--color-primary);
-  font-size: clamp(3rem, 1rem + 7.4vw, 8.5rem);
-  font-weight: var(--weight);
-  line-height: 1;
-  letter-spacing: -0.03em;
-}
-
-/* ---- 3. פריסה א־סימטרית ---- */
-.spread {
-  display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
-  align-items: end;
-  gap: clamp(2.5rem, 1rem + 6vw, 8rem);
-  margin-top: var(--section-space);
-}
-
-.spreadText p {
-  max-width: 26rem;
-  color: var(--color-text);
-  font-size: var(--text-lg);
-  font-weight: 350;
-  line-height: var(--leading-relaxed);
-}
-
-.spreadQuote p {
-  color: var(--color-primary);
-  font-size: clamp(1.7rem, 0.95rem + 2.1vw, 2.85rem);
-  text-wrap: balance;
-  font-weight: 300;
-  line-height: 1.3;
-  letter-spacing: -0.012em;
-}
-
-.spreadQuote br {
-  display: none;
-}
-
-.spreadQuote strong {
-  font-weight: 750;
+/* זיכרון דהוי: שקיפות, מיזוג עם צבע הנייר, קצוות שנמסים — בלי מסגרת וצל */
+.cover {
+  width: clamp(14rem, 24vw, 21rem);
+  height: auto;
+  opacity: 0.58;
+  mix-blend-mode: multiply;
+  filter: saturate(0.85) blur(0.3px);
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0%, #000 20%, #000 80%, transparent 100%),
+    linear-gradient(180deg, transparent 0%, #000 14%, #000 82%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0%, #000 20%, #000 80%, transparent 100%),
+    linear-gradient(180deg, transparent 0%, #000 14%, #000 82%, transparent 100%);
+  mask-composite: intersect;
 }
 
 @media (max-width: 63.99rem) {
-  .spread {
+  .layout {
     grid-template-columns: 1fr;
   }
 
-  .spreadQuote {
+  .media {
     order: -1;
   }
-}
 
-@media (max-width: 47.99rem) {
-  .step {
-    grid-template-columns: 1fr;
-    gap: var(--space-2);
+  .cover {
+    width: clamp(11rem, 46vw, 15rem);
   }
-
-  .stepWord {
-    padding-inline-start: calc(var(--step) * 12vw);
-  }
-
 }

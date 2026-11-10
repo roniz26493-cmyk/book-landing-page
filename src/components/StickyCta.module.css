@@ -1,7 +1,7 @@
 .bar {
   position: fixed;
   inset-inline: 0;
-  bottom: max(var(--space-4), env(safe-area-inset-bottom));
+  bottom: max(1.25rem, env(safe-area-inset-bottom));
   z-index: 50;
   display: flex;
   justify-content: center;
@@ -24,8 +24,11 @@
 }
 
 .button {
-  width: min(100%, 34rem);
-  min-height: 3.25rem;
+  /* גלולה קומפקטית וממורכזת — לא פס רכישה לכל רוחב המסך */
+  width: auto;
+  max-width: 100%;
+  min-height: 2.75rem;
+  padding-inline: var(--space-6);
   box-shadow: 0 10px 24px -14px rgba(36, 74, 71, 0.55);
 }
 

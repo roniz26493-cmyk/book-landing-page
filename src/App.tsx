@@ -3,10 +3,16 @@ import { bookConfig } from './data/bookConfig'
 import { applyBrandColors } from './lib/applyBrandColors'
 import { AboutAuthor } from './components/AboutAuthor'
 import { AboutBook } from './components/AboutBook'
-import { Closing } from './components/Closing'
+import { Faq } from './components/Faq'
+import { Footer } from './components/Footer'
 import { Hero } from './components/Hero'
+import { Purchase } from './components/Purchase'
 import { ScrapStrip } from './components/ScrapStrip'
+import { Stats } from './components/Stats'
+import { Statement } from './components/Statement'
 import { StickyCta } from './components/StickyCta'
+import { Summary } from './components/Summary'
+import { Testimonials } from './components/Testimonials'
 
 export default function App() {
   // הפלטה מהקונפיג נכתבת כמשתני CSS על :root
@@ -20,14 +26,31 @@ export default function App() {
         דילוג לתוכן הראשי
       </a>
 
-      {/* עמוד אחד רציף, בלי תפריט: פתיחה → גזרי נייר → על הספר → על הסופר → סיום */}
+      {/* 13 המקטעים לפי docs/REFERENCE_MAP.md, באותו סדר */}
       <main id="main">
+        {/* S1 */}
         <Hero />
+        {/* S2 */}
+        <Stats />
+        {/* S3 */}
         <ScrapStrip />
+        {/* S4 */}
+        <Statement />
+        {/* S5 */}
         <AboutBook />
+        {/* S8 */}
+        <Summary />
+        {/* S9 */}
         <AboutAuthor />
-        <Closing />
+        {/* S10 */}
+        <Testimonials />
+        {/* S11 */}
+        <Purchase />
+        {/* S12 */}
+        <Faq />
       </main>
+      {/* S13 */}
+      <Footer />
 
       <StickyCta />
     </div>

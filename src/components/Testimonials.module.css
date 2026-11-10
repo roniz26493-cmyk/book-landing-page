@@ -1,0 +1,110 @@
+/* S10 — מקטע כהה ברוחב מלא (≈725px ב-1440), ≈180px אחרי S9. כרטיסים ≈420×210, שתי שורות. */
+.section {
+  margin-top: clamp(4rem, 2rem + 10.6vw, 11.6rem);
+  padding-block: clamp(3.5rem, 2rem + 3.5vw, 5.6rem) clamp(3rem, 2rem + 3vw, 5rem);
+  background: var(--color-dark);
+}
+
+.head {
+  text-align: center;
+}
+
+.eyebrow {
+  color: rgba(245, 240, 229, 0.62);
+}
+
+.title {
+  margin-top: var(--space-2);
+  color: var(--color-cream);
+}
+
+.viewport {
+  direction: ltr;
+  overflow: hidden;
+  margin-top: 0.65rem;
+  -webkit-mask-image: linear-gradient(90deg, transparent 4%, #000 12%, #000 88%, transparent 96%);
+  mask-image: linear-gradient(90deg, transparent 4%, #000 12%, #000 88%, transparent 96%);
+}
+
+.head + .viewport {
+  margin-top: clamp(2rem, 1rem + 2vw, 2.8rem);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: slide 60s linear infinite;
+}
+
+.toRight {
+  animation-direction: reverse;
+}
+
+@keyframes slide {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.set {
+  display: flex;
+  gap: 0.65rem;
+  padding-inline-end: 0.65rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 26.25rem;
+  min-height: 13.1rem;
+  padding: var(--space-5) var(--space-5);
+  border-radius: var(--radius-panel);
+  background: rgba(245, 240, 229, 0.06);
+  direction: rtl;
+}
+
+.text {
+  color: rgba(245, 240, 229, 0.88);
+  font-size: var(--text-base);
+  line-height: 1.55;
+}
+
+.by {
+  color: rgba(245, 240, 229, 0.55);
+  font-size: var(--text-sm);
+}
+
+.pendingCard {
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border: 1px dashed rgba(245, 240, 229, 0.25);
+}
+
+.pendingText {
+  color: rgba(245, 240, 229, 0.5);
+  font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 47.99rem) {
+  .card {
+    width: 18rem;
+    min-height: 11rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+
+  .viewport {
+    overflow-x: auto;
+  }
+
+  .set[aria-hidden='true'] {
+    display: none;
+  }
+}

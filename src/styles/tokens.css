@@ -21,6 +21,8 @@
   --color-peach-soft: #f0e2d2;
   --color-taupe: #8a7b6e; /* חום־אפור */
   --color-ink: #26302e; /* טקסט רץ */
+  --color-panel: #fcfaf5; /* פאנלים וכרטיסים (במקום הלבן של הרפרנס) */
+  --color-dark: #1c2826; /* מקטעים כהים: המלצות ופוטר (במקום הכמעט־שחור של הרפרנס) */
 
   /* ---- מיפוי סמנטי (נדרס בזמן ריצה מהקונפיג) ---- */
   --color-primary: var(--color-teal);
@@ -59,6 +61,10 @@
   --text-2xl: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
   /* כותרות מקטע */
   --text-display: clamp(2.6rem, 1.4rem + 5vw, 5.25rem);
+  /* כותרת מקטע: ≈48px ב-1440 */
+  --text-section: clamp(1.9rem, 1.15rem + 2.2vw, 3.05rem);
+  /* טקסט רץ: ≈17.5px */
+  --text-body: 1.09rem;
   /* שם הספר בפתיחה */
   --text-hero: clamp(3.6rem, 1.6rem + 8.2vw, 8.75rem);
 
@@ -81,13 +87,14 @@
 
   --section-space: clamp(5rem, 2.5rem + 9vw, 11rem);
   --gutter: clamp(1.125rem, 0.4rem + 3.2vw, 3rem);
-  --container: 82rem;
+  --container: 80rem;
   --container-reading: 36rem;
 
   /* ---- צורה ----
      בלי צללים כבדים ובלי כרטיסים מעוגלים: הגיליון של הפתיחה מעוגל מעט,
      הכפתורים מלאים (pill) כמו ברפרנס. */
   --radius-sheet: 14px;
+  --radius-panel: 6px;
   --radius-sm: 3px;
   --radius-pill: 999px;
   --radius-btn: 999px;

@@ -1,0 +1,85 @@
+/* תקציר — מיד אחרי "על הספר". פאנל 716px משמאל; פרט מאיור הכריכה מימין, דהוי ונטמע ברקע. */
+.section {
+  padding-top: clamp(4.5rem, 2rem + 7vw, 9rem);
+}
+
+.layout {
+  display: grid;
+  /* פאנל 716px + 26px מקצה המיכל */
+  grid-template-columns: minmax(0, 1fr) 46.4rem;
+  align-items: stretch;
+}
+
+.panel {
+  grid-column: 2;
+  grid-row: 1;
+  margin-inline-end: 1.6rem;
+  padding: 4.7rem 2.3rem 4.3rem;
+}
+
+.body {
+  display: grid;
+  gap: 1.1rem;
+  margin-top: var(--space-5);
+  color: var(--color-text);
+  font-size: var(--text-lg);
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+.art {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+  margin-top: -1.8rem;
+  margin-inline-start: 1.5rem;
+}
+
+.art img {
+  width: 100%;
+  /* חיתוך לאורך של פרט הכריכה, בערך בגובה הפאנל */
+  height: 32rem;
+  object-fit: cover;
+  object-position: 42% 50%;
+  /* זיכרון דהוי: האיור נטמע ברקע — שקיפות, מיזוג עם צבע הנייר, קצוות שנמסים
+     לכל הכיוונים וטשטוש קל. בלי מסגרת ובלי צל. */
+  opacity: 0.62;
+  mix-blend-mode: multiply;
+  filter: saturate(0.85) blur(0.4px);
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0%, #000 22%, #000 78%, transparent 100%),
+    linear-gradient(180deg, transparent 0%, #000 18%, #000 72%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0%, #000 22%, #000 78%, transparent 100%),
+    linear-gradient(180deg, transparent 0%, #000 18%, #000 72%, transparent 100%);
+  mask-composite: intersect;
+}
+
+@media (max-width: 63.99rem) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    grid-column: 1;
+    grid-row: 2;
+    margin: 0;
+    padding: var(--space-7) var(--space-5);
+  }
+
+  .art img {
+    height: auto;
+  }
+
+  .art {
+    grid-row: 1;
+    width: min(100%, 28rem);
+    justify-self: center;
+    margin: 0 0 calc(-1 * var(--space-6));
+  }
+
+  .body br {
+    display: none;
+  }
+}

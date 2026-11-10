@@ -6,7 +6,8 @@
    ========================================================================== */
 
 .strip {
-  padding-block: clamp(3rem, 1.5rem + 5vw, 6.5rem) var(--section-space);
+  /* S3: ≈70px מתחת לשורת הנתונים; הכותרת של S4 ≈100–150px מתחת לסרט */
+  padding-block: 0;
 }
 
 .viewport {
@@ -23,7 +24,8 @@
   width: max-content;
   /* הפס עצמו LTR כדי שהלולאה תהיה פשוטה; הטקסט שבתוך כל גזר RTL */
   direction: ltr;
-  animation: drift 64s linear infinite;
+  /* המשך נקבע בזמן ריצה לפי הרוחב בפועל, כך שהמהירות קבועה (useMarquee) */
+  animation: drift 50s linear infinite;
 }
 
 .viewport:hover .track,
@@ -152,10 +154,6 @@
 
   .notebook {
     padding-inline-start: 2.2rem;
-  }
-
-  .track {
-    animation-duration: 52s;
   }
 }
 

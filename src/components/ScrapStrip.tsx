@@ -1,5 +1,6 @@
 import { useState, type CSSProperties } from 'react'
 import { bookConfig } from '../data/bookConfig'
+import { useMarquee } from '../hooks/useMarquee'
 import { Lines } from './ui/Lines'
 import styles from './ScrapStrip.module.css'
 
@@ -105,6 +106,8 @@ function ScrapSet({ hidden }: { hidden?: boolean }) {
  */
 export function ScrapStrip() {
   const [paused, setPaused] = useState(false)
+  // מהירות סרט הפולארויד ברפרנס: ≈39px לשנייה, שמאלה (REFERENCE_MAP, S3)
+  const trackRef = useMarquee<HTMLDivElement>(39)
 
   if (items.length === 0) return null
 
@@ -115,7 +118,7 @@ export function ScrapStrip() {
       </h2>
 
       <div className={styles.viewport} data-paused={paused}>
-        <div className={styles.track}>
+        <div className={styles.track} ref={trackRef}>
           <ScrapSet />
           <ScrapSet hidden />
         </div>
