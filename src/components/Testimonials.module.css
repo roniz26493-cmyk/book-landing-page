@@ -1,6 +1,6 @@
 /* S10 — מקטע כהה ברוחב מלא (≈725px ב-1440), ≈180px אחרי S9. כרטיסים ≈420×210, שתי שורות. */
 .section {
-  margin-top: clamp(4rem, 2rem + 10.6vw, 11.6rem);
+  margin-top: var(--section-gap-lg);
   padding-block: clamp(3.5rem, 2rem + 3.5vw, 5.6rem) clamp(3rem, 2rem + 3vw, 5rem);
   background: var(--color-dark);
 }

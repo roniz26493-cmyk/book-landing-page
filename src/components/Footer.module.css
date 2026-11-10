@@ -1,6 +1,6 @@
 /* S13 — פוטר כהה ברוחב מלא, ≈75px אחרי השאלות הנפוצות, תוכן ממורכז */
 .footer {
-  margin-top: clamp(3rem, 2rem + 3vw, 4.7rem);
+  margin-top: var(--section-gap);
   padding-top: var(--space-7);
   background: var(--color-dark);
   color: rgba(245, 240, 229, 0.86);

@@ -1,16 +1,16 @@
-/* S12 — כותרת ממורכזת ≈165px אחרי כרטיס הרכישה; שורות בגובה 68 ברווח 11, ברוחב המיכל */
+/* S12 — אחרי המלצות / על הסופר, לפני ההזמנה. גריד ה"גיליון" (.spread ב-base.css). */
 .section {
-  padding-top: clamp(4rem, 2rem + 9.25vw, 10.3rem);
+  padding-top: var(--section-gap);
 }
 
 .title {
-  text-align: center;
+  /* מיישר את הכותרת לגובה השאלה הראשונה */
+  margin-top: 0.15rem;
 }
 
 .list {
   display: grid;
   gap: 0.7rem;
-  margin-top: clamp(1.75rem, 1rem + 1.5vw, 2.9rem);
 }
 
 .question {

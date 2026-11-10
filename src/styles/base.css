@@ -165,6 +165,48 @@ ol {
   border-radius: var(--radius-panel);
 }
 
+/* ---- גיליון (spread): מערכת היישור של מקטעי הקריאה ----
+   שלוש עמודות במיכל, מימין לשמאל 2fr · 3fr · 2fr — ב-1440 הקווים נופלים על
+   קווי הגריד של העמוד (69% ו-31%). כותרת בעמודה הימנית, עמודת קריאה אחת
+   באמצע, והעמודה השמאלית היא שוליים (או תמונה, כשיש). */
+.spread {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) minmax(0, 2fr);
+  align-items: start;
+}
+
+.spreadHead {
+  grid-column: 1;
+  padding-inline-end: var(--space-6);
+}
+
+.spreadBody {
+  grid-column: 2;
+  max-width: 34rem;
+}
+
+.spreadAside {
+  grid-column: 3;
+}
+
+@media (max-width: 63.99rem) {
+  .spread {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+
+  .spreadHead,
+  .spreadBody,
+  .spreadAside {
+    grid-column: 1;
+    padding: 0;
+  }
+
+  .spreadBody {
+    max-width: 36rem;
+  }
+}
+
 /* מקום שמור לתוכן אמיתי שחסר (מוצג רק כש-showMarks פעיל) */
 .pending {
   display: inline-flex;

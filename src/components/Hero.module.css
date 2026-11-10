@@ -45,7 +45,7 @@
 /* המשפט השני — קטן ושקט: המשך של הכותרת, לא כותרת שנייה.
    אותו טורקיז מעט מרוכך, משקל רגיל, ריווח שורות של טקסט ולא של כותרת. */
 .light {
-  margin-top: 0.85em;
+  margin-top: 0.6em;
   color: color-mix(in srgb, var(--color-primary) 80%, var(--color-bg-alt));
   font-size: clamp(1.35rem, 0.9rem + 1.4vw, 2.15rem);
   font-weight: 400;
@@ -58,7 +58,8 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-5) var(--space-6);
-  margin-top: var(--space-7);
+  /* הכותרת והמשפט השני — קבוצה אחת; הפעולה מופרדת מהן במרווח ברור */
+  margin-top: clamp(2.5rem, 1.5rem + 2vw, 3.5rem);
 }
 
 .price {

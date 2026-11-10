@@ -1,32 +1,28 @@
-/* S9 — ≈250px אחרי פאנל התקציר. עיגול 450px (x 90–540 ב-1440) משמאל, טבעת ≈8px; טקסט 475px מימין. */
+/* על הסופר — מעבר פרק (מהספר אל האיש), ולכן המרווח הגדול לפניו.
+   גריד ה"גיליון" (.spread ב-base.css); עיגול התמונה בעמודה השמאלית — רק כשיש תמונה. */
 .section {
-  padding-top: clamp(4.5rem, 2rem + 15vw, 15.6rem);
-}
-
-.layout {
-  display: grid;
-  grid-template-columns: 29.7rem minmax(0, 1fr);
-  align-items: center;
-  min-height: 28.2rem;
-}
-
-.text {
-  display: grid;
-  gap: 0.6rem;
+  padding-top: var(--section-gap-lg);
 }
 
 .title {
-  margin-block: var(--space-2) 0.4rem;
+  margin-top: var(--space-2);
+}
+
+.bio {
+  display: grid;
+  gap: 0.6rem;
+  /* הביוגרפיה מתחילה בקו של הכותרת, לא של כיתוב־העל */
+  padding-top: 2.1rem;
 }
 
 .photoWrap {
-  justify-self: end;
-  margin-inline-end: 0.6rem;
+  align-self: center;
+  justify-self: center;
 }
 
 .photo,
 .photoPending {
-  width: clamp(14rem, 31vw, 28.1rem);
+  width: min(100%, clamp(14rem, 22vw, 20rem));
   aspect-ratio: 1;
   border-radius: 50%;
   border: 0.5rem solid var(--color-sand, #d9d0be);
@@ -47,16 +43,12 @@
 }
 
 @media (max-width: 63.99rem) {
-  .layout {
-    grid-template-columns: 1fr;
-    gap: var(--space-6);
-    min-height: 0;
+  .bio {
+    padding-top: 0;
   }
 
   .photoWrap {
     order: -1;
-    justify-self: center;
-    margin: 0;
   }
 
   .photo,

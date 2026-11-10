@@ -1,20 +1,8 @@
-/* על הספר — טיפוגרפיה בלבד, א־סימטרי.
-   שלוש עמודות במיכל (מימין לשמאל) 2fr · 3fr · 2fr — ב-1440 הן נופלות על קווי
-   הגריד של העמוד (69% ו-31%): כותרת בעמודה הימנית, עמודת קריאה באמצע,
-   והעמודה השמאלית ריקה בכוונה. */
-.section {
-  padding-top: clamp(1rem, 0.5rem + 2vw, 3rem);
-}
-
-.layout {
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) minmax(0, 2fr);
-  align-items: start;
-}
+/* על הספר — טיפוגרפיה בלבד, על גריד ה"גיליון" (.spread ב-base.css).
+   מיד אחרי הציטוט: המרווח ביניהם הוא ה-padding התחתון של הציטוט. */
 
 /* כותרת אקספרסיבית: אותו צבע ומשקל של כותרות המקטע, בגודל גדול יותר */
 .title {
-  grid-column: 1;
   color: var(--color-primary);
   font-size: clamp(2.4rem, 1.2rem + 3.6vw, 4.4rem);
   font-weight: 760;
@@ -25,10 +13,8 @@
 }
 
 .text {
-  grid-column: 2;
   display: grid;
   gap: 1.1rem;
-  max-width: 34rem;
 }
 
 /* הפתיח — הפסקה הראשונה, גדולה ושקטה */
@@ -39,21 +25,4 @@
   font-weight: 420;
   line-height: 1.5;
   text-wrap: balance;
-}
-
-/* ---- טאבלט ומובייל: כותרת מעל עמודת קריאה אחת ---- */
-@media (max-width: 63.99rem) {
-  .layout {
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-6);
-  }
-
-  .title,
-  .text {
-    grid-column: 1;
-  }
-
-  .text {
-    max-width: 36rem;
-  }
 }

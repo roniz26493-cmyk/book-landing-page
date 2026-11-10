@@ -1,6 +1,6 @@
 /* הציטוט — ממורכז על רקע השמנת, עם הרבה אוויר מעליו ומתחתיו */
 .section {
-  padding-block: clamp(4.5rem, 2.5rem + 6vw, 9.5rem);
+  padding-block: var(--section-gap);
   padding-inline: var(--gutter);
   text-align: center;
 }

@@ -44,10 +44,10 @@ export default function App() {
         <AboutAuthor />
         {/* S10 */}
         <Testimonials />
+        {/* S12 — שאלות נפוצות לפני ההזמנה: ההזמנה היא רגע ההמרה האחרון */}
+        <Faq />
         {/* S11 */}
         <Purchase />
-        {/* S12 */}
-        <Faq />
       </main>
       {/* S13 */}
       <Footer />

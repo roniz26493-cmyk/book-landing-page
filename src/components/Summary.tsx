@@ -6,8 +6,8 @@ import styles from './Summary.module.css'
 const { summary } = bookConfig
 
 /**
- * S8 — תקציר: פאנל מימין (מיושר לקצה המיכל) ופרט מאיור הכריכה משמאל,
- * באותו גובה, שנכנס אל הפאנל ונמס עליו. המיקום נקבע ב-CSS (grid).
+ * S8 — תקציר: פאנל על שתי העמודות הימניות של גריד ה"גיליון" (כותרת מימין,
+ * טקסט מקו 69%) ופרט מאיור הכריכה בעמודה השמאלית, שנכנס אל הפאנל ונמס עליו.
  */
 export function Summary() {
   return (
@@ -21,7 +21,7 @@ export function Summary() {
         </div>
 
         <div className={`panel ${styles.panel}`}>
-          <AccentTitle id="summary-title" title={summary.title} />
+          <AccentTitle id="summary-title" title={summary.title} className={styles.title} />
           <div className={styles.body}>
             {summary.paragraphs.map((p) => (
               <p key={p.slice(0, 20)}>

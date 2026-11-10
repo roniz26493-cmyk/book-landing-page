@@ -6,19 +6,23 @@ import styles from './AboutAuthor.module.css'
 const { author } = bookConfig
 
 /**
- * S9 — על הסופר (REFERENCE_MAP): תמונה עגולה (קוטר 450) משמאל, טקסט בעמודה
- * ימנית של 475px, מרכזים באותו גובה. העיגול מוצג רק עם תמונה אמיתית;
- * בלעדיה — מקום מסומן "להשלמה" (רק כש-showMarks), ובפרסום העמודה נשארת ריקה.
+ * על הסופר — על גריד ה"גיליון" (.spread), כמו "על הספר": כיתוב־על וכותרת
+ * בעמודה הימנית, הביוגרפיה בעמודת הקריאה. העיגול (בעמודה השמאלית) מוצג רק
+ * עם תמונה אמיתית; בלעדיה — מקום מסומן "להשלמה" (רק כש-showMarks), ובפרסום
+ * העמודה השמאלית נשארת שוליים, כמו בשאר מקטעי הקריאה.
  */
 export function AboutAuthor() {
   const hasPhoto = !author.photoIsPlaceholder && Boolean(author.photo)
 
   return (
     <section id="author" className={styles.section} aria-labelledby="author-title">
-      <div className={`container ${styles.layout}`}>
-        <div className={styles.text}>
+      <div className="container spread">
+        <div className="spreadHead">
           <span className="eyebrow">{author.eyebrow}</span>
-          <AccentTitle id="author-title" title={author.sectionTitle} className={`oneLine ${styles.title}`} />
+          <AccentTitle id="author-title" title={author.sectionTitle} className={styles.title} />
+        </div>
+
+        <div className={`spreadBody ${styles.bio}`}>
           {author.bio.map((p) => (
             <p key={p.slice(0, 20)} className="bodyText">
               {p}
@@ -27,7 +31,7 @@ export function AboutAuthor() {
         </div>
 
         {(hasPhoto || showPending) && (
-          <div className={styles.photoWrap}>
+          <div className={`spreadAside ${styles.photoWrap}`}>
             {hasPhoto ? (
               <img className={styles.photo} src={author.photo} alt={author.photoAlt} loading="lazy" decoding="async" />
             ) : (
