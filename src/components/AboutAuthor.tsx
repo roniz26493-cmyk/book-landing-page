@@ -33,7 +33,9 @@ export function AboutAuthor() {
         {(hasPhoto || showPending) && (
           <div className={`spreadAside ${styles.photoWrap}`}>
             {hasPhoto ? (
-              <img className={styles.photo} src={author.photo} alt={author.photoAlt} loading="lazy" decoding="async" />
+              <span className={styles.photo}>
+                <img src={author.photo} alt={author.photoAlt} loading="lazy" decoding="async" />
+              </span>
             ) : (
               <div className={styles.photoPending}>
                 <Pending>תמונה אמיתית של {author.name} — להשלמה</Pending>

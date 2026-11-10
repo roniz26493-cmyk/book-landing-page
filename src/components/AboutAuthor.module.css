@@ -28,8 +28,19 @@
   border: 0.5rem solid var(--color-sand, #d9d0be);
 }
 
+/* העיגול והטבעת על המעטפת, כדי שהשחור־לבן לא ישנה את צבע הטבעת */
 .photo {
+  display: block;
+  overflow: hidden;
+}
+
+/* שחור־לבן; התמונה רחבה (16:9) — המסגור על הפנים והפלג העליון */
+.photo img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  object-position: 56% 30%;
+  filter: grayscale(1);
 }
 
 .photoPending {

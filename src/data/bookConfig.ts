@@ -1,5 +1,4 @@
 import type { BookConfig } from '../types/book'
-import authorPlaceholder from '../assets/author-placeholder.svg'
 
 /**
  * ============================================================================
@@ -158,9 +157,9 @@ export const bookConfig: BookConfig = {
     ],
     // לא סופקה תמונת פורטרט נפרדת של המחבר (איור הכריכה הוא יצירה
     // אמנותית סגנונית, ולא תצלום של רועי סלע) — להשלמה בהמשך.
-    photo: authorPlaceholder,
+    photo: '/images/roy-author.jpg',
     photoAlt: 'תמונה של רועי סלע',
-    photoIsPlaceholder: true,
+    photoIsPlaceholder: false,
   },
 
   // ──────────────────────────────────────────────────────────────────────────
