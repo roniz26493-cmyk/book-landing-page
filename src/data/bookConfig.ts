@@ -106,12 +106,10 @@ export const bookConfig: BookConfig = {
       'סיפור אחד ביום אינו ספר של תשובות,\nאלא הזמנה לעצור, להרגיש ולהיזכר\nברגעים שבהם אהבנו, פחדנו, התביישנו,\nנשברנו, התבגרנו והשלמנו עם מי שאנחנו.',
       'מטרתו להשאיר מקום למה שלא נאמר,\nולתת מילים לחוויות הראשוניות\nשממשיכות ללוות אותנו הרבה אחרי שהן חולפות.',
     ],
-    image: '/images/about-illustration.jpg',
-    imageWebp: '/images/about-illustration.webp',
-    // מובייל וטאבלט (האיור מעל הפאנל): חיתוך מאותה כריכה מקורית (cover-front.jpg),
-    // עם הפנים המלאות — מצח, עין, אף, זקן — משמאל לאותיות שם הספר, בלי לשנות את האיור
-    imageStacked: '/images/summary-face.jpg',
-    imageStackedWebp: '/images/summary-face.webp',
+    // חיתוך אנכי מהכריכה המקורית (cover-front.jpg) עם הפנים המלאות — מצח, עין, אף,
+    // פה, זקן — משמאל לאותיות שם הספר, בלי לשנות את האיור. בכל הרוחבים.
+    image: '/images/summary-face.jpg',
+    imageWebp: '/images/summary-face.webp',
   },
 
   // S10 — המלצות. רק המלצות אמיתיות, באישור: { text: '…', attribution: '…' }

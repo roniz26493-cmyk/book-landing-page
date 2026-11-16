@@ -15,11 +15,8 @@ export function Summary() {
       <div className={`container ${styles.layout}`}>
         <div className={styles.art} aria-hidden="true">
           <picture>
-            {/* מתחת ל-64rem האיור מעל הפאנל: חיתוך אנכי עם הפנים המלאות */}
-            <source media="(max-width: 63.99rem)" srcSet={summary.imageStackedWebp} type="image/webp" />
-            <source media="(max-width: 63.99rem)" srcSet={summary.imageStacked} type="image/jpeg" />
             <source srcSet={summary.imageWebp} type="image/webp" />
-            <img src={summary.image} alt="" width={1100} height={768} loading="lazy" decoding="async" />
+            <img src={summary.image} alt="" width={590} height={1065} loading="lazy" decoding="async" />
           </picture>
         </div>
 

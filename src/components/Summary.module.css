@@ -59,21 +59,34 @@
 
 .art img {
   object-fit: cover;
-  /* מרכז הפרט: גזרי הנייר, הילד הקורא והענף — לא הפרופיל */
-  object-position: 62% 40%;
   /* זיכרון דהוי: שקיפות, מיזוג עם צבע הנייר, קצוות שנמסים, טשטוש קל */
   opacity: 0.6;
   mix-blend-mode: multiply;
   filter: saturate(0.85) blur(0.4px);
-  /* הקצה הימני (על הפאנל) נמס ארוך; השמאלי והאנכיים — קצרים */
   -webkit-mask-image:
-    linear-gradient(90deg, transparent 0%, #000 24%, #000 62%, transparent 100%),
-    linear-gradient(180deg, transparent 0%, #000 16%, #000 80%, transparent 100%);
+    linear-gradient(90deg, transparent 0%, #000 14%, #000 74%, transparent 100%),
+    linear-gradient(180deg, transparent 0%, #000 12%, #000 80%, transparent 100%);
   -webkit-mask-composite: source-in;
   mask-image:
-    linear-gradient(90deg, transparent 0%, #000 24%, #000 62%, transparent 100%),
-    linear-gradient(180deg, transparent 0%, #000 16%, #000 80%, transparent 100%);
+    linear-gradient(90deg, transparent 0%, #000 14%, #000 74%, transparent 100%),
+    linear-gradient(180deg, transparent 0%, #000 12%, #000 80%, transparent 100%);
   mask-composite: intersect;
+}
+
+/* דסקטופ: הדיוקן המלא (חיתוך אנכי מהכריכה) בגובה הפאנל, ממורכז בעמודה השמאלית —
+   כל הפנים בתוך הגיליון, לא נחתכות בקצה, ולא מגיעות לשורות הטקסט */
+@media (min-width: 64rem) {
+  .art img {
+    /* אוויר מעל השיער ומתחת לסנטר — הדיוקן נושם בתוך הגיליון */
+    top: 2.25rem;
+    bottom: auto;
+    left: 50%;
+    height: calc(100% - 3.75rem);
+    width: auto;
+    max-width: 100%;
+    aspect-ratio: 590 / 1065;
+    transform: translateX(-50%);
+  }
 }
 
 /* ---- טאבלט ומובייל: האיור מעל הפאנל, נמס אל תוכו ---- */
@@ -110,15 +123,6 @@
     margin: 0 0 calc(-1 * var(--space-7));
   }
 
-  .art img {
-    object-position: 50% 50%;
-    -webkit-mask-image:
-      linear-gradient(90deg, transparent 0%, #000 14%, #000 84%, transparent 100%),
-      linear-gradient(180deg, transparent 0%, #000 12%, #000 80%, transparent 100%);
-    mask-image:
-      linear-gradient(90deg, transparent 0%, #000 14%, #000 84%, transparent 100%),
-      linear-gradient(180deg, transparent 0%, #000 12%, #000 80%, transparent 100%);
-  }
 
   .body br {
     display: none;

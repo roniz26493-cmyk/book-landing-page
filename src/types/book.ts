@@ -154,9 +154,6 @@ export interface BookConfig {
     paragraphs: string[]
     image: string
     imageWebp: string
-    /** האיור כשהוא מעל הפאנל (מתחת ל-64rem) — חיתוך אנכי מאותה כריכה */
-    imageStacked: string
-    imageStackedWebp: string
   }
   testimonials: {
     eyebrow: string
