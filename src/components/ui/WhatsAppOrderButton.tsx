@@ -10,6 +10,7 @@ export const whatsappLink = buildWhatsAppLink(whatsapp.phone, whatsapp.message)
 export const isWhatsappReady = whatsappLink !== null
 
 interface WhatsAppOrderButtonProps {
+  id?: string
   label?: string
   large?: boolean
   fullWidth?: boolean
@@ -24,6 +25,7 @@ interface WhatsAppOrderButtonProps {
  * כך שאף פעם אין קישור שבור.
  */
 export function WhatsAppOrderButton({
+  id,
   label = 'להזמנה ישירה בוואטסאפ',
   large = true,
   fullWidth = false,
@@ -67,6 +69,7 @@ export function WhatsAppOrderButton({
 
   return (
     <a
+      id={id}
       className={classNames}
       href={whatsappLink ?? undefined}
       target="_blank"

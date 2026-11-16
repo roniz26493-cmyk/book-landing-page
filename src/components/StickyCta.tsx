@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react'
-import { bookConfig } from '../data/bookConfig'
-import { ArrowIcon } from './ui/Icons'
+import { finalCtaLabel } from '../lib/ctaLabel'
+import { WhatsAppIcon } from './ui/Icons'
 import { whatsappLink } from './ui/WhatsAppOrderButton'
 import styles from './StickyCta.module.css'
-
-const { purchase } = bookConfig
 
 // ברפרנס: הכפתור מופיע אחרי ≈290px גלילה ונעלם כשהפוטר נכנס למסך (REFERENCE_MAP)
 const SHOW_AFTER = 290
 
+/**
+ * כפתור ההזמנה הדביק — אותו נוסח, אייקון וצבע כמו כפתור ההזמנה בסיום.
+ * נעלם כשמקטע ההזמנה (#purchase) או הפוטר על המסך, כדי שלא יופיעו שני כפתורים זהים.
+ */
 export function StickyCta() {
   const [scrolled, setScrolled] = useState(false)
+  const [purchaseInView, setPurchaseInView] = useState(false)
   const [footerInView, setFooterInView] = useState(false)
 
   useEffect(() => {
@@ -25,20 +28,27 @@ export function StickyCta() {
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
 
-    const footer = document.getElementById('footer')
-    const observer = footer && 'IntersectionObserver' in window
-      ? new IntersectionObserver(([entry]) => setFooterInView(entry.isIntersecting))
-      : null
-    if (footer && observer) observer.observe(footer)
+    const observers: IntersectionObserver[] = []
+    if ('IntersectionObserver' in window) {
+      const watch = (id: string, set: (v: boolean) => void) => {
+        const el = document.getElementById(id)
+        if (!el) return
+        const observer = new IntersectionObserver(([entry]) => set(entry.isIntersecting))
+        observer.observe(el)
+        observers.push(observer)
+      }
+      watch('purchase-cta', setPurchaseInView)
+      watch('footer', setFooterInView)
+    }
 
     return () => {
       window.removeEventListener('scroll', onScroll)
       if (frame) cancelAnimationFrame(frame)
-      observer?.disconnect()
+      observers.forEach((o) => o.disconnect())
     }
   }, [])
 
-  const visible = scrolled && !footerInView
+  const visible = scrolled && !purchaseInView && !footerInView
 
   return (
     <div className={styles.bar} data-visible={visible} aria-hidden={!visible}>
@@ -48,9 +58,8 @@ export function StickyCta() {
         {...(whatsappLink ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
         tabIndex={visible ? 0 : -1}
       >
-        <span>{purchase.primaryCta}</span>
-        {purchase.price && <span className={styles.price}>{purchase.price}</span>}
-        <ArrowIcon className="btnArrow" />
+        <WhatsAppIcon />
+        <span className={styles.label}>{finalCtaLabel}</span>
       </a>
     </div>
   )

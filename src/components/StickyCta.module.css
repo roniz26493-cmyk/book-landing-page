@@ -26,32 +26,26 @@
 .button {
   /* גלולה קומפקטית וממורכזת — לא פס רכישה לכל רוחב המסך */
   width: auto;
-  max-width: 100%;
+  max-width: min(100%, 32rem);
   min-height: 2.75rem;
   padding-inline: var(--space-6);
   box-shadow: 0 10px 24px -14px rgba(36, 74, 71, 0.55);
 }
 
-.price {
-  padding-inline-start: var(--space-3);
-  border-inline-start: 1px solid color-mix(in srgb, var(--color-on-primary) 35%, transparent);
-  font-weight: 800;
+.button svg {
+  flex: none;
 }
 
-/* הכפתור והמחיר תמיד בשורה אחת ("70 ₪" לא נשבר); במסכים צרים מאוד — ריווח מעט צפוף יותר */
-.button,
-.price {
-  white-space: nowrap;
+/* הנוסח ארוך: שורה אחת כשיש מקום; במסכים צרים — שתי שורות מאוזנות
+   ("להזמנת הספר" / "במחיר השקה | 70 ש״ח"), בלי להקטין את הגופן */
+.label {
+  text-wrap: balance;
 }
 
-@media (max-width: 23.4rem) {
+@media (max-width: 29.99rem) {
   .button {
     gap: var(--space-2);
-    padding-inline: var(--space-4);
-    font-size: var(--text-sm);
-  }
-
-  .price {
-    padding-inline-start: var(--space-2);
+    padding: var(--space-2) var(--space-5);
+    line-height: 1.3;
   }
 }

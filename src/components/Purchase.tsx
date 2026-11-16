@@ -1,12 +1,10 @@
 import { bookConfig } from '../data/bookConfig'
+import { finalCtaLabel } from '../lib/ctaLabel'
 import { WhatsAppOrderButton } from './ui/WhatsAppOrderButton'
 import styles from './Purchase.module.css'
 
 const { book, purchase } = bookConfig
 
-// במסכים צרים הכפתור נשבר לשתי שורות: "במחיר השקה" ו-"70 ש״ח" נשארים יחד
-// (רווח בלתי שביר — הנוסח עצמו זהה, כפי שהוא בקונפיג)
-const finalCtaLabel = purchase.finalCta.replace('במחיר השקה', 'במחיר\u00a0השקה').replace(/(\d+) ש״ח/, '$1\u00a0ש״ח')
 
 /**
  * הזמנת הספר — קומפוזיציה אחת ממורכזת: הספר מרחף בעדינות על רקע השמנת,
@@ -35,7 +33,7 @@ export function Purchase() {
           />
         </picture>
 
-        <WhatsAppOrderButton label={finalCtaLabel} className={styles.cta} />
+        <WhatsAppOrderButton id="purchase-cta" label={finalCtaLabel} className={styles.cta} />
       </div>
     </section>
   )
