@@ -9,10 +9,11 @@ const SHOW_AFTER = 290
 
 /**
  * כפתור ההזמנה הדביק — אותו נוסח, אייקון וצבע כמו כפתור ההזמנה בסיום.
- * נעלם כשמקטע ההזמנה (#purchase) או הפוטר על המסך, כדי שלא יופיעו שני כפתורים זהים.
+ * נעלם כשכפתור ההזמנה בפתיחה, כפתור ההזמנה בסיום או הפוטר על המסך — כדי שלא יופיעו שני כפתורים זהים.
  */
 export function StickyCta() {
   const [scrolled, setScrolled] = useState(false)
+  const [heroCtaInView, setHeroCtaInView] = useState(false)
   const [purchaseInView, setPurchaseInView] = useState(false)
   const [footerInView, setFooterInView] = useState(false)
 
@@ -37,6 +38,7 @@ export function StickyCta() {
         observer.observe(el)
         observers.push(observer)
       }
+      watch('hero-cta', setHeroCtaInView)
       watch('purchase-cta', setPurchaseInView)
       watch('footer', setFooterInView)
     }
@@ -48,7 +50,7 @@ export function StickyCta() {
     }
   }, [])
 
-  const visible = scrolled && !purchaseInView && !footerInView
+  const visible = scrolled && !heroCtaInView && !purchaseInView && !footerInView
 
   return (
     <div className={styles.bar} data-visible={visible} aria-hidden={!visible}>

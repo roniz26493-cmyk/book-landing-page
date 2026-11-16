@@ -63,19 +63,6 @@ export interface Highlight {
   icon: 'book' | 'heart' | 'compass' | 'spark' | 'quill'
 }
 
-/** שאלה ותשובה. */
-export interface FaqItem {
-  id: string
-  question: string
-  answer: string
-  /** האם התשובה היא placeholder שממתין לתוכן אמיתי */
-  isPlaceholder?: boolean
-  /** התשובה מתארת את כפתור הוואטסאפ — מוצגת רק כשהמספר מוגדר */
-  requiresWhatsapp?: boolean
-}
-
-
-
 /** קישור לרשת חברתית. url ריק = הקישור לא יוצג כלל. */
 export interface SocialLink {
   id: string
@@ -242,11 +229,6 @@ export interface BookConfig {
     intro: string
     items: Highlight[]
     isPlaceholder: boolean
-  }
-
-  faq: {
-    title: string
-    items: FaqItem[]
   }
 
   shipping: {

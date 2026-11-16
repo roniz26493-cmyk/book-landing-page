@@ -4,7 +4,6 @@ import { applyBrandColors } from './lib/applyBrandColors'
 import { useScrollReveal } from './hooks/useScrollReveal'
 import { AboutAuthor } from './components/AboutAuthor'
 import { AboutBook } from './components/AboutBook'
-import { Faq } from './components/Faq'
 import { Footer } from './components/Footer'
 import { Hero } from './components/Hero'
 import { Purchase } from './components/Purchase'
@@ -48,8 +47,6 @@ export default function App() {
         <AboutAuthor />
         {/* S10 */}
         <Testimonials />
-        {/* S12 — שאלות נפוצות לפני ההזמנה: ההזמנה היא רגע ההמרה האחרון */}
-        <Faq />
         {/* S11 */}
         <Purchase />
       </main>

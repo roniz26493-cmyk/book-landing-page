@@ -1,10 +1,11 @@
 import { bookConfig } from '../data/bookConfig'
-import { ArrowIcon } from './ui/Icons'
+import { finalCtaLabel } from '../lib/ctaLabel'
+import { WhatsAppIcon } from './ui/Icons'
 import { Lines } from './ui/Lines'
 import { whatsappLink } from './ui/WhatsAppOrderButton'
 import styles from './Hero.module.css'
 
-const { book, purchase } = bookConfig
+const { book } = bookConfig
 
 /**
  * מקטע הפתיחה — לפי מבנה הפתיחה של אתר ההשראה: גיליון בהיר אחד,
@@ -27,20 +28,16 @@ export function Hero() {
           </h1>
 
           <div className={`${styles.buy} ${styles.enter}`}>
-            {purchase.price && (
-              <p className={styles.price}>
-                <span className={styles.priceValue}>{purchase.price}</span>
-                {purchase.priceNote && <span className={styles.priceNote}>{purchase.priceNote}</span>}
-              </p>
-            )}
-            {/* בוואטסאפ ישירות כשהמספר מוגדר; עד אז — גלילה לאזור ההזמנה */}
+            {/* אותו נוסח, אייקון וצבע כמו כפתור ההזמנה בסיום ובכפתור הדביק; המחיר בתוך הנוסח.
+                בוואטסאפ ישירות כשהמספר מוגדר; עד אז — גלילה לאזור ההזמנה */}
             <a
-              className="btn btnLarge"
+              id="hero-cta"
+              className={`btn btnLarge ${styles.cta}`}
               href={whatsappLink ?? '#purchase'}
               {...(whatsappLink ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
             >
-              {purchase.primaryCta}
-              <ArrowIcon className="btnArrow" />
+              <WhatsAppIcon />
+              <span className={styles.ctaLabel}>{finalCtaLabel}</span>
             </a>
           </div>
         </div>
