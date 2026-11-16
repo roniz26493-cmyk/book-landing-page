@@ -149,7 +149,15 @@ export interface BookConfig {
   stats: { items: { value: string; label: string }[]; slots: number }
   statement: { quote: string }
   about: { title: string; paragraphs: string[] }
-  summary: { title: string; paragraphs: string[]; image: string; imageWebp: string }
+  summary: {
+    title: string
+    paragraphs: string[]
+    image: string
+    imageWebp: string
+    /** האיור כשהוא מעל הפאנל (מתחת ל-64rem) — חיתוך אנכי מאותה כריכה */
+    imageStacked: string
+    imageStackedWebp: string
+  }
   testimonials: {
     eyebrow: string
     title: string
@@ -197,8 +205,6 @@ export interface BookConfig {
     phone: string
     /** הודעה מוכנה מראש. הקידוד ל-URL נעשה אוטומטית */
     message: string
-    /** ההגבלה הגיאוגרפית של ההזמנה הישירה */
-    areaNotice: string
   }
 
   purchase: {

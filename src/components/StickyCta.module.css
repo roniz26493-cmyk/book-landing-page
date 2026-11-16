@@ -37,3 +37,21 @@
   border-inline-start: 1px solid color-mix(in srgb, var(--color-on-primary) 35%, transparent);
   font-weight: 800;
 }
+
+/* הכפתור והמחיר תמיד בשורה אחת ("70 ₪" לא נשבר); במסכים צרים מאוד — ריווח מעט צפוף יותר */
+.button,
+.price {
+  white-space: nowrap;
+}
+
+@media (max-width: 23.4rem) {
+  .button {
+    gap: var(--space-2);
+    padding-inline: var(--space-4);
+    font-size: var(--text-sm);
+  }
+
+  .price {
+    padding-inline-start: var(--space-2);
+  }
+}

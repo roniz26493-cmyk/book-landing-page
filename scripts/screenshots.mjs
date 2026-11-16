@@ -6,7 +6,7 @@
  * שימוש:
  *   npm run shots                          # build + preview אוטומטי, ואז צילום
  *   npm run shots -- --url http://localhost:5173/   # צילום שרת פיתוח שכבר רץ
- *   npm run shots -- --only mobile         # רק תצוגה אחת (desktop|tablet|mobile|reduced)
+ *   npm run shots -- --only mobile         # רק תצוגה אחת (desktop|tablet|mobile|mobile-320|mobile-375|mobile-430|mobile-dark|reduced)
  *
  * תוצרים: screenshots/<תאריך-שעה>/{desktop,tablet,mobile,reduced}.jpg + report.json
  * קוד יציאה 1 אם נמצאה גלילה אופקית או שגיאה/אזהרה/exception בקונסולה.
@@ -30,6 +30,11 @@ const VIEWS = {
   desktop: { width: 1440, height: 900, mobile: false },
   tablet: { width: 820, height: 1180, mobile: true },
   mobile: { width: 390, height: 844, mobile: true },
+  'mobile-320': { width: 320, height: 640, mobile: true },
+  'mobile-375': { width: 375, height: 812, mobile: true },
+  'mobile-430': { width: 430, height: 932, mobile: true },
+  // מצב כהה במכשיר + הכהיה כפויה של Chrome (Auto Dark) — העמוד צריך להיראות זהה לבהיר
+  'mobile-dark': { width: 390, height: 844, mobile: true, dark: true },
   reduced: { width: 1440, height: 900, mobile: false, reducedMotion: true },
 }
 
@@ -128,8 +133,11 @@ async function capture(url, view, outFile) {
     const scale = view.mobile ? 2 : 1
     await send('Emulation.setDeviceMetricsOverride', { width: view.width, height: view.height, deviceScaleFactor: scale, mobile: view.mobile })
     if (view.mobile) await send('Emulation.setTouchEmulationEnabled', { enabled: true })
-    if (view.reducedMotion)
-      await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] })
+    const features = []
+    if (view.reducedMotion) features.push({ name: 'prefers-reduced-motion', value: 'reduce' })
+    if (view.dark) features.push({ name: 'prefers-color-scheme', value: 'dark' })
+    if (features.length) await send('Emulation.setEmulatedMedia', { features })
+    if (view.dark) await send('Emulation.setAutoDarkModeOverride', { enabled: true })
 
     await send('Page.navigate', { url })
     await sleep(3500)
@@ -203,7 +211,7 @@ for (const r of results) {
   const issues = []
   if (r.horizontalOverflow) issues.push('גלילה אופקית')
   if (r.problems.length) issues.push(`${r.problems.length} הודעות קונסולה: ${r.problems.map((p) => `${p.level}: ${p.text}`).join(' | ')}`)
-  console.log(`  ${r.view.padEnd(8)} ${String(r.width).padStart(4)}px  גובה ${r.pageHeight}px  ${issues.length ? '✗ ' + issues.join('; ') : '✓'}`)
+  console.log(`  ${r.view.padEnd(11)} ${String(r.width).padStart(4)}px  גובה ${r.pageHeight}px  ${issues.length ? '✗ ' + issues.join('; ') : '✓'}`)
   if (issues.length) failed = true
 }
 process.exit(failed ? 1 : 0)

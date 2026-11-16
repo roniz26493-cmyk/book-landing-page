@@ -11,12 +11,13 @@
 }
 
 .viewport {
+  --fade: 9%;
   /* LTR כדי שהפס יתחיל מהקצה השמאלי ויתמלא תמיד עד הקצה הימני בזמן התנועה */
   direction: ltr;
   overflow: hidden;
   padding-block: 3.5rem;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--fade), #000 calc(100% - var(--fade)), transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 var(--fade), #000 calc(100% - var(--fade)), transparent);
 }
 
 .track {
@@ -28,10 +29,46 @@
   animation: drift 50s linear infinite;
 }
 
-.viewport:hover .track,
-.viewport:focus-within .track,
 .viewport[data-paused='true'] .track {
   animation-play-state: paused;
+}
+
+/* עצירה זמנית בריחוף — רק עם עכבר. במגע, :hover "נתקע" אחרי נגיעה ועוצר את
+   הסרט בלי שהכפתור יידע; שם נגיעה עוצרת במפורש (ScrapStrip.tsx). */
+@media (hover: hover) and (pointer: fine) {
+  .viewport:hover .track {
+    animation-play-state: paused;
+  }
+}
+
+/* מי שביקש הפחתת תנועה ובחר להפעיל — גובר על הכלל הגלובלי ב-base.css */
+.viewport[data-optin='true'] .track {
+  animation-duration: var(--marquee-duration, 50s) !important;
+  animation-iteration-count: infinite !important;
+}
+
+/* עצירה במצב "הפחתת תנועה": בלי לולאה, הגזר הראשון מימין, גלילה ידנית בתוך הפס */
+.viewport[data-still='true'],
+.viewport[data-still='true'] .track {
+  direction: rtl;
+}
+
+.viewport[data-still='true'] {
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+
+.viewport[data-still='true'] .track {
+  animation: none;
+}
+
+.viewport[data-still='true'] .set[aria-hidden='true'] {
+  display: none;
+}
+
+.viewport[data-still='true'] .scrap {
+  scroll-snap-align: center;
 }
 
 @keyframes drift {
@@ -56,8 +93,10 @@
   transition: transform var(--transition);
 }
 
-.scrap:hover {
-  transform: translateY(calc(var(--lift) - 4px)) rotate(calc(var(--rotate) * 0.6));
+@media (hover: hover) and (pointer: fine) {
+  .scrap:hover {
+    transform: translateY(calc(var(--lift) - 4px)) rotate(calc(var(--rotate) * 0.6));
+  }
 }
 
 .rim {
@@ -67,10 +106,12 @@
 
 .paper {
   --lh: 2.35rem;
+  --pad-top: 2.4rem;
   position: relative;
   display: flex;
   align-items: center;
-  padding: 2.4rem 2rem 2.7rem;
+  min-height: var(--height);
+  padding: var(--pad-top) 2rem 2.7rem;
   background-color: var(--tone);
   /* סיבי נייר עדינים — רק בתוך הגזרים, לא על האתר כולו */
   background-image:
@@ -97,7 +138,7 @@
       rgba(47, 93, 90, 0.16) calc(var(--lh) - 1px),
       rgba(47, 93, 90, 0.16) var(--lh)
     );
-  background-position: 0 0, 0 calc(2.4rem + 0.1rem);
+  background-position: 0 0, 0 calc(var(--pad-top) + 0.1rem);
   -webkit-mask-image: radial-gradient(circle at calc(100% - 0.95rem) 50%, transparent 0.32rem, #000 0.36rem);
   mask-image: radial-gradient(circle at calc(100% - 0.95rem) 50%, transparent 0.32rem, #000 0.36rem);
   -webkit-mask-size: 100% 1.75rem;
@@ -130,59 +171,75 @@
 }
 
 .toggle {
-  padding: var(--space-1) var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* אזור נגיעה של 44px לפחות, בלי להגדיל את המראה השקט */
+  min-height: 2.75rem;
+  padding: 0 var(--space-2);
   color: var(--color-text-muted);
   font-size: var(--text-xs);
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-color: var(--color-border-strong);
+  touch-action: manipulation;
 }
 
 .toggle:hover {
   color: var(--color-primary);
 }
 
+.toggle:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* סימן עצירה (שני קווים) / הפעלה (משולש שמצביע בכיוון התנועה — שמאלה) */
+.toggleIcon {
+  flex: none;
+  width: 0.6rem;
+  height: 0.7rem;
+  background: currentColor;
+}
+
+.toggleIcon[data-state='pause'] {
+  background: linear-gradient(90deg, currentColor 0 35%, transparent 35% 65%, currentColor 65%);
+}
+
+.toggleIcon[data-state='play'] {
+  clip-path: polygon(100% 0, 100% 100%, 0 50%);
+}
+
+/* ---- מובייל: גזרים קטנים יותר, כך שגזר שלם ועוד חלק מהבא נראים יחד;
+   כתב היד נשאר קריא, ההטיות נשמרות, ההפרש האנכי בין הגזרים מתמתן ---- */
 @media (max-width: 47.99rem) {
+  .viewport {
+    --fade: 5%;
+    padding-block: 2.25rem 2rem;
+  }
+
   .scrap {
-    width: min(var(--width), 72vw);
+    width: calc(var(--width) * 0.74);
+    transform: translateY(calc(var(--lift) * 0.5)) rotate(var(--rotate));
   }
 
   .paper {
-    --lh: 2.15rem;
-    padding: 2rem 1.6rem 2.3rem;
+    --lh: 1.95rem;
+    --pad-top: 1.55rem;
+    min-height: calc(var(--height) * 0.7);
+    padding: var(--pad-top) 1.3rem 1.75rem;
   }
 
   .notebook {
-    padding-inline-start: 2.2rem;
-  }
-}
-
-/* בלי תנועה: הגזרים ניתנים לגלילה אופקית ידנית בתוך הפס בלבד */
-@media (prefers-reduced-motion: reduce) {
-  .track {
-    animation: none;
+    padding-inline-start: 1.95rem;
   }
 
-  /* בלי לולאה אין צורך ב-LTR: הגזר הראשון מתחיל מימין, כמו קריאה בעברית */
-  .viewport,
-  .track {
-    direction: rtl;
+  .text {
+    font-size: clamp(1.28rem, 0.98rem + 1.5vw, 1.45rem);
   }
 
-  .viewport {
-    overflow-x: auto;
-    scroll-snap-type: x proximity;
-  }
-
-  .set[aria-hidden='true'] {
-    display: none;
-  }
-
-  .scrap {
-    scroll-snap-align: center;
-  }
-
-  .toggle {
-    display: none;
+  .meta {
+    margin-top: 0;
   }
 }

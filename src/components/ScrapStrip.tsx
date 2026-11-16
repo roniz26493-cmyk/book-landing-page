@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from 'react'
+import { useEffect, useState, type CSSProperties } from 'react'
 import { bookConfig } from '../data/bookConfig'
 import { useMarquee } from '../hooks/useMarquee'
 import { Lines } from './ui/Lines'
@@ -81,13 +81,14 @@ function ScrapSet({ hidden }: { hidden?: boolean }) {
               '--rotate': `${look.rotate}deg`,
               '--lift': `${look.lift}px`,
               '--width': look.width,
+              '--height': look.height,
             } as CSSProperties
           }
         >
           <div className={styles.rim} style={{ clipPath: rim }}>
             <div
               className={[styles.paper, styles[look.tone], look.notebook ? styles.notebook : ''].join(' ')}
-              style={{ clipPath: clip, minHeight: look.height }}
+              style={{ clipPath: clip }}
             >
               <p className={styles.text}>
                 <Lines text={text} />
@@ -104,12 +105,32 @@ function ScrapSet({ hidden }: { hidden?: boolean }) {
  * סרט גזרי הנייר — מחליף את סרט הפולארויד של אתר ההשראה, באותו עיקרון
  * תנועה: פס אופקי שנע לאט וברציפות, עם דהייה בקצוות.
  */
+const REDUCED_MOTION = '(prefers-reduced-motion: reduce)'
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined' && typeof window.matchMedia === 'function' && window.matchMedia(REDUCED_MOTION).matches
+
 export function ScrapStrip() {
-  const [paused, setPaused] = useState(false)
-  // מהירות סרט הפולארויד ברפרנס: ≈39px לשנייה, שמאלה (REFERENCE_MAP, S3)
+  // מי שביקש הפחתת תנועה — מתחיל בעצירה, ויכול לבחור להפעיל
+  const [reducedMotion, setReducedMotion] = useState(prefersReducedMotion)
+  const [paused, setPaused] = useState(prefersReducedMotion)
+  // מהירות סרט הפולארויד ברפרנס: ≈39px לשנייה; הגזרים נעים מימין לשמאל (REFERENCE_MAP, S3)
   const trackRef = useMarquee<HTMLDivElement>(39)
 
+  useEffect(() => {
+    if (typeof window.matchMedia !== 'function') return
+    const query = window.matchMedia(REDUCED_MOTION)
+    const onChange = () => {
+      setReducedMotion(query.matches)
+      if (query.matches) setPaused(true)
+    }
+    query.addEventListener('change', onChange)
+    return () => query.removeEventListener('change', onChange)
+  }, [])
+
   if (items.length === 0) return null
+
+  // עצירה במצב "הפחתת תנועה": הגזרים מסודרים מימין לשמאל וניתנים לגלילה ידנית
+  const still = reducedMotion && paused
 
   return (
     <section className={styles.strip} aria-labelledby="scraps-title">
@@ -117,7 +138,15 @@ export function ScrapStrip() {
         {scraps.title}
       </h2>
 
-      <div className={styles.viewport} data-paused={paused}>
+      {/* נגיעה בגזר (לא גלילה) עוצרת את התנועה, כדי שאפשר יהיה לקרוא — והכפתור מתעדכן בהתאם */}
+      <div
+        id="scraps-viewport"
+        className={styles.viewport}
+        data-paused={paused}
+        data-still={still}
+        data-optin={reducedMotion && !paused}
+        onClick={() => setPaused(true)}
+      >
         <div className={styles.track} ref={trackRef}>
           <ScrapSet />
           <ScrapSet hidden />
@@ -130,8 +159,10 @@ export function ScrapStrip() {
           type="button"
           className={styles.toggle}
           onClick={() => setPaused((p) => !p)}
-          aria-pressed={paused}
+          aria-controls="scraps-viewport"
+          aria-label={paused ? 'הפעלת התנועה של גזרי הנייר' : 'עצירת התנועה של גזרי הנייר'}
         >
+          <span className={styles.toggleIcon} data-state={paused ? 'play' : 'pause'} aria-hidden="true" />
           {paused ? 'הפעלת התנועה' : 'עצירת התנועה'}
         </button>
       </div>

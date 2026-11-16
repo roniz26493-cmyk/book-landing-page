@@ -12,7 +12,11 @@ export function useMarquee<T extends HTMLElement>(pxPerSecond: number) {
     if (!node) return
     const update = () => {
       const loop = node.scrollWidth / 2
-      if (loop > 0) node.style.animationDuration = `${(loop / pxPerSecond).toFixed(2)}s`
+      if (loop <= 0) return
+      const duration = `${(loop / pxPerSecond).toFixed(2)}s`
+      node.style.animationDuration = duration
+      // גם כמשתנה — כדי שהפעלה מפורשת במצב "הפחתת תנועה" תוכל לגבור על הכלל הגלובלי
+      node.style.setProperty('--marquee-duration', duration)
     }
     update()
     const observer = new ResizeObserver(update)

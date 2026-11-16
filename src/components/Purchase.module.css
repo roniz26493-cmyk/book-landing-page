@@ -54,12 +54,6 @@
   margin-top: var(--space-6);
 }
 
-.note {
-  margin-top: var(--space-3);
-  color: var(--color-text-muted);
-  font-size: var(--text-xs);
-}
-
 .direct {
   display: flex;
   flex-direction: column;

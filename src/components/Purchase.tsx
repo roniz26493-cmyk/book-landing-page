@@ -2,7 +2,7 @@ import { bookConfig } from '../data/bookConfig'
 import { WhatsAppOrderButton } from './ui/WhatsAppOrderButton'
 import styles from './Purchase.module.css'
 
-const { book, purchase, whatsapp } = bookConfig
+const { book, purchase } = bookConfig
 
 /**
  * הזמנת הספר — בוואטסאפ בלבד, ישירות מול הסופר (אין רכישה או תשלום באתר).
@@ -38,7 +38,6 @@ export function Purchase() {
 
           <div className={styles.direct}>
             <WhatsAppOrderButton label={purchase.primaryCta} className={styles.cta} />
-            <p className={styles.note}>{whatsapp.areaNotice}</p>
           </div>
         </div>
       </div>
