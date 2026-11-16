@@ -1,76 +1,55 @@
-/* S11 — כותרת ממורכזת ≈85px אחרי המקטע הכהה; כרטיס אחד ממורכז ברוחב כרטיס מארז (≈621px), ≈645px גובה */
-/* הסיום: מרווח של מעבר פרק לפניו, וכרטיס ממורכז — נקודת מפנה כמו הציטוט וההמלצות */
+/* הזמנת הספר — הסיום: מרווח של מעבר פרק לפניו, ואז רק הספר המרחף וכפתור אחד,
+   ממורכזים, ישירות על רקע השמנת (בלי כרטיס). */
 .section {
   padding-top: var(--section-gap-lg);
+  padding-bottom: var(--space-7);
 }
 
-.title {
-  text-align: center;
-}
-
-.card {
+.stack {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: min(100%, 38.8rem);
-  min-height: 40.3rem;
-  margin: clamp(2rem, 1rem + 1.5vw, 2.5rem) auto 0;
-  padding: 4.5rem var(--space-6) var(--space-7);
-  text-align: center;
+  gap: clamp(2.25rem, 1.75rem + 1.5vw, 3.25rem);
+}
+
+/* הריחוף על העטיפה, הצל על התמונה — כך שהצל זז עם הספר כאובייקט אחד */
+.float {
+  animation: float 5s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
 .book {
-  width: 8.8rem;
+  width: clamp(10.5rem, 8rem + 10vw, 14.5rem);
   height: auto;
-  filter: drop-shadow(0 14px 16px rgba(38, 52, 49, 0.14));
+  filter: drop-shadow(0 22px 22px rgba(38, 52, 49, 0.13));
 }
 
-.nameRow {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-4);
-  margin-top: var(--space-7);
+@keyframes float {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-5px);
+  }
 }
 
-.name {
-  color: var(--color-text);
-  font-size: var(--text-xl);
-  font-weight: 700;
-}
-
-.price {
-  color: var(--color-primary);
-  font-size: var(--text-2xl);
-  font-weight: 850;
-}
-
-.priceNote {
-  color: var(--color-text-muted);
-  font-size: var(--text-sm);
-  letter-spacing: 0.08em;
-}
-
+/* הכפתור: שורה אחת כשיש מקום; במסכים צרים מאוד נשבר בעדינות לשתי שורות
+   ממורכזות — בלי להקטין את הטקסט ובלי לחרוג מהמסך */
 .cta {
-  margin-top: var(--space-6);
-}
-
-.direct {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: var(--space-6);
+  max-width: 100%;
+  text-wrap: balance;
 }
 
 @media (max-width: 47.99rem) {
-  .card {
-    min-height: 0;
-    padding: var(--space-7) var(--space-5);
-  }
-
   .cta {
-    width: 100%;
-    padding-inline: var(--space-4);
+    padding-inline: var(--space-5);
     font-size: var(--text-base);
-    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float {
+    animation: none;
   }
 }

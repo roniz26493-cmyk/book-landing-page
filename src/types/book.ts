@@ -217,6 +217,8 @@ export interface BookConfig {
     priceNote: string
     /** הפעולה הראשית מיד אחרי ה-Hero — גוללת לאזור הרכישה */
     primaryCta: string
+    /** כפתור ההזמנה בסיום העמוד — הכפתור היחיד במקטע ההזמנה */
+    finalCta: string
     /** דרך א׳: רכישה ישירה מהסופר בוואטסאפ */
     directTitle: string
     directNote: string
