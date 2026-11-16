@@ -31,10 +31,19 @@ export function AboutAuthor() {
         </div>
 
         {(hasPhoto || showPending) && (
-          <div className={`spreadAside ${styles.photoWrap}`} data-reveal="2">
+          // הדיוקן סטטי — בלי חשיפה בגלילה. במובייל הוא מוצג מעל הכותרת (order: -1),
+          // ולכן חשיפה מדורגת אחרי הטקסט נראתה כקפיצה. נטען מראש (77KB) כדי שלא "יקפוץ" פנימה.
+          <div className={`spreadAside ${styles.photoWrap}`}>
             {hasPhoto ? (
               <span className={styles.photo}>
-                <img src={author.photo} alt={author.photoAlt} loading="lazy" decoding="async" />
+                <img
+                  src={author.photo}
+                  alt={author.photoAlt}
+                  width={1848}
+                  height={1039}
+                  fetchPriority="low"
+                  decoding="async"
+                />
               </span>
             ) : (
               <div className={styles.photoPending}>
