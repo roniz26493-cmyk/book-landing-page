@@ -12,11 +12,11 @@ export function Purchase() {
   return (
     <section id="purchase" className={styles.section} aria-labelledby="purchase-title">
       <div className="container">
-        <h2 id="purchase-title" className={`sectionTitle ${styles.title}`}>
+        <h2 id="purchase-title" className={`sectionTitle ${styles.title}`} data-reveal="0">
           {purchase.title}
         </h2>
 
-        <div className={`panel ${styles.card}`}>
+        <div className={`panel ${styles.card}`} data-reveal="1">
           <picture>
             <source srcSet="/images/book-hero.webp" type="image/webp" />
             <img

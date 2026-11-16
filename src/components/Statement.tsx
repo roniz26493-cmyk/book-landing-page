@@ -10,7 +10,7 @@ const { statement } = bookConfig
 export function Statement() {
   return (
     <section className={styles.section} aria-label="ציטוט מתוך הספר">
-      <blockquote className={styles.quote}>
+      <blockquote className={styles.quote} data-reveal="0">
         <p>
           {/* כל שורה בלוק משלה: השבירות נשמרות, ושורה ארוכה מדי נשברת בתוכה במאוזן */}
           {statement.quote.split('\n').map((line) => (

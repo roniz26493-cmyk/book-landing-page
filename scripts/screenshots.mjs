@@ -11,7 +11,7 @@
  * תוצרים: screenshots/<תאריך-שעה>/{desktop,tablet,mobile,reduced}.jpg + report.json
  * קוד יציאה 1 אם נמצאה גלילה אופקית או שגיאה/אזהרה/exception בקונסולה.
  *
- * הערה: אנימציות החשיפה בגלילה (.reveal) מופעלות בכוח לפני הצילום, כי בצילום
+ * הערה: אנימציות החשיפה בגלילה ([data-reveal]) מופעלות בכוח לפני הצילום, כי בצילום
  * עמוד מלא ה-rootMargin התחתון מסתיר את הבלוקים הנמוכים — בגלישה רגילה הם מופיעים.
  */
 import { spawn, spawnSync } from 'node:child_process'
@@ -152,7 +152,7 @@ async function capture(url, view, outFile) {
     // צילום עמוד מלא: חלון בגובה העמוד, וחשיפת כל בלוקי ה-reveal
     await send('Emulation.setDeviceMetricsOverride', { width: view.width, height: h, deviceScaleFactor: scale, mobile: view.mobile })
     await send('Runtime.evaluate', {
-      expression: "document.querySelectorAll('.reveal').forEach((el) => el.setAttribute('data-visible', 'true'))",
+      expression: "document.querySelectorAll('[data-reveal]').forEach((el) => el.setAttribute('data-revealed', 'true'))",
     })
     await sleep(2200)
     const shot = await send('Page.captureScreenshot', { format: 'jpeg', quality: 85, captureBeyondViewport: true })

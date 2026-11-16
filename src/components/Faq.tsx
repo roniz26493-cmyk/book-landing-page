@@ -16,10 +16,10 @@ export function Faq() {
   return (
     <section className={styles.section} aria-labelledby="faq-title">
       <div className="container spread">
-        <h2 id="faq-title" className={`sectionTitle spreadHead ${styles.title}`}>
+        <h2 id="faq-title" className={`sectionTitle spreadHead ${styles.title}`} data-reveal="0">
           {faq.title}
         </h2>
-        <div className={`spreadBody ${styles.list}`}>
+        <div className={`spreadBody ${styles.list}`} data-reveal="1">
           {items.map((item) => (
             <details key={item.id} className={`panel ${styles.item}`}>
               <summary className={styles.question}>

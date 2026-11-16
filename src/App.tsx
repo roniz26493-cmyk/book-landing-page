@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { bookConfig } from './data/bookConfig'
 import { applyBrandColors } from './lib/applyBrandColors'
+import { useScrollReveal } from './hooks/useScrollReveal'
 import { AboutAuthor } from './components/AboutAuthor'
 import { AboutBook } from './components/AboutBook'
 import { Faq } from './components/Faq'
@@ -19,6 +20,9 @@ export default function App() {
   useEffect(() => {
     applyBrandColors(bookConfig.brand.colors)
   }, [])
+
+  // חשיפה עדינה בגלילה (data-reveal) — לא בפתיחה, לא בגזרים ולא בכפתור הדביק
+  useScrollReveal()
 
   return (
     <div className="page">

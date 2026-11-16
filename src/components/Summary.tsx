@@ -21,8 +21,8 @@ export function Summary() {
         </div>
 
         <div className={`panel ${styles.panel}`}>
-          <AccentTitle id="summary-title" title={summary.title} className={styles.title} />
-          <div className={styles.body}>
+          <AccentTitle id="summary-title" title={summary.title} className={styles.title} reveal={0} />
+          <div className={styles.body} data-reveal="1">
             {summary.paragraphs.map((p) => (
               <p key={p.slice(0, 20)}>
                 <Lines text={p} />

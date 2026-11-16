@@ -7,13 +7,15 @@ interface AccentTitleProps {
   as?: ElementType
   id?: string
   className?: string
+  /** סדר החשיפה בגלילה (data-reveal) — ריק = בלי חשיפה */
+  reveal?: number
 }
 
 /** כותרת מקטע בצבע הדיו, עם צירוף אחד בטורקיז. הטקסט עצמו לא משתנה. */
-export function AccentTitle({ title, accent, as: Tag = 'h2', id, className }: AccentTitleProps) {
+export function AccentTitle({ title, accent, as: Tag = 'h2', id, className, reveal }: AccentTitleProps) {
   const at = accent ? title.indexOf(accent) : -1
   return (
-    <Tag id={id} className={['sectionTitle', className].filter(Boolean).join(' ')}>
+    <Tag id={id} className={['sectionTitle', className].filter(Boolean).join(' ')} data-reveal={reveal}>
       {at === -1 ? (
         title
       ) : (

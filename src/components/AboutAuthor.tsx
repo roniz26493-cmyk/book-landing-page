@@ -17,12 +17,12 @@ export function AboutAuthor() {
   return (
     <section id="author" className={styles.section} aria-labelledby="author-title">
       <div className="container spread">
-        <div className="spreadHead">
+        <div className="spreadHead" data-reveal="0">
           <span className="eyebrow">{author.eyebrow}</span>
           <AccentTitle id="author-title" title={author.sectionTitle} className={styles.title} />
         </div>
 
-        <div className={`spreadBody ${styles.bio}`}>
+        <div className={`spreadBody ${styles.bio}`} data-reveal="1">
           {author.bio.map((p) => (
             <p key={p.slice(0, 20)} className="bodyText">
               {p}
@@ -31,7 +31,7 @@ export function AboutAuthor() {
         </div>
 
         {(hasPhoto || showPending) && (
-          <div className={`spreadAside ${styles.photoWrap}`}>
+          <div className={`spreadAside ${styles.photoWrap}`} data-reveal="2">
             {hasPhoto ? (
               <span className={styles.photo}>
                 <img src={author.photo} alt={author.photoAlt} loading="lazy" decoding="async" />
