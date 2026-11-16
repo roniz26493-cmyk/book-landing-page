@@ -42,8 +42,6 @@
   --color-border-strong: color-mix(in srgb, var(--color-teal) 30%, transparent);
   --color-accent-tint: var(--color-peach-soft);
 
-  --color-whatsapp: #4f7563;
-  --color-whatsapp-dark: #3e5e4f;
 
   /* ---- טיפוגרפיה ----
      משפחה אחת לכל האתר: Heebo (משתנה 100–900) — הקרובה ביותר לאותיות

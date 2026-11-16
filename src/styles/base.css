@@ -304,10 +304,12 @@ ol {
   border-color: var(--color-primary);
 }
 
+/* כפתור ההזמנה בוואטסאפ — אותו טורקיז מותג בדיוק כמו כפתורי ההזמנה בפתיחה ובכפתור הדביק
+   (--color-primary / --color-primary-soft מ-brand.colors), כולל hover ופוקוס */
 .btnWhatsapp {
-  --btn-bg: var(--color-whatsapp);
-  --btn-fg: var(--color-paper);
-  --btn-bg-hover: var(--color-whatsapp-dark);
+  --btn-bg: var(--color-primary);
+  --btn-fg: var(--color-on-primary);
+  --btn-bg-hover: var(--color-primary-soft);
 }
 
 .btnLarge {

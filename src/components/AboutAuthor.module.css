@@ -1,28 +1,28 @@
 /* על הסופר — מעבר פרק (מהספר אל האיש), ולכן המרווח הגדול לפניו.
-   גריד ה"גיליון" (.spread ב-base.css); עיגול התמונה בעמודה השמאלית — רק כשיש תמונה. */
+   קומפוזיציה ממורכזת אחת בכל הרוחבים: הדיוקן מעל, הביוגרפיה מתחתיו. */
 .section {
   padding-top: var(--section-gap-lg);
 }
 
-.title {
-  margin-top: var(--space-2);
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2rem, 1.5rem + 1.5vw, 2.75rem);
 }
 
 .bio {
   display: grid;
   gap: 0.6rem;
-  /* הביוגרפיה מתחילה בקו של הכותרת, לא של כיתוב־העל */
-  padding-top: 2.1rem;
-}
-
-.photoWrap {
-  align-self: center;
-  justify-self: center;
+  /* עמודת קריאה נוחה, ממורכזת מתחת לדיוקן */
+  width: min(100%, 34rem);
+  text-align: center;
+  text-wrap: pretty;
 }
 
 .photo,
 .photoPending {
-  width: min(100%, clamp(14rem, 22vw, 20rem));
+  width: clamp(12rem, 50vw, 16rem);
   aspect-ratio: 1;
   border-radius: 50%;
   border: 0.5rem solid var(--color-sand, #d9d0be);
@@ -53,17 +53,9 @@
   text-align: center;
 }
 
-@media (max-width: 63.99rem) {
-  .bio {
-    padding-top: 0;
-  }
-
-  .photoWrap {
-    order: -1;
-  }
-
+@media (min-width: 64rem) {
   .photo,
   .photoPending {
-    width: clamp(12rem, 50vw, 16rem);
+    width: clamp(14rem, 22vw, 20rem);
   }
 }

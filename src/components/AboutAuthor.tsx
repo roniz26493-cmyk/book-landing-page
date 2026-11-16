@@ -1,39 +1,27 @@
 import { bookConfig } from '../data/bookConfig'
-import { AccentTitle } from './ui/AccentTitle'
 import { Pending, showPending } from './ui/Pending'
 import styles from './AboutAuthor.module.css'
 
 const { author } = bookConfig
 
 /**
- * על הסופר — על גריד ה"גיליון" (.spread), כמו "על הספר": כיתוב־על וכותרת
- * בעמודה הימנית, הביוגרפיה בעמודת הקריאה. העיגול (בעמודה השמאלית) מוצג רק
- * עם תמונה אמיתית; בלעדיה — מקום מסומן "להשלמה" (רק כש-showMarks), ובפרסום
- * העמודה השמאלית נשארת שוליים, כמו בשאר מקטעי הקריאה.
+ * על הסופר — קומפוזיציה ממורכזת אחת בכל הרוחבים: הדיוקן האמיתי (שחור־לבן, עיגול
+ * וטבעת) ממורכז, והביוגרפיה מתחתיו בעמודת קריאה צרה. בלי כותרת או כיתוב־על גלויים
+ * (לבקשה) — הכותרת נשארת לקוראי מסך. הדיוקן סטטי: בלי חשיפה בגלילה, נטען מראש
+ * ובמידות קבועות, כדי שלא "יקפוץ". בלי תמונה אמיתית — מקום מסומן רק כש-showMarks.
  */
 export function AboutAuthor() {
   const hasPhoto = !author.photoIsPlaceholder && Boolean(author.photo)
 
   return (
     <section id="author" className={styles.section} aria-labelledby="author-title">
-      <div className="container spread">
-        <div className="spreadHead" data-reveal="0">
-          <span className="eyebrow">{author.eyebrow}</span>
-          <AccentTitle id="author-title" title={author.sectionTitle} className={styles.title} />
-        </div>
-
-        <div className={`spreadBody ${styles.bio}`} data-reveal="1">
-          {author.bio.map((p) => (
-            <p key={p.slice(0, 20)} className="bodyText">
-              {p}
-            </p>
-          ))}
-        </div>
+      <div className={`container ${styles.stack}`}>
+        <h2 id="author-title" className="srOnly">
+          {author.sectionTitle}
+        </h2>
 
         {(hasPhoto || showPending) && (
-          // הדיוקן סטטי — בלי חשיפה בגלילה. במובייל הוא מוצג מעל הכותרת (order: -1),
-          // ולכן חשיפה מדורגת אחרי הטקסט נראתה כקפיצה. נטען מראש (77KB) כדי שלא "יקפוץ" פנימה.
-          <div className={`spreadAside ${styles.photoWrap}`}>
+          <div className={styles.photoWrap}>
             {hasPhoto ? (
               <span className={styles.photo}>
                 <img
@@ -52,6 +40,14 @@ export function AboutAuthor() {
             )}
           </div>
         )}
+
+        <div className={styles.bio} data-reveal="0">
+          {author.bio.map((p) => (
+            <p key={p.slice(0, 20)} className="bodyText">
+              {p}
+            </p>
+          ))}
+        </div>
       </div>
     </section>
   )

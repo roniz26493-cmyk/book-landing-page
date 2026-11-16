@@ -14,11 +14,12 @@ export function AboutBook() {
   return (
     <section id="about" className={styles.section} aria-labelledby="about-title">
       <div className="container spread">
-        <h2 id="about-title" className={`spreadHead ${styles.title}`} data-reveal="0">
+        {/* הכותרת "על הספר" מוסתרת ויזואלית (לבקשה) ונשארת לקוראי מסך */}
+        <h2 id="about-title" className="srOnly">
           {about.title}
         </h2>
 
-        <div className={`spreadBody ${styles.text}`} data-reveal="1">
+        <div className={`spreadBody ${styles.text}`} data-reveal="0">
           {lede && <p className={styles.lede}>{lede}</p>}
           {rest.map((p) => (
             <p key={p.slice(0, 20)} className="bodyText">

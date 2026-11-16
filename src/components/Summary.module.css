@@ -21,11 +21,6 @@
   padding: 4.5rem 3rem 4.3rem 0;
 }
 
-.title {
-  grid-column: 1;
-  padding-inline-end: var(--space-6);
-}
-
 .body {
   grid-column: 2;
   display: grid;
@@ -102,14 +97,9 @@
     padding: var(--space-8) var(--space-5) var(--space-7);
   }
 
-  .title,
   .body {
     grid-column: 1;
-    padding-inline-end: 0;
-  }
-
-  .body {
-    padding-top: var(--space-5);
+    padding-top: 0;
   }
 
   /* חיתוך אנכי מהכריכה (590×1065): הפנים המלאות והקולאז' שלצידן, בלי שם הספר.

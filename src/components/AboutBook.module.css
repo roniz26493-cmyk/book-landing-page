@@ -1,17 +1,6 @@
 /* על הספר — טיפוגרפיה בלבד, על גריד ה"גיליון" (.spread ב-base.css).
    מיד אחרי הציטוט: המרווח ביניהם הוא ה-padding התחתון של הציטוט. */
 
-/* כותרת אקספרסיבית: אותו צבע ומשקל של כותרות המקטע, בגודל גדול יותר */
-.title {
-  color: var(--color-primary);
-  font-size: clamp(2.4rem, 1.2rem + 3.6vw, 4.4rem);
-  font-weight: 760;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  /* השורה הראשונה של הכותרת והפתיח על אותו קו עליון */
-  margin-top: -0.08em;
-}
-
 .text {
   display: grid;
   gap: 1.1rem;

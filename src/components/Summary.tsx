@@ -1,5 +1,4 @@
 import { bookConfig } from '../data/bookConfig'
-import { AccentTitle } from './ui/AccentTitle'
 import { Lines } from './ui/Lines'
 import styles from './Summary.module.css'
 
@@ -21,8 +20,11 @@ export function Summary() {
         </div>
 
         <div className={`panel ${styles.panel}`}>
-          <AccentTitle id="summary-title" title={summary.title} className={styles.title} reveal={0} />
-          <div className={styles.body} data-reveal="1">
+          {/* הכותרת "תקציר הספר" מוסתרת ויזואלית (לבקשה) ונשארת לקוראי מסך */}
+          <h2 id="summary-title" className="srOnly">
+            {summary.title}
+          </h2>
+          <div className={styles.body} data-reveal="0">
             {summary.paragraphs.map((p) => (
               <p key={p.slice(0, 20)}>
                 <Lines text={p} />
