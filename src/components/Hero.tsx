@@ -32,7 +32,7 @@ export function Hero() {
                 בוואטסאפ ישירות כשהמספר מוגדר; עד אז — גלילה לאזור ההזמנה */}
             <a
               id="hero-cta"
-              className={`btn btnLarge ${styles.cta}`}
+              className={`btn ${styles.cta}`}
               href={whatsappLink ?? '#purchase'}
               {...(whatsappLink ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
             >

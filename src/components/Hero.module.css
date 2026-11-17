@@ -38,29 +38,33 @@
   display: block;
 }
 
-/* המשפט השני — קטן ושקט: המשך של הכותרת, לא כותרת שנייה.
-   אותו טורקיז מעט מרוכך, משקל רגיל, ריווח שורות של טקסט ולא של כותרת. */
+/* החלק השני — המשך של אותה מחשבה (אחרי הפסיק), לא כותרת שנייה:
+   אותו גופן (ראו בסוף הקובץ), מעט קטן יותר, טורקיז מעט מרוכך וקרוב לחלק הראשון. */
 .light {
-  margin-top: 0.6em;
+  margin-top: 0.15em;
   color: color-mix(in srgb, var(--color-primary) 80%, var(--color-bg-alt));
-  font-size: clamp(1.35rem, 0.9rem + 1.4vw, 2.15rem);
-  font-weight: 400;
-  line-height: 1.32;
-  letter-spacing: -0.005em;
 }
 
+/* הכפתור ממש מתחת למשפט השני, מיושר לימין עמודת הטקסט (תחילת השורה בעברית) */
 .buy {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-5) var(--space-6);
-  /* הכותרת והמשפט השני — קבוצה אחת; הפעולה מופרדת מהן במרווח ברור */
-  margin-top: clamp(2.5rem, 1.5rem + 2vw, 3.5rem);
+  justify-content: flex-start;
+  margin-top: clamp(1.75rem, 1.25rem + 1vw, 2.25rem);
 }
 
-/* כפתור ההזמנה: הנוסח ארוך — שורה אחת כשיש מקום, שתי שורות מאוזנות במסכים צרים */
+/* כפתור ההזמנה — קל ומדויק: רוחב לפי התוכן, ריפוד וגופן מתונים, אזור נגיעה ≥44px.
+   הנוסח ארוך: שורה אחת כשיש מקום, שתי שורות מאוזנות במסכים צרים */
+.cta {
+  gap: 0.6rem;
+  min-height: 2.875rem;
+  padding: 0.65rem 1.4rem;
+  font-size: var(--text-base);
+}
+
 .cta svg {
   flex: none;
+  width: 1.1em;
+  height: 1.1em;
 }
 
 .ctaLabel {
@@ -150,13 +154,13 @@
   }
 
   .buy {
-    width: 100%;
-    margin-top: var(--space-6);
+    margin-top: var(--space-5);
   }
 
-  .buy :global(.btn) {
-    width: 100%;
-    padding-inline: var(--space-5);
+  /* כשהנוסח נשבר לשתי שורות, הכפתור צמוד אליהן ולא נמתח לכל הרוחב */
+  .cta {
+    max-width: 16rem;
+    padding-inline: 1.25rem;
   }
 
 }
@@ -168,16 +172,9 @@
   }
 }
 
-/* 320px: ריווח פנימי מעט צפוף יותר, כדי שהנוסח יישאר בשתי שורות (לא שלוש) בלי להקטין את הגופן */
-@media (max-width: 22.5rem) {
-  .buy .cta {
-    gap: var(--space-2);
-    padding-inline: var(--space-4);
-  }
-}
 
 /* ==========================================================================
-   כותרת ההירו (המשפט הראשון בלבד) — Comix No2 CLM Medium.
+   משפט ההירו (שני החלקים) — Comix No2 CLM Medium.
    © 2004 Maxim Iorsh, GPL v2. הקובץ, הרישיון והודעת זכויות היוצרים יחד
    ב-public/fonts/comix-no2-clm/ (מתפרסמים לצד הגופן). נטען מראש ב-index.html.
    ========================================================================== */
@@ -199,3 +196,11 @@
   line-height: 1.1;
 }
 
+/* החלק השני: אותו גופן, קטן בכ-26% מהראשון (0.74em של גודל הכותרת) */
+.light {
+  font-family: var(--font-hero);
+  font-size: 0.74em;
+  font-weight: 500;
+  line-height: 1.16;
+  letter-spacing: 0;
+}
