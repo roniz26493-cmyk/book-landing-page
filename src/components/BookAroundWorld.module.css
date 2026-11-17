@@ -1,0 +1,89 @@
+/* ==========================================================================
+   הספר בעולם — קולאז' צילומים אמיתיים, מיד אחרי הפתיחה.
+   יומן מסע ספרותי: צילום גדול אחד (3:4) מימין, ולצידו שני צילומים צרים (9:16)
+   מדורגים — העליון צמוד למעלה, השני למטה. קצוות נקיים, בלי מסגרות או צללים כבדים.
+   ========================================================================== */
+
+.section {
+  padding-top: clamp(3rem, 2rem + 3vw, 5rem);
+}
+
+/* הקולאז' צר ממיכל העמוד, כדי שהצילום הגדול לא יהיה גבוה מהמסך */
+.inner {
+  max-width: calc(60rem + 2 * var(--gutter));
+}
+
+/* כיתוב עריכתי צנוע — לא כותרת ענקית; מיושר לתחילת השורה (ימין) */
+.title {
+  margin-bottom: clamp(1.25rem, 1rem + 1vw, 2rem);
+  color: var(--color-primary);
+  font-size: clamp(1.2rem, 1rem + 0.7vw, 1.55rem);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.005em;
+}
+
+.collage {
+  display: grid;
+  /* גדול : קטן : קטן — כך שהקטנים (9:16) נמוכים מהגדול (3:4) ונוצר מדרג */
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(0.75rem, 0.4rem + 1vw, 1.25rem);
+  align-items: start;
+}
+
+.main,
+.side {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 6px;
+  /* גוון נייר עדין עד שהצילום נטען — המקום שמור במידות קבועות, בלי קפיצה */
+  background: var(--color-panel);
+}
+
+.main {
+  aspect-ratio: 3 / 4;
+}
+
+.side {
+  aspect-ratio: 9 / 16;
+}
+
+/* הצילום הצר השני יורד לתחתית — מדרג עריכתי ולא שורה אחידה */
+.side:last-child {
+  align-self: end;
+}
+
+.main picture,
+.side picture {
+  display: block;
+  height: 100%;
+}
+
+.main img,
+.side img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* צילום 2 צר מ-9:16 (≈1:2.2): החיתוך בעיקר מהמרצפות למטה — הצריח והכריכה כולה נשארים */
+.side:nth-child(2) img {
+  object-position: 50% 20%;
+}
+
+/* ---- מובייל: הצילום הגדול לכל הרוחב, ומתחתיו שני הצרים זה לצד זה, מדורגים מעט ---- */
+@media (max-width: 47.99rem) {
+  .collage {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .main {
+    grid-column: 1 / -1;
+  }
+
+  .side:last-child {
+    align-self: start;
+    margin-top: var(--space-6);
+  }
+}

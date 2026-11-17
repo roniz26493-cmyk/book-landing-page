@@ -7,7 +7,7 @@ import { AboutBook } from './components/AboutBook'
 import { Footer } from './components/Footer'
 import { Hero } from './components/Hero'
 import { Purchase } from './components/Purchase'
-import { ScrapStrip } from './components/ScrapStrip'
+import { BookAroundWorld } from './components/BookAroundWorld'
 import { Stats } from './components/Stats'
 import { Statement } from './components/Statement'
 import { StickyCta } from './components/StickyCta'
@@ -35,8 +35,8 @@ export default function App() {
         <Hero />
         {/* S2 */}
         <Stats />
-        {/* S3 */}
-        <ScrapStrip />
+        {/* S3 — הספר בעולם: קולאז' צילומים אמיתיים (במקום סרט גזרי הנייר) */}
+        <BookAroundWorld />
         {/* S4 */}
         <Statement />
         {/* S5 */}

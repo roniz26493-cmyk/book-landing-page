@@ -86,7 +86,10 @@ export interface BookConfig {
    * (כש-placeholders.showMarks הוא true), ובאתר החי האזור מוסתר.
    */
   bookInWorld: {
-    photos: { src: string; alt: string }[]
+    /** כיתוב עדין מעל הקולאז' */
+    title: string
+    /** הראשון — הצילום הגדול. src = JPEG (גיבוי), srcSetWebp = גרסאות WebP לפי רוחב */
+    photos: { src: string; srcSetWebp: string; width: number; height: number; alt: string }[]
     reactions: { text: string; attribution: string }[]
   }
 
@@ -149,15 +152,6 @@ export interface BookConfig {
     slots: number
   }
   footer: { publisherName: string }
-
-  /** סרט גזרי הנייר — קטעים קצרים בכתב יד */
-  scraps: {
-    /** כותרת נגישה לאזור (מוסתרת ויזואלית) */
-    title: string
-    /** כיתוב קטן מתחת לסרט שמציין את מקור הקטעים */
-    caption: string
-    items: { id: string; text: string }[]
-  }
 
   author: {
     /** כותרת אזור המחבר */
