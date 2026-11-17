@@ -34,20 +34,6 @@
   }
 }
 
-/* הכפתור: שורה אחת כשיש מקום; במסכים צרים מאוד נשבר בעדינות לשתי שורות
-   ממורכזות — בלי להקטין את הטקסט ובלי לחרוג מהמסך */
-.cta {
-  max-width: 100%;
-  text-wrap: balance;
-}
-
-@media (max-width: 47.99rem) {
-  .cta {
-    padding-inline: var(--space-5);
-    font-size: var(--text-base);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .float {
     animation: none;

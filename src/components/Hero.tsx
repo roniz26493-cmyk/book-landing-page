@@ -1,8 +1,5 @@
 import { bookConfig } from '../data/bookConfig'
-import { finalCtaLabel } from '../lib/ctaLabel'
-import { WhatsAppIcon } from './ui/Icons'
 import { Lines } from './ui/Lines'
-import { whatsappLink } from './ui/WhatsAppOrderButton'
 import styles from './Hero.module.css'
 
 const { book } = bookConfig
@@ -27,19 +24,6 @@ export function Hero() {
             ))}
           </h1>
 
-          <div className={`${styles.buy} ${styles.enter}`}>
-            {/* אותו נוסח, אייקון וצבע כמו כפתור ההזמנה בסיום ובכפתור הדביק; המחיר בתוך הנוסח.
-                בוואטסאפ ישירות כשהמספר מוגדר; עד אז — גלילה לאזור ההזמנה */}
-            <a
-              id="hero-cta"
-              className={`btn ${styles.cta}`}
-              href={whatsappLink ?? '#purchase'}
-              {...(whatsappLink ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-            >
-              <WhatsAppIcon />
-              <span className={styles.ctaLabel}>{finalCtaLabel}</span>
-            </a>
-          </div>
         </div>
 
         <div className={styles.media}>

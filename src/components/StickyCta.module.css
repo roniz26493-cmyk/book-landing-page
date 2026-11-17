@@ -49,3 +49,26 @@
     line-height: 1.3;
   }
 }
+
+/* ---- דסקטופ וטאבלט (מ-48rem): פס צף דק לכל הרוחב, הכפתור במרכזו ----
+   רקע הגיליון הבהיר, קו עליון דק וצל רך מאוד — לא באנר כבד */
+@media (min-width: 48rem) {
+  .bar {
+    bottom: 0;
+    padding: 0.625rem var(--gutter) calc(0.625rem + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--color-hairline);
+    background: color-mix(in srgb, var(--color-bg-alt) 96%, transparent);
+    box-shadow: 0 -8px 24px -18px rgba(36, 74, 71, 0.35);
+    transform: translateY(100%);
+  }
+
+  .bar[data-visible='true'] {
+    transform: none;
+  }
+
+  /* בתוך הפס הכפתור לא צריך צל משלו */
+  .button {
+    box-shadow: none;
+  }
+}
+

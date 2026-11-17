@@ -1,16 +1,12 @@
 import { bookConfig } from '../data/bookConfig'
-import { finalCtaLabel } from '../lib/ctaLabel'
-import { WhatsAppOrderButton } from './ui/WhatsAppOrderButton'
 import styles from './Purchase.module.css'
 
 const { book, purchase } = bookConfig
 
 
 /**
- * הזמנת הספר — קומפוזיציה אחת ממורכזת: הספר מרחף בעדינות על רקע השמנת,
- * וכפתור הזמנה אחד בוואטסאפ מתחתיו. בלי כרטיס, כותרת גלויה, שם או מחיר נפרדים
- * (המחיר בתוך נוסח הכפתור). הכותרת נשארת לקוראי מסך. בלי חשיפה בגלילה —
- * הריחוף הוא התנועה היחידה, כדי שהספר לא "יקפוץ" כשהמקטע נכנס למסך.
+ * סיום העמוד — הספר מרחף בעדינות על רקע השמנת. אין כאן כפתור: כפתור ההזמנה היחיד
+ * באתר הוא הכפתור הצף (StickyCta). הכותרת נשארת לקוראי מסך.
  */
 export function Purchase() {
   return (
@@ -32,8 +28,6 @@ export function Purchase() {
             decoding="async"
           />
         </picture>
-
-        <WhatsAppOrderButton id="purchase-cta" label={finalCtaLabel} className={styles.cta} />
       </div>
     </section>
   )

@@ -88,6 +88,8 @@
   --section-space: clamp(5rem, 2.5rem + 9vw, 11rem);
   /* קצב המקטעים אחרי סרט הגזרים: מרווח רגיל בין מקטעים באותו "פרק",
      ומרווח גדול במעבר פרק (אל הסופר, אל המקטע הכהה, אל ההזמנה) */
+  /* גובה כפתור ההזמנה הצף + המרווח שלו מתחתית המסך (StickyCta) */
+  --cta-clearance: calc(6rem + env(safe-area-inset-bottom));
   --section-gap: clamp(4.5rem, 2.5rem + 6vw, 8.5rem);
   --section-gap-lg: clamp(5.5rem, 2.5rem + 9vw, 11rem);
   --gutter: clamp(1.125rem, 0.4rem + 3.2vw, 3rem);

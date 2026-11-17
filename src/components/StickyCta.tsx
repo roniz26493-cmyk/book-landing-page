@@ -1,56 +1,35 @@
 import { useEffect, useState } from 'react'
-import { finalCtaLabel } from '../lib/ctaLabel'
+import { finalCtaLabel, whatsappLink } from '../lib/ctaLabel'
 import { WhatsAppIcon } from './ui/Icons'
-import { whatsappLink } from './ui/WhatsAppOrderButton'
 import styles from './StickyCta.module.css'
 
-// ברפרנס: הכפתור מופיע אחרי ≈290px גלילה ונעלם כשהפוטר נכנס למסך (REFERENCE_MAP)
-const SHOW_AFTER = 290
+// מופיע ברגע שמתחילים לגלול (סף קטן נגד הבהוב), ונעלם רק בחזרה לראש העמוד
+const SHOW_AFTER = 50
 
 /**
- * כפתור ההזמנה הדביק — אותו נוסח, אייקון וצבע כמו כפתור ההזמנה בסיום.
- * נעלם כשכפתור ההזמנה בפתיחה, כפתור ההזמנה בסיום או הפוטר על המסך — כדי שלא יופיעו שני כפתורים זהים.
+ * כפתור ההזמנה היחיד באתר — צף בתחתית המסך.
+ * מובייל: גלולה ממורכזת. דסקטופ (מ-48rem): פס דק לכל הרוחב, הכפתור במרכזו.
+ * הפוטר שומר מקום (--cta-clearance), כך שהכפתור לא מכסה תוכן גם בסוף העמוד.
  */
 export function StickyCta() {
-  const [scrolled, setScrolled] = useState(false)
-  const [heroCtaInView, setHeroCtaInView] = useState(false)
-  const [purchaseInView, setPurchaseInView] = useState(false)
-  const [footerInView, setFooterInView] = useState(false)
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     let frame = 0
+    const update = () => {
+      frame = 0
+      setVisible(window.scrollY > SHOW_AFTER)
+    }
     const onScroll = () => {
-      if (frame) return
-      frame = requestAnimationFrame(() => {
-        frame = 0
-        setScrolled(window.scrollY > SHOW_AFTER)
-      })
+      if (!frame) frame = requestAnimationFrame(update)
     }
-    onScroll()
+    update()
     window.addEventListener('scroll', onScroll, { passive: true })
-
-    const observers: IntersectionObserver[] = []
-    if ('IntersectionObserver' in window) {
-      const watch = (id: string, set: (v: boolean) => void) => {
-        const el = document.getElementById(id)
-        if (!el) return
-        const observer = new IntersectionObserver(([entry]) => set(entry.isIntersecting))
-        observer.observe(el)
-        observers.push(observer)
-      }
-      watch('hero-cta', setHeroCtaInView)
-      watch('purchase-cta', setPurchaseInView)
-      watch('footer', setFooterInView)
-    }
-
     return () => {
       window.removeEventListener('scroll', onScroll)
       if (frame) cancelAnimationFrame(frame)
-      observers.forEach((o) => o.disconnect())
     }
   }, [])
-
-  const visible = scrolled && !heroCtaInView && !purchaseInView && !footerInView
 
   return (
     <div className={styles.bar} data-visible={visible} aria-hidden={!visible}>
