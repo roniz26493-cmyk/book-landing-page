@@ -38,10 +38,6 @@
   display: block;
 }
 
-.strong {
-  font-weight: 850;
-}
-
 /* המשפט השני — קטן ושקט: המשך של הכותרת, לא כותרת שנייה.
    אותו טורקיז מעט מרוכך, משקל רגיל, ריווח שורות של טקסט ולא של כותרת. */
 .light {
@@ -179,3 +175,27 @@
     padding-inline: var(--space-4);
   }
 }
+
+/* ==========================================================================
+   כותרת ההירו (המשפט הראשון בלבד) — Comix No2 CLM Medium.
+   © 2004 Maxim Iorsh, GPL v2. הקובץ, הרישיון והודעת זכויות היוצרים יחד
+   ב-public/fonts/comix-no2-clm/ (מתפרסמים לצד הגופן). נטען מראש ב-index.html.
+   ========================================================================== */
+@font-face {
+  font-family: 'Comix No2 CLM';
+  src: url('/fonts/comix-no2-clm/comixno2clm_medium-webfont.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+.strong {
+  font-family: var(--font-hero);
+  font-weight: 500;
+  /* אותיות Comix נראות קטנות מ-Heebo באותו גודל — הגדלה מתונה לשמירת נוכחות הכותרת;
+     כתב יד: בלי צמצום אותיות, ריווח שורות מעט רחב יותר */
+  font-size: 1.1em;
+  letter-spacing: 0;
+  line-height: 1.1;
+}
+

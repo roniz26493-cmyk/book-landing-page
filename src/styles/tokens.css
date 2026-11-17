@@ -50,6 +50,8 @@
   --font-display: var(--font-sans);
   --font-body: var(--font-sans);
   --font-hand: 'Gveret Levin', 'Heebo Variable', sans-serif;
+  /* כותרת ההירו בלבד — Comix No2 CLM Medium (© 2004 Maxim Iorsh, GPL v2; public/fonts/comix-no2-clm/) */
+  --font-hero: 'Comix No2 CLM', 'Heebo Variable', 'Heebo', sans-serif;
 
   --text-xs: 0.8125rem;
   --text-sm: 0.9375rem;
