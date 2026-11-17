@@ -6,6 +6,9 @@ import styles from './StickyCta.module.css'
 // מופיע ברגע שמתחילים לגלול (סף קטן נגד הבהוב), ונעלם רק בחזרה לראש העמוד
 const SHOW_AFTER = 50
 
+// במסך צר הנוסח נשבר לפני "במחיר" (השבירה מוצגת רק שם, ב-CSS); הנוסח עצמו לא משתנה
+const [labelStart, labelEnd] = finalCtaLabel.split(/ (?=במחיר)/)
+
 /**
  * כפתור ההזמנה היחיד באתר — צף בתחתית המסך.
  * מובייל: גלולה ממורכזת. דסקטופ (מ-48rem): פס דק לכל הרוחב, הכפתור במרכזו.
@@ -40,7 +43,10 @@ export function StickyCta() {
         tabIndex={visible ? 0 : -1}
       >
         <WhatsAppIcon />
-        <span className={styles.label}>{finalCtaLabel}</span>
+        <span className={styles.label}>
+          {labelStart} <br className={styles.labelBreak} />
+          {labelEnd}
+        </span>
       </a>
     </div>
   )
