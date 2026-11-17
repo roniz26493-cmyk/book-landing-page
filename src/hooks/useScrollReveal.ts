@@ -48,7 +48,9 @@ export function useScrollReveal() {
       if (frame) return
       frame = requestAnimationFrame(() => {
         frame = 0
-        for (const el of pending) if (el.getBoundingClientRect().bottom < 0) show(el)
+        // הגיעו לתחתית העמוד: כל מה שעוד ממתין (למשל הפוטר) נחשף — לא נשאר תוכן מוסתר
+        const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2
+        for (const el of pending) if (atBottom || el.getBoundingClientRect().bottom < 0) show(el)
       })
     }
     window.addEventListener('scroll', onScroll, { passive: true })

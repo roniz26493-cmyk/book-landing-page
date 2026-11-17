@@ -24,9 +24,9 @@ export function Summary() {
           <h2 id="summary-title" className="srOnly">
             {summary.title}
           </h2>
-          <div className={styles.body} data-reveal="0">
-            {summary.paragraphs.map((p) => (
-              <p key={p.slice(0, 20)}>
+          <div className={styles.body}>
+            {summary.paragraphs.map((p, i) => (
+              <p key={p.slice(0, 20)} data-reveal={Math.min(i, 3)}>
                 <Lines text={p} />
               </p>
             ))}

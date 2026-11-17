@@ -330,19 +330,20 @@ ol {
   transform: translateX(-4px);
 }
 
-/* ---- חשיפה עדינה בגלילה (useScrollReveal) ----
-   מוסתר רק כש-JS הוסיף reveal-ready ל-<html>; בלעדיו — הכול גלוי.
-   דהייה + 10px למעלה בלבד (transform לא מזיז פריסה), פעם אחת, מדורג ב-100ms. */
+/* ---- חשיפה בגלילה (useScrollReveal) ----
+   מוסתר רק כש-JS הוסיף reveal-ready ל-<html>; בלעדיו (או בהפחתת תנועה) — הכול גלוי.
+   דהייה + 20px למעלה, 750ms ease-out, פעם אחת; data-reveal="0..3" = סדר בתוך המקטע,
+   מדורג ב-130ms. רק opacity ו-transform — בלי שינוי פריסה. */
 .reveal-ready [data-reveal] {
   transition:
-    opacity 600ms cubic-bezier(0.25, 0.6, 0.3, 1),
-    transform 600ms cubic-bezier(0.25, 0.6, 0.3, 1);
-  transition-delay: calc(var(--reveal-order, 0) * 100ms);
+    opacity 750ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--reveal-order, 0) * 130ms);
 }
 
 .reveal-ready [data-reveal]:not([data-revealed]) {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(20px);
 }
 
 [data-reveal='1'] {
@@ -351,6 +352,10 @@ ol {
 
 [data-reveal='2'] {
   --reveal-order: 2;
+}
+
+[data-reveal='3'] {
+  --reveal-order: 3;
 }
 
 @media (prefers-reduced-motion: reduce) {

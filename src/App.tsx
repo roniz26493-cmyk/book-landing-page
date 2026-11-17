@@ -20,7 +20,7 @@ export default function App() {
     applyBrandColors(bookConfig.brand.colors)
   }, [])
 
-  // חשיפה עדינה בגלילה (data-reveal) — לא בפתיחה, לא בגזרים ולא בכפתור הדביק
+  // חשיפה בגלילה (data-reveal) — לא בפתיחה (שיש לה כניסה משלה), לא בדיוקן הסופר ולא בכפתור הצף
   useScrollReveal()
 
   return (

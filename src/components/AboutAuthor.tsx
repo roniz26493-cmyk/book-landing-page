@@ -41,9 +41,9 @@ export function AboutAuthor() {
           </div>
         )}
 
-        <div className={styles.bio} data-reveal="0">
-          {author.bio.map((p) => (
-            <p key={p.slice(0, 20)} className="bodyText">
+        <div className={styles.bio}>
+          {author.bio.map((p, i) => (
+            <p key={p.slice(0, 20)} className="bodyText" data-reveal={Math.min(i, 3)}>
               {p}
             </p>
           ))}

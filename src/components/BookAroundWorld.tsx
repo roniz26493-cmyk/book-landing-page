@@ -13,7 +13,8 @@ const SIZES = [
 /**
  * הספר בעולם — קולאז' עריכתי של צילומים אמיתיים של הספר, כמו יומן מסע ספרותי:
  * צילום גדול אחד מימין ושניים קטנים לצידו (מדורגים). בלי מסגרות, קישוטים או תנועה —
- * רק הכיתוב נחשף בעדינות בגלילה; הצילומים סטטיים ובמידות קבועות, כדי שלא "יקפצו".
+ * הכיתוב ואז שלושת הצילומים נחשפים בזה אחר זה בגלילה (פעם אחת), ואחר כך סטטיים לגמרי.
+ * הצילומים נטענים מיד (המקטע השני בעמוד) ובמידות קבועות — כדי שלא "ייכנסו" באמצע החשיפה.
  */
 export function BookAroundWorld() {
   const photos = bookInWorld.photos.slice(0, 3)
@@ -28,7 +29,7 @@ export function BookAroundWorld() {
 
         <div className={styles.collage}>
           {photos.map((photo, i) => (
-            <figure key={photo.src} className={i === 0 ? styles.main : styles.side}>
+            <figure key={photo.src} className={i === 0 ? styles.main : styles.side} data-reveal={i + 1}>
               <picture>
                 <source type="image/webp" srcSet={photo.srcSetWebp} sizes={SIZES[i]} />
                 <img
@@ -36,7 +37,7 @@ export function BookAroundWorld() {
                   alt={photo.alt}
                   width={photo.width}
                   height={photo.height}
-                  loading="lazy"
+                  loading="eager"
                   decoding="async"
                 />
               </picture>

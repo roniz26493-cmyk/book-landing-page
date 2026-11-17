@@ -50,6 +50,24 @@
   justify-content: center;
 }
 
+/* ריחוף איטי ורציף של הספר — על העטיפה, כדי לא להתנגש בכניסה (settle) שעל התמונה.
+   6px, מחזור של 5.5s הלוך וחזור, ease-in-out; transform בלבד — בלי שינוי פריסה */
+.media picture {
+  display: block;
+  animation: float 5.5s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes float {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-6px);
+  }
+}
+
 .book {
   width: clamp(15rem, 24vw, 29rem);
   height: auto;
@@ -131,7 +149,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .enter,
-  .book {
+  .book,
+  .media picture {
     animation: none;
   }
 }

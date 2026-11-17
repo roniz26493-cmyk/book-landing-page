@@ -11,7 +11,7 @@ const { book, purchase } = bookConfig
 export function Purchase() {
   return (
     <section id="purchase" className={styles.section} aria-labelledby="purchase-title">
-      <div className={`container ${styles.stack}`}>
+      <div className={`container ${styles.stack}`} data-reveal="0">
         <h2 id="purchase-title" className="srOnly">
           {purchase.title}
         </h2>

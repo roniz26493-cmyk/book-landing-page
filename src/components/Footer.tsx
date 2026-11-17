@@ -8,11 +8,11 @@ export function Footer() {
   return (
     <footer className={styles.footer} id="footer">
       <div className="container">
-        <p className={styles.mark}>
+        <p className={styles.mark} data-reveal="0">
           {book.title}
           <span className={styles.author}>{author.name}</span>
         </p>
-        <p className={styles.line}>
+        <p className={styles.line} data-reveal="1">
           בהוצאת {footer.publisherName}
         </p>
       </div>

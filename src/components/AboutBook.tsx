@@ -19,10 +19,14 @@ export function AboutBook() {
           {about.title}
         </h2>
 
-        <div className={`spreadBody ${styles.text}`} data-reveal="0">
-          {lede && <p className={styles.lede}>{lede}</p>}
+        <div className={`spreadBody ${styles.text}`}>
+          {lede && (
+            <p className={styles.lede} data-reveal="0">
+              {lede}
+            </p>
+          )}
           {rest.map((p) => (
-            <p key={p.slice(0, 20)} className="bodyText">
+            <p key={p.slice(0, 20)} className="bodyText" data-reveal="1">
               {p}
             </p>
           ))}
