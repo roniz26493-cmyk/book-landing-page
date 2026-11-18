@@ -30,17 +30,21 @@ export function BookAroundWorld() {
         <div className={styles.collage}>
           {photos.map((photo, i) => (
             <figure key={photo.src} className={i === 0 ? styles.main : styles.side} data-reveal={i + 1}>
-              <picture>
-                <source type="image/webp" srcSet={photo.srcSetWebp} sizes={SIZES[i]} />
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  width={photo.width}
-                  height={photo.height}
-                  loading="eager"
-                  decoding="async"
-                />
-              </picture>
+              <div className={styles.frame}>
+                <picture>
+                  <source type="image/webp" srcSet={photo.srcSetWebp} sizes={SIZES[i]} />
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    width={photo.width}
+                    height={photo.height}
+                    loading="eager"
+                    decoding="async"
+                  />
+                </picture>
+              </div>
+              {/* מיקום הצילום (אושר) — מתחת לצילום, לא עליו */}
+              <figcaption className={styles.caption}>{photo.caption}</figcaption>
             </figure>
           ))}
         </div>

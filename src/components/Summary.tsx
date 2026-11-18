@@ -1,8 +1,10 @@
 import { bookConfig } from '../data/bookConfig'
-import { Lines } from './ui/Lines'
 import styles from './Summary.module.css'
 
 const { summary } = bookConfig
+
+// טיפוגרפיה עברית בלבד (הנוסח זהה לגב הכריכה): מקף לא פותח שורה, ו"יום־יומיים" לא נשבר אחרי המקף העליון
+const typeset = (text: string) => text.replace(/ – /g, '\u00a0– ').replace(/־/g, '־\u2060')
 
 /**
  * S8 — תקציר: פאנל על שתי העמודות הימניות של גריד ה"גיליון" (כותרת מימין,
@@ -10,7 +12,7 @@ const { summary } = bookConfig
  */
 export function Summary() {
   return (
-    <section className={styles.section} aria-labelledby="summary-title">
+    <section id="about" className={styles.section} aria-labelledby="summary-title">
       <div className={`container ${styles.layout}`}>
         <div className={styles.art} aria-hidden="true">
           <picture>
@@ -20,14 +22,14 @@ export function Summary() {
         </div>
 
         <div className={`panel ${styles.panel}`}>
-          {/* הכותרת "תקציר הספר" מוסתרת ויזואלית (לבקשה) ונשארת לקוראי מסך */}
+          {/* הכותרת "על הספר" מוסתרת ויזואלית (לבקשה) ונשארת לקוראי מסך */}
           <h2 id="summary-title" className="srOnly">
             {summary.title}
           </h2>
           <div className={styles.body}>
             {summary.paragraphs.map((p, i) => (
               <p key={p.slice(0, 20)} data-reveal={Math.min(i, 3)}>
-                <Lines text={p} />
+                {typeset(p)}
               </p>
             ))}
           </div>

@@ -89,7 +89,7 @@ export interface BookConfig {
     /** כיתוב עדין מעל הקולאז' */
     title: string
     /** הראשון — הצילום הגדול. src = JPEG (גיבוי), srcSetWebp = גרסאות WebP לפי רוחב */
-    photos: { src: string; srcSetWebp: string; width: number; height: number; alt: string }[]
+    photos: { src: string; caption: string; srcSetWebp: string; width: number; height: number; alt: string }[]
     reactions: { text: string; attribution: string }[]
   }
 
@@ -138,7 +138,6 @@ export interface BookConfig {
 
   stats: { items: { value: string; label: string }[]; slots: number }
   statement: { quote: string }
-  about: { title: string; paragraphs: string[] }
   summary: {
     title: string
     paragraphs: string[]
