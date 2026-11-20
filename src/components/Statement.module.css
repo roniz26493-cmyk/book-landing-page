@@ -47,10 +47,12 @@
   max-width: 30rem;
   margin-inline: auto;
   color: var(--color-teal-deep);
-  font-family: var(--font-hand);
+  /* אותו גופן כמו משפט ההירו (Comix No2 CLM, @font-face ב-Hero.module.css) — לבקשה */
+  font-family: var(--font-hero);
   /* קטן ואינטימי — משפט מתוך ספר, לא כותרת */
   font-size: clamp(1.4rem, 1.15rem + 0.75vw, 1.95rem);
-  font-weight: 400;
+  /* ל-Comix יש משקל יחיד (Medium 500), כמו בהירו */
+  font-weight: 500;
   line-height: 1.6;
   text-wrap: balance;
   /* הטיה זעירה, כמעט לא מורגשת — כמו שורה שנכתבה ביד */
