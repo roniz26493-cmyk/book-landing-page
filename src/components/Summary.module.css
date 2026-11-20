@@ -33,6 +33,16 @@
   line-height: 1.7;
 }
 
+/* מפריד עיטורי בין שני גושי התקציר: צר, ממורכז בעמודת הטקסט, טורקיז עמוק ומאופק */
+.divider {
+  justify-self: center;
+  width: 7.5rem;
+  height: auto;
+  margin-block: 0.9rem;
+  fill: var(--color-primary);
+  opacity: 0.9;
+}
+
 /* ---- טאבלט ומובייל: עמודה אחת ---- */
 @media (max-width: 63.99rem) {
   .layout {
