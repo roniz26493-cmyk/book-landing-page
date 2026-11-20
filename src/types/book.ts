@@ -138,6 +138,7 @@ export interface BookConfig {
 
   stats: { items: { value: string; label: string }[]; slots: number }
   statement: { quote: string }
+  about: { title: string; paragraphs: string[] }
   summary: {
     title: string
     paragraphs: string[]

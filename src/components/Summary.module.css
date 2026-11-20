@@ -73,14 +73,14 @@
    כל הפנים בתוך הגיליון, לא נחתכות בקצה, ולא מגיעות לשורות הטקסט */
 @media (min-width: 64rem) {
   .art img {
-    /* הדיוקן ברוחב העמודה (עד 19rem), ממורכז בחלק העמודה שלא נוגע בטקסט
-       (התיבה נכנסת 5rem אל עמודת הקריאה) ובאמצע הגובה של הפאנל — לא חורג מהפאנל
-       ולא עולה על הטקסט, גם כשהפאנל גבוה */
-    --w: min(calc(100% - 7rem), 19rem);
-    inset: 50% auto auto calc((100% - 5rem - var(--w)) / 2);
-    width: var(--w);
+    /* הדיוקן בגודלו הטבעי, מוגבל גם ברוחב (עד 19rem, בלי לגעת בטקסט) וגם בגובה
+       הפאנל — כך הוא תמיד בתוך הפאנל, ממורכז, בלי לחרוג למעלה או למטה */
+    inset: 50% 5rem auto 0;
+    width: auto;
     height: auto;
-    max-width: none;
+    max-width: min(calc(100% - 7rem), 19rem);
+    max-height: calc(100% - 3rem);
+    margin-inline: auto;
     aspect-ratio: 590 / 1065;
     transform: translateY(-50%);
   }

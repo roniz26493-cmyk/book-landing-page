@@ -3,6 +3,7 @@ import { bookConfig } from './data/bookConfig'
 import { applyBrandColors } from './lib/applyBrandColors'
 import { useScrollReveal } from './hooks/useScrollReveal'
 import { AboutAuthor } from './components/AboutAuthor'
+import { AboutBook } from './components/AboutBook'
 import { Footer } from './components/Footer'
 import { Hero } from './components/Hero'
 import { Purchase } from './components/Purchase'
@@ -33,9 +34,11 @@ export default function App() {
         {/* סדר הסיפור: הספר → המשמעות שלו → הסופר → הספר עצמו → הספר בעולם */}
         <Hero />
         <Stats />
-        {/* על הספר — טקסט גב הכריכה: פסקה 1 כציטוט בכתב יד, פסקאות 2–4 בפאנל עם הפנים הדהויות */}
+        {/* טקסט גב הכריכה: פסקה 1 כציטוט בכתב יד, 2–3 בפאנל התקציר עם הפנים הדהויות,
+            ו-4 ("סיפור אחד ביום אינו ספר של תשובות…") במקטע "על הספר" הנפרד, הטיפוגרפי */}
         <Statement />
         <Summary />
+        <AboutBook />
         {/* על רועי — דיוקן מעל הביוגרפיה */}
         <AboutAuthor />
         <Testimonials />

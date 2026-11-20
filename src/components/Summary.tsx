@@ -12,7 +12,7 @@ const typeset = (text: string) => text.replace(/ – /g, '\u00a0– ').replace(/
  */
 export function Summary() {
   return (
-    <section id="about" className={styles.section} aria-labelledby="summary-title">
+    <section className={styles.section} aria-labelledby="summary-title">
       <div className={`container ${styles.layout}`}>
         <div className={styles.art} aria-hidden="true">
           <picture>
@@ -22,7 +22,7 @@ export function Summary() {
         </div>
 
         <div className={`panel ${styles.panel}`}>
-          {/* הכותרת "על הספר" מוסתרת ויזואלית (לבקשה) ונשארת לקוראי מסך */}
+          {/* הכותרת "תקציר הספר" מוסתרת ויזואלית (לבקשה) ונשארת לקוראי מסך */}
           <h2 id="summary-title" className="srOnly">
             {summary.title}
           </h2>
