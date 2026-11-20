@@ -65,3 +65,14 @@
     display: none;
   }
 }
+
+/* ---- מובייל בלבד: הכרטיס יורד ~40px כיחידה אחת, ויושב מעל איור הציטוט ----
+   מקטע הציטוט נמשך מתחת לכרטיס (Statement.module.css), והענף שלו מציץ מאחורי הקצה התחתון.
+   ה-z-index מעמיד את המקטע כולו מעל המקטע הבא — האיור לעולם לא מכסה את הטקסט. */
+@media (max-width: 47.99rem) {
+  .section {
+    position: relative;
+    z-index: 1;
+    padding-top: calc(var(--section-gap) + 2.5rem);
+  }
+}
