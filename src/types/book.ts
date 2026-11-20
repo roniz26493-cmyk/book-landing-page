@@ -137,13 +137,15 @@ export interface BookConfig {
   }
 
   stats: { items: { value: string; label: string }[]; slots: number }
-  statement: { quote: string }
+  statement: {
+    quote: string
+    /** רקע דקורטיבי: אזורים בלי טקסט מהצד האחורי של הסימנייה (WebP שקוף) */
+    art: { branch: string; sea: string }
+  }
   about: { title: string; paragraphs: string[] }
   summary: {
     title: string
     paragraphs: string[]
-    image: string
-    imageWebp: string
   }
   testimonials: {
     eyebrow: string

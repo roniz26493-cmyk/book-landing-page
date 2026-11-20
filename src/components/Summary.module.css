@@ -1,10 +1,9 @@
 /* תקציר — אותו גריד של "על הספר" (2fr · 3fr · 2fr). הפאנל הוא גיליון נייר אחד
    לכל רוחב המיכל: הכותרת בעמודה הימנית והטקסט מקו 69%, בדיוק כמו מעליו
-   (subgrid). פרט האיור יושב בתוך הגיליון, בעמודה השמאלית, ונמס אל הנייר
-   לכל הכיוונים — בלי קצה קשה בין האיור לפאנל. */
-/* מיד אחרי הציטוט (פסקה 1 של גב הכריכה): המרווח ביניהם הוא ה-padding התחתון של הציטוט */
+   (subgrid). בלי איור — הפנים מהכריכה הוסרו לבקשה (נובמבר 2026). */
+/* המקטע הראשון אחרי הפתיחה */
 .section {
-  padding-top: 0;
+  padding-top: var(--section-gap);
 }
 
 .layout {
@@ -34,59 +33,7 @@
   line-height: 1.7;
 }
 
-/* האיור: בעמודה השמאלית של הגיליון, לכל גובהו, ונכנס 5rem אל הנייר הריק
-   משמאל לשורות. מעל הנייר (multiply), בלי לחסום לחיצות. */
-.art {
-  position: relative;
-  z-index: 1;
-  grid-column: 3;
-  grid-row: 1;
-  margin-inline-start: -5rem;
-  pointer-events: none;
-}
-
-.art picture,
-.art img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.art img {
-  object-fit: cover;
-  /* זיכרון דהוי: שקיפות, מיזוג עם צבע הנייר, קצוות שנמסים, טשטוש קל */
-  opacity: 0.6;
-  mix-blend-mode: multiply;
-  filter: saturate(0.85) blur(0.4px);
-  -webkit-mask-image:
-    linear-gradient(90deg, transparent 0%, #000 14%, #000 74%, transparent 100%),
-    linear-gradient(180deg, transparent 0%, #000 12%, #000 80%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-image:
-    linear-gradient(90deg, transparent 0%, #000 14%, #000 74%, transparent 100%),
-    linear-gradient(180deg, transparent 0%, #000 12%, #000 80%, transparent 100%);
-  mask-composite: intersect;
-}
-
-/* דסקטופ: הדיוקן המלא (חיתוך אנכי מהכריכה) בגובה הפאנל, ממורכז בעמודה השמאלית —
-   כל הפנים בתוך הגיליון, לא נחתכות בקצה, ולא מגיעות לשורות הטקסט */
-@media (min-width: 64rem) {
-  .art img {
-    /* הדיוקן בגודלו הטבעי, מוגבל גם ברוחב (עד 19rem, בלי לגעת בטקסט) וגם בגובה
-       הפאנל — כך הוא תמיד בתוך הפאנל, ממורכז, בלי לחרוג למעלה או למטה */
-    inset: 50% 5rem auto 0;
-    width: auto;
-    height: auto;
-    max-width: min(calc(100% - 7rem), 19rem);
-    max-height: calc(100% - 3rem);
-    margin-inline: auto;
-    aspect-ratio: 590 / 1065;
-    transform: translateY(-50%);
-  }
-}
-
-/* ---- טאבלט ומובייל: האיור מעל הפאנל, נמס אל תוכו ---- */
+/* ---- טאבלט ומובייל: עמודה אחת ---- */
 @media (max-width: 63.99rem) {
   .layout {
     grid-template-columns: minmax(0, 1fr);
@@ -94,7 +41,6 @@
 
   .panel {
     grid-column: 1;
-    grid-row: 2;
     grid-template-columns: minmax(0, 1fr);
     padding: var(--space-8) var(--space-5) var(--space-7);
   }
@@ -102,17 +48,6 @@
   .body {
     grid-column: 1;
     padding-top: 0;
-  }
-
-  /* חיתוך אנכי מהכריכה (590×1065): הפנים המלאות והקולאז' שלצידן, בלי שם הספר.
-     רוחב מתון כדי שהפנים לא יהיו "קרובות מדי", ונמס אל הפאנל מלמטה */
-  .art {
-    grid-column: 1;
-    grid-row: 1;
-    justify-self: center;
-    width: min(66%, 19rem);
-    aspect-ratio: 590 / 1065;
-    margin: 0 0 calc(-1 * var(--space-7));
   }
 
 

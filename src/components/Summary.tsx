@@ -7,20 +7,13 @@ const { summary } = bookConfig
 const typeset = (text: string) => text.replace(/ – /g, '\u00a0– ').replace(/־/g, '־\u2060')
 
 /**
- * S8 — תקציר: פאנל על שתי העמודות הימניות של גריד ה"גיליון" (כותרת מימין,
- * טקסט מקו 69%) ופרט מאיור הכריכה בעמודה השמאלית, שנכנס אל הפאנל ונמס עליו.
+ * S8 — תקציר: פאנל טיפוגרפי על גריד ה"גיליון" (טקסט בעמודה האמצעית).
+ * הפנים מהכריכה הוסרו (לבקשה, נובמבר 2026) — אחרי איור הסימנייה בציטוט, התקציר נשאר טקסט בלבד.
  */
 export function Summary() {
   return (
     <section className={styles.section} aria-labelledby="summary-title">
       <div className={`container ${styles.layout}`}>
-        <div className={styles.art} aria-hidden="true">
-          <picture>
-            <source srcSet={summary.imageWebp} type="image/webp" />
-            <img src={summary.image} alt="" width={590} height={1065} loading="lazy" decoding="async" />
-          </picture>
-        </div>
-
         <div className={`panel ${styles.panel}`}>
           {/* הכותרת "תקציר הספר" מוסתרת ויזואלית (לבקשה) ונשארת לקוראי מסך */}
           <h2 id="summary-title" className="srOnly">
