@@ -10,12 +10,28 @@
   gap: 1.1rem;
 }
 
+/* ==========================================================================
+   Dorian CLM Book — רק לטקסט של המקטע הזה ("סיפור אחד ביום אינו ספר של תשובות…").
+   © 2003–2011 Maxim Iorsh (Culmus), GPL v2. הקובץ, הרישיון והודעת זכויות היוצרים
+   יחד ב-public/fonts/dorian-clm/. אין WOFF2 בהורדה — WOFF (15KB).
+   ========================================================================== */
+@font-face {
+  font-family: 'Dorian CLM';
+  src: url('/fonts/dorian-clm/dorianclm-book-webfont.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* הפתיח — הפסקה הראשונה, גדולה ושקטה */
 .lede {
   margin-bottom: 0.6rem;
   color: var(--color-primary);
-  font-size: var(--text-xl);
-  font-weight: 420;
-  line-height: 1.5;
+  font-family: 'Dorian CLM', var(--font-body);
+  /* Dorian רחבה וגבוהה מ-Heebo: מעט קטנה יותר, עם יותר אוויר בין השורות */
+  font-size: calc(var(--text-xl) * 0.92);
+  font-weight: 400;
+  line-height: 1.75;
+  letter-spacing: 0.005em;
   text-wrap: pretty;
 }
