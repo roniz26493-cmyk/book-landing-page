@@ -1,7 +1,8 @@
 /* על הסופר — מעבר פרק (מהספר אל האיש), ולכן המרווח הגדול לפניו.
    קומפוזיציה ממורכזת אחת בכל הרוחבים: הדיוקן מעל, הביוגרפיה מתחתיו. */
 .section {
-  padding-top: var(--section-gap-lg);
+  /* אחרי "על הספר": חצי ממרווח הפרק — החצי השני מעל הטקסט (סימטריה סביב הפסקה) */
+  padding-top: calc(var(--section-gap-lg) / 2);
 }
 
 .stack {
@@ -25,7 +26,8 @@
   width: clamp(12rem, 50vw, 16rem);
   aspect-ratio: 1;
   border-radius: 50%;
-  border: 0.5rem solid var(--color-sand, #d9d0be);
+  /* טבעת דקה יותר (הוצרה לבקשה, 8px → 5px) */
+  border: 0.3rem solid var(--color-sand, #d9d0be);
 }
 
 /* העיגול והטבעת על המעטפת, כדי שהשחור־לבן לא ישנה את צבע הטבעת */

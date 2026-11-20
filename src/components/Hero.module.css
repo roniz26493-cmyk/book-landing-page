@@ -54,8 +54,8 @@
    6px, מחזור של 5.5s הלוך וחזור, ease-in-out; transform בלבד — בלי שינוי פריסה */
 .media picture {
   display: block;
-  /* ריחוף עדין: 12px למעלה וחזרה, 4s לכל כיוון (מחזור של 8s) */
-  animation: float 4s ease-in-out infinite alternate;
+  /* ריחוף: 14px למעלה וחזרה, 2.4s לכל כיוון (מחזור של 4.8s) — הואץ לבקשה */
+  animation: float 2.4s ease-in-out infinite alternate;
   will-change: transform;
 }
 
@@ -65,7 +65,7 @@
   }
 
   to {
-    transform: translateY(-12px);
+    transform: translateY(-14px);
   }
 }
 
