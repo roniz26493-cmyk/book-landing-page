@@ -8,3 +8,6 @@ dist-ssr
 
 # תוצרי בדיקת צילומי מסך (scripts/screenshots.mjs)
 screenshots/
+
+# גיבוי קבצי עבודה שהוצאו מ-public (לא נפרסים ולא נשמרים ב-git)
+backup-public-working-files/
